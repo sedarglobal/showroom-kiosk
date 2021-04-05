@@ -1,0 +1,119 @@
+<style>
+    .signupshowroom .modal-dialog {
+        max-width: 370px !important;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) !important;
+    }
+
+    .close,
+    .close:hover {
+        color: #fff;
+        opacity: 1;
+    }
+
+    .signupshowroom .bootbox-body {
+        display: flex;
+    }
+
+    .signupshowroom .bootbox-close-button {
+        opacity: 1;
+        position: absolute;
+        top: 0%;
+        right: -10%;
+        box-shadow: none;
+        font-size: 40px;
+        color: #000;
+        text-shadow: none;
+    }
+
+    .signupshowroom .form-group input {
+        border: none;
+        border-bottom: 1px solid #000;
+        border-radius: 0;
+        line-height: 1.5 !important;
+    }
+
+    .signupshowroom .brand-name {
+        padding: 0 !important;
+    }
+</style>
+<div class="col-md-12 nopadding direction">
+    <form name="profile_form"  ng-submit="showroomUserRegister(profile_form.$valid)" novalidate>
+        <div class="row" style="position: absolute;z-index: 1;right: 0;" ng-include="temp_path + 'alert.html?v='+version"></div>
+
+        <div class=" col-sm-12 brand-name">
+            <h4><b>New at Sedar? </b><span style="color: #ebb15f;"> Create an Account </span> </h4>
+            <p>Please fill this form to create an account</p>
+
+            <div class="col-md-12 login_user nopadding">
+                <div class="form-group" ng-class="{'has-error': profile_form.firstname.$invalid && (profile_form.firstname.$dirty || submitted)}">
+                    <!-- <input class="userFirstName" type="text" name="firstName" placeholder="First Name"
+                        class="placeholder_class" autofocus required="true"> -->
+                        <input type="text" class="placeholder_class form-control" placeholder="{{'first_name' | translate}}"  name="firstname" autofocus ng-model="input.firstname" required="" >
+                        <p ng-show="profile_form.firstname.$invalid && (profile_form.firstname.$dirty || submitted)" class="help-block" translate="enter_first_name"></p>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : profile_form.lastname.$invalid && (profile_form.lastname.$dirty || submitted)}">
+                    <!-- <input class="userLastName" type="text" name="lastName" placeholder="Last Name"
+                        class="placeholder_class" autofocus required="true"> -->
+                        <input type="text" class="placeholder_class form-control" placeholder="{{'last_name'| translate}}" autofocus  name="lastname" ng-model="input.lastname" required="">
+                        <p ng-show="profile_form.lastname.$invalid && (profile_form.lastname.$dirty || submitted)" class="help-block" translate="enter_last_name"></p>                        
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : profile_form.email.$invalid && (profile_form.email.$dirty || submitted)}">
+                    <!-- <input class="userEmail" type="text" name="email" placeholder="Email" class="placeholder_class"
+                        autofocus required="true"> -->
+                        <input id="useremailId" name="email" type="email" class="placeholder_class form-control useremailId" placeholder="{{'email'| translate}}" autofocus ng-model="input.email" required="" ng-blur="checkEmailMobile('email')" >
+                        <div class="has-error" ng-show="input.$email_valid">{{ email_exists}}</div>
+                        <p ng-show="profile_form.email.$invalid && (profile_form.email.$dirty || submitted)" class="help-block" translate="enter_email_address"></p>                        
+                </div>
+                <div class="form-group" ng-class="{'has-error': profile_form.USER_MOBILE.$invalid && (profile_form.USER_MOBILE.$dirty || submitted)}">
+                    <!-- <input class="userPhoneNumber" type="text" name="phoneNumber" placeholder="Phone Number"
+                        class="placeholder_class" autofocus required="true"> -->
+                        <input class="placeholder_class form-control" type="tel" ng-model="input.USER_MOBILE" name="USER_MOBILE" ng-class="{'has-error' : profile_form.USER_MOBILE.$in_valid || profile_form.STAG_MOBILE.$invalid && (profile_form.STAG_MOBILE.$dirty || submitted)}" ng-intl-tel-input required>
+                                <p ng-show="profile_form.USER_MOBILE.$invalid && (profile_form.USER_MOBILE.$dirty || submitted)" class="help-block" translate="enter_mobile_number"></p>
+                                <div class="has-error" ng-show="input.$mobile_valid">{{ mobile_exists}}</div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': profile_form.password.$invalid && (profile_form.password.$dirty || submitted)}">
+                    <input name="password" type="password" class="placeholder_class form-control" placeholder="{{'password'| translate}}" ng-model="input.password" required="">
+                    <p ng-show="profile_form.password.$invalid && (profile_form.password.$dirty || submitted)" class="help-block" translate="enter_password"></p>
+                </div>
+                <div class="form-group" ng-class="{'has-error': profile_form.confirmation.$invalid && (profile_form.confirmation.$dirty || submitted)}">
+                    <input name="confirmation" type="password" class="placeholder_class form-control" placeholder="{{'confirm_password'|translate}}" ng-model="input.confirmation" required="">
+                    <p ng-show="profile_form.confirmation.$invalid && (profile_form.confirmation.$dirty || submitted)" class="help-block" translate="enter_password"></p>
+                </div>
+                <div class="form-check" ng-class="{'has-error': profile_form.terms_polocy.$invalid && (profile_form.terms_polocy.$dirty || submitted)}">
+                    <input type="checkbox" class="form-check-input" name="terms_polocy" ng-model="input.terms_polocy" required="">
+                    <label class="form-check-label" for="exampleCheck1">I accept the Terms of Use & Privacy Policy</label>
+                    <p ng-show="profile_form.terms_polocy.$invalid && (profile_form.terms_polocy.$dirty || submitted)" class="help-block" translate="please_select_terms_polocy"></p>
+                </div>
+
+
+                <div class="col-sm-12 col-md-12 col-lg-12 padding">
+                    <div>
+                        <button name="sign_up" translate="sign_up"
+                            class="btn btn-new-dark col-sm-12 col-md-12 col-lg-12" ladda="waiting"></button>
+                        <div class="a-divider a-divider-break mt-15">
+                            <p>have an account? <a ng-click="loginMenu()" href="#"> Login here. </a> </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <br>
+                <br>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $(".useremailId").on('change keyup paste', function () {
+            $(this).val($(this).val().toLowerCase());
+        });
+    })
+</script>

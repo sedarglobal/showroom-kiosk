@@ -1,0 +1,167 @@
+<style>
+    .product_list_section .panel-group {
+        margin-top: 0px !important;
+    }
+</style>
+
+<div id="ShowroomleftSideMenu" ng-show="ShowroomleftSide" class="ShowroomleftSide">
+    <div class="group-by" ng-show="ShowroomleftSide">
+        <aside class="widget widget_categories">
+            <div class="left_side_menu_top col-sm-12 col-xs-12 col-md-12">
+                <div class="col-md-2 col-sm-2 right-side  col-xs-2 nopadding mobhide">
+                    <p class="right_side_menu" aria-hidden="true" style="background-position: -125px;"></p>
+
+                </div>
+                <div class="col-md-8 col-sm-8  col-xs-8  icon_title nav_user_name right-side">
+                    <i class="icon_title_user fas fa-user-circle"></i>
+                    <span translate="Hello"></span><a ng-href="{{is_login?'':base_url+'login'}}">{{login_userName ?login_userName : 'my_account' | translate}}</a>
+                </div>
+                <div class="col-md-2 col-sm-2  col-xs-2 close_leftSide left_side" ng-click="ShowroomleftSideMenu(false)">
+                    <span class="fa fa-close"></span>
+
+                </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12  col-xs-12 nopadding">
+                <div class="collapse navbar-collapse nopadding" id="navbarSupportedContent">
+                    <div class="nav_product side_navbar" id="navbarNav">
+                        <accordion close-others="true">
+                            <a href="/" style="color: #000;" ng-click="ShowroomleftSideMenu(false)">
+                                <div class="category_line" style="text-transform: uppercase; cursor:pointer;padding:10px 16px;margin: 0px">
+                                    <h4 class="panel-title" translate="home"></h4>
+                                </div>
+                            </a>
+                            
+
+                            <accordion-group is-open="cat_val.isCustomHeaderOpen" class="product_list_section" heading="{{cat_val.SPT_DESC}}" ng-repeat="cat_val in category| limitTo: 4" ng-if="['4455', '4471'].indexOf(cat_val.SPT_SYS_ID) >= 0">
+                                <accordion-heading>
+                                    <div class="side_nav_menu">
+                                        {{cat_val.SPT_DESC | translate}}
+                                        <i class="pull-right left-dir fa" ng-class="{'fa-angle-up': cat_val.isCustomHeaderOpen, 'fa-angle-down': !cat_val.isCustomHeaderOpen}"></i>
+                                    </div>
+                                </accordion-heading>
+                                <accordion close-others="{{row.SPT_SYS_ID}}" ng-If="cat_val.SPT_SYS_ID == '4455'">
+                                    <accordion-group is-open="sub_pro{{key}}" ng-repeat="(key, row) in cat_val.line" class="nestedPanel">
+                                        <accordion-heading class="nopadding">
+                                            <div class="side_sub_nav">
+                                                {{row.SPT_DESC | translate}}
+                                                <i class="pull-right left-dir fa" ng-class="{'fa-angle-down': sub_pro{{key}}, 'fa-angle-right': !sub_pro{{key}} }"></i>
+                                            </div>
+                                        </accordion-heading>
+                                        <a ng-href="showroomProduct?desc={{line.EPG_DESC}}&id={{line.EPG_SYS_ID}}" ng-repeat="line in row.childline" ng-if="['68282','134268'].indexOf(line.EPG_SYS_ID)==-1">
+                                            <div class="category_line " ng-class="{active: line.EPG_SYS_ID === product_cat_id}" ng-click="ShowroomleftSideMenu(false)">
+                                                {{line.EPG_DESC | translate}}
+                                            </div>
+                                        </a>
+
+                                        <a ng-href="swatches?desc={{line.EPG_DESC}}&id={{line.EPG_SYS_ID}}" ng-repeat="line in row.childline" ng-if="['68282','134268'].indexOf(line.EPG_SYS_ID)>=0">
+                                            <div class="category_line " ng-class="{active: line.EPG_SYS_ID === product_cat_id}" ng-click="ShowroomleftSideMenu(false)">
+                                                {{line.EPG_DESC | translate}}
+                                            </div>
+                                        </a>
+
+                                    </accordion-group>
+                                </accordion>
+                                <a ng-href="brand?desc={{row.SPT_DESC}}&id={{row.SPT_SYS_ID}}" ng-repeat="row in cat_val.line" ng-If="cat_val.SPT_SYS_ID == '4471'">
+                                    <div class="category_line" ng-class="{active: row.SPT_SYS_ID == brandId}" ng-click="ShowroomleftSideMenu(false)">
+                                        {{row.SPT_DESC | translate}}
+                                    </div>
+                                </a>
+                                <a ng-href="room_inspiration?desc={{row.SPT_DESC}}&id={{row.SPT_SYS_ID}}" ng-repeat="row in cat_val.line" ng-If="cat_val.SPT_SYS_ID == '4606'">
+                                    <div class="category_line" ng-class="{active: row.SPT_SYS_ID == room}" ng-click="ShowroomleftSideMenu(false)">
+                                        {{row.SPT_DESC | translate}}
+                                    </div>
+                                </a>
+                                <a ng-href="room_inspiration?desc={{row.SPT_DESC}}&id={{row.SPT_SYS_ID}}" ng-repeat="row in cat_val.line" ng-If="cat_val.SPT_SYS_ID == '4614'">
+                                    <div class="category_line" ng-class="{active: row.SPT_SYS_ID == style}" ng-click="ShowroomleftSideMenu(false)">
+                                        {{row.SPT_DESC | translate}}
+                                    </div>
+                                </a>
+
+                            </accordion-group>
+
+                            <a href="{{base_url}}login" style="color: #000;" ng-click="ShowroomleftSideMenu(false)" ng-if="is_login == false">
+                                <div class="category_line" style="text-transform: uppercase; cursor:pointer;padding: 10px 16px;">
+                                    <h4 class="panel-title" translate="log_in"></h4>
+                                </div>
+                            </a>
+                            <a href="{{base_url}}orderList" style="color: #000;" ng-click="ShowroomleftSideMenu(false)" ng-if="is_login && server_name">
+                                <div class="category_line" style="text-transform: uppercase; cursor:pointer;padding: 10px 16px;">
+                                    <h4 class="panel-title" translate="my_order"></h4>
+                                </div>
+                            </a>
+                            <a href="{{base_url}}wishList" style="color: #000;" ng-click="ShowroomleftSideMenu(false)" ng-if="is_login == true">
+                                <div class="category_line" style="text-transform: uppercase; cursor:pointer;padding: 10px 16px;">
+                                    <h4 class="panel-title" translate="my_favourites"></h4>
+                                </div>
+                            </a>
+
+                            <a href="{{base_url}}account_statement" style="color: #000;" ng-click="ShowroomleftSideMenu(false)" ng-if="b2b_login && server_name">
+                                <div class="category_line" style="text-transform: uppercase; cursor:pointer;padding: 10px 16px;">
+                                    <h4 class="panel-title" translate="account_statement"></h4>
+                                </div>
+                            </a>
+                            <a href="{{base_url}}credit_limit" style="color: #000;" ng-click="ShowroomleftSideMenu(false)" ng-if="b2b_login && server_name">
+                                <div class="category_line" style="text-transform: uppercase; cursor:pointer;padding: 10px 16px;">
+                                    <h4 class="panel-title" translate="credit_limit"></h4>
+                                </div>
+                            </a>
+                            <a href="{{base_url}}user_shipping_address" style="color: #000;" ng-click="ShowroomleftSideMenu(false)" ng-if="is_login && server_name">
+                                <div class="category_line" style="text-transform: uppercase; cursor:pointer;padding: 10px 16px;">
+                                    <h4 class="panel-title" translate="shipping_addresses"></h4>
+                                </div>
+                            </a>
+                            <a href="{{base_url}}account_setting" style="color: #000;" ng-click="ShowroomleftSideMenu(false)" ng-if="is_login && server_name">
+                                <div class="category_line" style="text-transform: uppercase; cursor:pointer;padding: 10px 16px;">
+                                    <h4 class="panel-title" translate="profile"></h4>
+                                </div>
+                            </a>
+                            <a ng-click="logOut();ShowroomleftSideMenu(false);" style="color: #000;" ng-if="is_login">
+                                <div class="category_line" style="text-transform: uppercase; cursor:pointer;padding: 10px 16px;">
+                                    <h4 class="panel-title" translate="logout"></h4>
+                                </div>
+                            </a> 
+                            <!-- <accordion-group is-open="customer_language" class="product_list_section" heading="Change Language">
+                                <accordion-heading>
+                                    <div class="side_nav_menu">
+
+                                        <span translate="change_language">Change Language</span>
+                                        <i class="pull-right left-dir fa" ng-class="{'fa-angle-up': customer_language, 'fa-angle-down': !customer_language}"></i>
+                                    </div>
+                                </accordion-heading>
+                                 <a class="" href="" ng-click="reloadpage('ar');" title="العربية">
+                                    <div class="category_line" ng-click="ShowroomleftSideMenu(false)">
+                                        قريباً) العربية)
+                                    </div>
+                                </a>  
+                                <a href="" ng-click="reloadpage('en-US');" title="English">
+                                    <div class="category_line" ng-click="ShowroomleftSideMenu(false)">
+                                        English (EN)
+                                    </div>
+                                </a>                                 
+                            </accordion-group>                          -->
+
+                            <!-- <a href="{{base_url}}productInfo?desc=Back To School&id=133852" style="color: #000;">
+                                <div class="" translate="cart" style="color: #000;" > <span class="" ng-show="total_cart_item">{{total_cart_item}}</span>
+                                </div>
+                            </a> -->
+                           
+                            <a href="" style="color: #000;" ng-if="langCode=='ar'"  href="" ng-click="reloadpage('en-US');" title="English">
+                                <div class="category_line" style="text-transform: uppercase; cursor:pointer;padding: 10px 16px;" ng-click="ShowroomleftSideMenu(false)">
+                                    <h4 class="panel-title" translate="English"></h4>
+                                </div>
+                            </a>
+                            <a href="" style="color: #000;" ng-if="langCode=='en-US'"  href="" ng-click="reloadpage('ar');" title="English">
+                                <div class="category_line" style="text-transform: uppercase; cursor:pointer;padding: 10px 16px;" ng-click="ShowroomleftSideMenu(false)">
+                                    <h4 class="panel-title" translate="">العربية</h4>
+                                </div>
+                            </a>
+                        </accordion>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+</div>

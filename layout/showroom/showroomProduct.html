@@ -1,0 +1,277 @@
+<style>
+    #ShowroomleftSideMenu {
+        top: 0;
+    }
+
+    #shwrm_pg_product {
+        max-width: 1500px;
+        margin: 0 auto;
+        position: relative;
+        padding-left: 15px;
+        padding-right: 15px;
+
+    }
+
+    .shwrm_pg_product .productheading {
+        max-width: 1357px;
+        margin: 0 auto;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 20px;
+    }
+
+    .Singleproductslider .owl-stage {
+        padding-left: 0 !important;
+    }
+
+    .Singleproductslider {
+        padding-bottom: 80px;
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+
+    .productheading h2 {
+        border-left: 5px solid #f5b05f;
+        line-height: 21px;
+        margin: 0;
+        padding-left: 10px;
+        color: #85878b;
+
+    }
+    .productheading h2 span ,.productheading h2 ,.productheading h2 strong {
+        
+        color: #85878b;
+
+    }
+    .productheading p span{
+        
+        color: #000 !important;
+
+    }
+    .productheading p{
+        
+        color: #000 !important;
+
+    }
+
+    .productheading p {
+        padding: 20px;
+        line-height: normal;
+    }
+    .productheading .img_heading {
+        width: 44%;
+    }
+    .productheading .title_style {
+        width: 100%;
+    }
+
+    .Singleproductslider .productcardimg {
+        /* max-width: 150px !important; */
+        width: 100%;
+    }
+
+    .shwrm_pg_product .burgermenu a {
+        font-size: 25px;
+        color: #f5b05f;
+    }
+
+    .shwrm_pg_product .product-card-heading h3 {
+        font-weight: bold;
+        border-bottom: 4px solid #f5b05f;
+        text-align: left;
+        /*width: max-content;*/
+        padding-bottom: 5px;
+        font-size: 16px;
+    }
+
+    .product-card-text {
+        background: #ececed;
+        text-align: left;
+        padding: 8px 10px;
+        min-height: 260px;
+    }
+
+    .product-card-text h6 {
+        font-weight: bold;
+    }
+
+    .product-card-text ul {
+        padding-left: 10px;
+
+    }
+
+    .product-card-img {
+        position: relative;
+    }
+
+    .product-card-img .utilityicons {
+        position: absolute;
+        right: 5%;
+        top: 2%;
+        text-align: center;
+    }
+
+    .product-card-img .heart_icon {
+        position: relative;
+        padding: 5px 6px;
+        background: #fff;
+        border-radius: 5px;
+        color: #fac775;
+        margin: 5px 0 0 0;
+
+    }
+
+    .product-card-img .share_icon a em {
+        color: #fac775;
+    }
+
+    .product-card-img .share_icon {
+        position: relative;
+        padding: 2px 7px;
+        margin: 0;
+        background: #fff;
+        border-radius: 5px;
+        color: #fac775;
+    }
+
+
+
+    .product-card-text ul li {
+        font-size: 10px;
+        list-style: disc;
+
+    }
+
+    .one-btn .btn-primary {
+        border: none;
+    }
+
+    #shwrm_pg_product .owl-nav [class*="owl-"]:hover {
+        background: none;
+    }
+
+    #shwrm_pg_product .owl-nav .owl-prev {
+        position: absolute;
+        left: -85px;
+        top: 40%;
+    }
+
+    #shwrm_pg_product .owl-nav .owl-next {
+        position: absolute;
+        right: -85px;
+        top: 40%;
+    }
+
+    .coming_soon_icon {
+        display: none;
+    }
+
+    .prev,
+    .next {
+        padding: 0;
+    }
+
+    /* #ececed */
+    #theCarousel .carousel-control {
+        width: 5%;
+    }
+
+    #theCarousel .carousel-control {
+        left: -50px;
+        top: 50%;
+
+    }
+
+    #theCarousel .carousel-control.right {
+        left: auto;
+        right: -50px;
+    }
+</style>
+
+<div class="shwrm_pg_product">
+    <section id="shwrm_pg_product">
+        <div class="burgermenu">
+            <a href="#"><em class="fas fa-bars" ng-click="ShowroomleftSideMenu(true)"></em></a>
+        </div>
+        <div class="productheading">
+            <div class="img_heading" ng-bind-html="product_cat[0].EPG_MORE | htmlSafe">{{product_cat[0].EPG_MORE}}  </div>    
+        </div>
+        <div class="Singleproductslider">
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="carousel slide multi-item-carousel" id="theCarousel">
+                        <div class="carousel-inner">
+                            <div class="item {{key == 0 ? 'active' : ''}}" key="{{key}}" ng-repeat="(key, pro_item) in showroom_product_item" data-touch="true">
+
+                                <div ng-repeat="item in pro_item">
+                                <div class="col-xs-12 col-sm-6 col-md-4 pt-20">
+                                    <div class="product-card-heading">
+                                        <h3 style="font-size: 18px;font-weight: bold;">{{item.ECI_DESC}}</h3>
+                                    </div>
+                                    <div class="product-card-img">
+                                        <div class="utilityicons">
+                                            <div class="share_icon"
+                                                data-href="https://www.sedarglobal.com/productInfo?desc=Blinds%20&%20Shades&id=4456&type=S"
+                                                data-layout="button" data-size="small"><a target="_blank"
+                                                    href="https://www.facebook.com/sharer/sharer.php?u=https://www.sedarglobal.com/productInfo?desc=Blinds%20&%20Shades&id=4456&type=S&amp;src=sdkpreparse"
+                                                    class="fb-xfbml-parse-ignore"><em class="fas fa-share-alt"></em></a>
+                                            </div>
+                                            <i class="fa-heart {{item.ECI_CODE}} fas heart_icon" ng-if="item.like_count > 1"></i>
+                                            <i class="fa-heart {{item.ECI_CODE}}  heart_icon"
+                                                ng-class="{'fas': item.like[0].ECBL_ITEM_PR_CODE == item.ECI_CODE, 'far': item.like[0].ECBL_ITEM_PR_CODE != item.ECI_CODE}"
+                                                data-ecpcode="{{ecp_code}}" data-code="{{item.ECI_CODE}}"
+                                                data-catid="{{product_cat_id}}"
+                                                ng-click="fa_wishList(ecp_code, item.ECI_CODE, product_cat_id, 'productInfo', '');" 
+                                                ng-if="item.like_count < 2"></i>
+                                        </div>
+                                        <img src="{{item.ECI_IMAGE_PATH?'http://test.sedarglobal.com/service/bucket/'+item.ECI_IMAGE_PATH:image_path+'no-image.png'}}"
+                                            class="img-responsive">
+                                    </div>
+                                    <div class="product-card-text">
+                                        <p ng-bind-html="item.ECI_MORE | htmlSafe">{{item.ECI_MORE}}</p>
+                                    </div>
+                                    <div class="product-card-button">
+                                        <div class="two-btn text-left pt-5">
+                                            <a ng-href="customizing/{{product_cat_id}}/{{item.ECI_CODE}}//{{item.ECI_DESC}}{{parameter_url}}{{item.EIC_ECC_CODES?'?ecc_code='+item.EIC_ECC_CODES:'' }}"
+                                                class="btn btn-primary" ng-if="item.ECI_ALLOW_CUSTOMIZATION_YN == 'Y'"
+                                                style="color: #000;background: #fac775; border: none;">Start
+                                                Customizing</a>
+                                            <a class="btn btn-primary" ng-if="item.gallery.GALLERY_COUNT > 0"
+                                                style="float: right;z-index: 9;"
+                                                ng-click="Slider3D(item, 'ProductGalleryModal')">More
+                                                Photos</a>
+                                        </div>
+                                        <div class="one-btn">
+                                            <a ng-href="swatches?desc={{item.ECI_DESC}}&id={{item.ECI_CODE}}{{item.EIC_ECC_CODES?'&&ecc_code='+item.EIC_ECC_CODES:'' }}"
+                                                class="btn btn-primary"  ng-if="item.COLLECTION_YN == 'Y'"
+                                                style="width: 100%;margin: 5px 0;background: #2a48a6;">Browse
+                                                Collection</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+
+                            <!-- add  more items here -->
+                            <!-- Example item start:  -->
+
+
+                            <!--  Example item end -->
+                        </div>
+
+                        <a class="left carousel-control" href="#theCarousel" data-slide="prev">
+                            <!--<i class="glyphicon glyphicon-chevron-left"></i> --> <img
+                                ng-src='{{asset_img}}/showroomHome/image488.gif'>
+                        </a>
+                        <a class="right carousel-control" href="#theCarousel" data-slide="next">
+                            <!-- <i class="glyphicon glyphicon-chevron-right"></i>  --> <img
+                                ng-src='{{asset_img}}/showroomHome/image487.gif'>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="direction" ng-include="temp_path + 'showroom/ShowroomleftSideMenu.html?v='+version"></div>
