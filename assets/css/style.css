@@ -1,39 +1,64 @@
-
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Helvetica', sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica", sans-serif;
+  height: 100%;
 }
 
 /* All the snapping stuff */
 .scroll-container {
-    height: 100vh;
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
 }
 
 section {
-    height: 100vh;
-    scroll-snap-align: center;
+  min-height: 100vh;
+  scroll-snap-align: center;
 }
 
 /* Other styles */
-section {
-    padding: 1rem;
+.showroom_landing_page_banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 768px) {
+}
+@media only screen and (max-width: 992px) {
+  #productslider .owl-nav {
+    display: none !important;
+  }
+}
+@media only screen and (max-width: 1200px) {
+}
+
+@media only screen and (min-width: 600px) {
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  #shwrm_pg_product_slider {
     display: flex;
-    align-items: center;
     justify-content: center;
-    background-color: darkorchid;
+    align-items: center;
+  }
 }
 
-section:nth-child(2n) {
-    background-color: turquoise;
-}
-
-section:nth-child(3n) {
-    background-color: tomato;
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
 }
