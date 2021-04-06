@@ -9,13 +9,47 @@ controllers.controller('root', ['$scope', function ($scope) {
    
 }]);
 
-controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScope', function ($scope, $http,$location,$rootScope) {
+controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScope' ,'$ngBootbox', function ($scope, $http,$location,$rootScope ,$ngBootbox) {
     
     $http.get('https://www.sedarglobal.com/service/ecommerce/getHomeList',{
         cache : true
     }).then(function (response) {
         console.log(response)
     });
+    $scope.loginMenu = function () {
+            
+        var step_options = {
+            templateUrl: $scope.temp_path + 'showroom/login.html?v='+version,
+            scope: $scope,
+            size: 'small',
+            // backdrop: false,
+            title:'Login',
+            className: 'ShowroomLogin',
+            onEscape: function () {
+            }
+        };
+        $ngBootbox.customDialog(step_options);        
+        $('.signupshowroom').modal('hide');
+   
+};
+    $scope.SignUpModal = function () {
+        var step_options = {
+            templateUrl: $scope.temp_path + 'showroom/signup.html?v='+version,
+            scope: $scope,
+            size: 'small',
+            // backdrop: false,
+            // title:' $translate.instant('sign_up')',
+            title:null,
+            className: 'signupshowroom',
+            onEscape: function () {
+            }
+        };
+        
+        $ngBootbox.customDialog(step_options);
+        //console.log($location.url().split('/')[0]);
+        $('.ShowroomLogin').modal('hide');
+   
+};
 
     // $http({method : 'GET',url : 'https://api.parse.com/1/classes/Users', headers: { 'X-Parse-Application-Id':'XXXXXXXXXXXXX', 'X-Parse-REST-API-Key':'YYYYYYYYYYYYY'}})
     // .success(function(data, status) {

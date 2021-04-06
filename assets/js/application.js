@@ -1,4 +1,4 @@
-var myApp = angular.module("acs", ['acs.controllers', 'ngRoute'])
+var myApp = angular.module("acs", ['acs.controllers', 'ngRoute','ngBootbox'])
     .config(function ($routeProvider, $locationProvider) {
         $locationProvider.html5Mode({
             enabled: true,
