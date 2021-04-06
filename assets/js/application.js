@@ -1,9 +1,15 @@
-var myApp = angular.module("acs", ['acs.controllers', 'ngRoute','ngBootbox'])
-    .config(function ($routeProvider, $locationProvider) {
+var myApp = angular.module("acs", ['acs.controllers', 'ngRoute','ngBootbox','pascalprecht.translate'])
+    .config(function ($routeProvider, $locationProvider,$translateProvider) {
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: false
         });
+        $translateProvider.useStaticFilesLoader({
+		    'prefix': './language/',
+		    'suffix': '.json'
+		});
+		$translateProvider.preferredLanguage('en-US');
+        
         $routeProvider
             .when("/", {
                 controller: 'showroomHome',

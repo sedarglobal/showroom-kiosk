@@ -1,15 +1,21 @@
 var controllers = angular.module('acs.controllers', []);
 
-controllers.controller('root', ['$scope', function ($scope) {
+controllers.controller('root', ['$scope','$translate', function ($scope,$translate) {
     
     $scope.temp_path = temp_path;
     $scope.version = version;
     $scope.image_path = 'images/';
 
+     var langKey = 'en-US';
+    $translate.preferredLanguage(langKey);
+    $translate.use(langKey);
+
+    bootbox.setDefaults({ 'locale': langKey });
+	
    
 }]);
 
-controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScope' ,'$ngBootbox', function ($scope, $http,$location,$rootScope ,$ngBootbox) {
+controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScope' ,'$ngBootbox','$translate', function ($scope, $http,$location,$rootScope ,$ngBootbox,$translate) {
     
     $http.get('https://www.sedarglobal.com/service/ecommerce/getHomeList',{
         cache : true
