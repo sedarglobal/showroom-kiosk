@@ -1,5 +1,5 @@
 var myApp = angular.module("acs", ['acs.controllers', 'ngRoute','ngBootbox','pascalprecht.translate'])
-    .config(function ($routeProvider, $locationProvider,$translateProvider) {
+    .config(['$routeProvider', '$locationProvider', '$translateProvider', function ($routeProvider, $locationProvider,$translateProvider) {
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: false
@@ -13,15 +13,32 @@ var myApp = angular.module("acs", ['acs.controllers', 'ngRoute','ngBootbox','pas
         $routeProvider
             .when("/", {
                 controller: 'showroomHome',
-                templateUrl: temp_path + 'showroom/showroomHome.html?v='+version
+                templateUrl: temp_path + 'showroom/showroomHome.html?v='+version,
+                resolve: {
+                    translateReady: ['$translate', function ($translate) {
+                        return $translate.onReady();
+                    }]
+                }
             })
             .when("/showroomProduct", {
-                templateUrl: temp_path + 'showroom/showroomProduct.html?v='+version
+                controller: 'showroomProduct',
+                templateUrl: temp_path + 'showroom/showroomProduct.html?v='+version,
+                resolve: {
+                    translateReady: ['$translate', function ($translate) {
+                        return $translate.onReady();
+                    }]
+                }
             })
-            .when("/technologies", {
-                template: "Our Technologies"
+            .when('/swatches/:offer_code?', {
+                controller: 'swatches',
+                templateUrl: temp_path + 'swatch.html?v='+version,
+                resolve: {
+                    translateReady: ['$translate', function ($translate) {
+                        return $translate.onReady();
+                    }]
+                }
             })
             .otherwise({
                 redirectTo: '/'
             });
-    });
+    }]);
