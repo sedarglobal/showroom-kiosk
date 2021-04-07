@@ -97,7 +97,18 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
 
 controllers.controller('showroomProduct', ['$scope', function ($scope) {
     
-   
+    $scope.ShowroomleftSideMenu = function (type) {       
+        if (type) {
+            $('#left_side_loader_div').show();
+        } else {
+            $('#left_side_loader_div').hide();
+            
+        }
+        $scope.ShowroomleftSide = type;
+        $('#ShowroomleftSideMenu').animate({
+            width: 'toggle'
+        });
+    };
 
 }]);
 

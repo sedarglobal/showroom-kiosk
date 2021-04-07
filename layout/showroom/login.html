@@ -11,6 +11,16 @@
         color: #fff;
         opacity: 1;
     }
+    .ShowroomLogin .bootbox-close-button {
+        opacity: 1;
+        position: absolute;
+        top: 0%;
+        right: -10%;
+        box-shadow: none;
+        font-size: 40px;
+        color: #000;
+        text-shadow: none;
+    }
 </style>
 <div  class="col-md-12 nopadding direction">
     <form ng-submit="login()">
@@ -24,11 +34,11 @@
                 <div class="col-md-12 login_user nopadding">
                     <div class="form-group">
                         <label translate="email"></label>
-                        <input class="useremailId" type="text" name="email" placeholder="{{'email@example.com' | translate}}" class="placeholder_class" autofocus ng-model="input.email" required="true">
+                        <input class="useremailId form-control" type="text" name="email" placeholder="{{'email@example.com' | translate}}" class="placeholder_class" autofocus ng-model="input.email" required="true">
                     </div>
                     <div class="form-group">
                         <label translate="password"></label>
-                             <input type="password" name="password" placeholder="{{'********' | translate}}" class="placeholder_class" ng-model="input.password" required="true">
+                             <input type="password" name="password" placeholder="{{'********' | translate}}" class="placeholder_class form-control" ng-model="input.password" required="true">
                       
                     </div>
 
