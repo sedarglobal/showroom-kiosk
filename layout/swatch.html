@@ -1,0 +1,129 @@
+
+<div id="swatches" class="cat_shop  nopadding col-md-12"  >
+    <!-- banner -->
+    <div class="banner_top innerpage" id="home"  ng-style="{'background-image':'url('+ banner_img +')'}">
+        <div class="clearfix"></div>
+        <!-- /banner_inner -->
+        <div class="services-breadcrumb_w3ls_agileinfo">
+            <div class="inner_breadcrumb_agileits_w3"  ng-if="cat_desc == ''">
+                <h6 translate="swachtes_heading"> Order free samples in <span class="arial_font"> 3 </span> steps </h6>
+                <center translate="Try_from_more "></center>
+            </div>
+            <div class="inner_breadcrumb_agileits_w3" id="inner_breadcrumb"  ng-if="cat_desc != ''">
+
+                <h6 class="swaches__bnr_heading left_side" ng-if="cat_desc != '.'" ><span class="DroidKufi_Bold" ng-bind-html="cat_desc | htmlSafe">{{cat_desc}}</span>  </h6>
+                <h6 class="swaches__bnr_heading DroidKufi_Bold" ng-if="cat_desc == '.'" > Shop Now </h6>
+            </div>
+        </div>
+        <!-- //banner_inner -->
+    </div>
+
+    <!-- //banner -->
+    <!-- top Products -->
+    <div class="ads-grid_shop" ng-class="getsampleCategory.length > 0 ? 'swatchesnormal' : 'swachesshop'">
+        <div class="shop_inner_inf" ng-if="getsampleCategory.length > 0">
+            <!-- tittle heading -->
+
+            <div class="left-ads-display col-md-12 col-sm-12 col-xs-12  nopadding" >
+                <div class="wrapper_top_shop borderBot nopadding container-big direction">
+                    <div class="col-md-12 col-xs-12 col-sm-12 nopadding mb20">
+                        <div class="col-md-12 col-xs-12 col-sm-12 text-left sample_text text_right">
+                            <h6 translate="Step_1_your_product"> Step 1 : Select your product</h6>
+                        </div>
+                        <!-- product-sec1 -->
+                        <div class="product-sec1 col-md-12 col-xs-12 col-sm-12 mb20" >
+                            <div class="col-md-3 col-sm-4 col-xs-6 product-men women_two top"  ng-repeat="catrgory in getsampleCategory" data-ng-click="collectionDiv('getproduct');
+					    getSampleProduct(catrgory.product_code, catrgory.SPT_DESC, catrgory.SPT_SYS_ID);"> 
+                                <div class="product-shoe-info shoe" id="catrgory{{catrgory.SPT_SYS_ID}}">
+                                    <div class="men-pro-item">
+                                        <div class="men-thumb-item mb-10">
+                                            <img class="lazyload" data-src="{{catrgory.SPT_BANNER_PATH?s3_image_path+catrgory.SPT_BANNER_PATH+'' + productQuality:image_path+'no-image.png'}}" alt="">
+                                            <div class="men-cart-pro">
+                                                <div class="inner-men-cart-pro">
+                                                    <span class="link-product-add-cart" translate="Choose_Product">Choose Product</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-info-product mb-10">
+                                            <h4>
+                                                {{catrgory.SPT_DESC}}
+                                            </h4>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        
+                                        <div class="col-md-12 col-xs-12 col-sm-12 ulhtml" ng-bind-html="catrgory.SPT_BANNER_TEXT | htmlSafe">
+
+                                        </div>
+                                        <div class="clearfix"></div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div id="getproduct" class="col-md-12 col-xs-12 col-sm-12">
+                        <div class="wrapper_top_shop  mb20" ng-if="item.length > 0">
+                            <div class="col-md-12 col-xs-12 col-sm-12 text-left sample_text text_right">
+                                <h6><span  translate="Step_2_your_Model" >Step 2 : Select model of</span> {{category_desc}}</h6>
+                            </div>
+                            <div class="product-sec1 col-md-12 col-xs-12 col-sm-12 nopadding">
+                                <div class="col-md-3 col-sm-4 col-xs-6 product-men women_two" ng-repeat="product  in item" data-ng-click="collectionDiv('getCollection'); swatchCollection(product.ECI_CODE, product.ECI_DESC, 'direct');"> 
+                                    <div class="product-shoe-info shoe" id="product{{product.ECI_CODE}}">
+                                        <div class="men-pro-item">
+                                            <div class="men-thumb-item mb-10">
+                                                <img class="lazyload" data-src="{{product.ECI_IMAGE_PATH?s3_image_path+product.ECI_IMAGE_PATH+''+productQuality:image_path+'no-image.png'}}" alt="">
+                                                <div class="men-cart-pro">
+                                                    <div class="inner-men-cart-pro">
+                                                        <span class="link-product-add-cart" translate="view_all">View All</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item-info-product mb-10 text-left">
+                                                <h4 class="text-left">
+                                                    {{product.ECI_DESC}}
+                                                </h4>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="cornerBannerWrap blue">
+                                                <div class="col-md-10 col-xs-10 nopadding">
+                                                    <div class="cornerBanner" ng-if="(product.ECI_PRICE_FROM * product.ECI_MINIMUM_CHG_QTY) * product.EXC_RATE > 0">Price From {{total_ccy_code}} {{(product.ECI_PRICE_FROM * product.ECI_MINIMUM_CHG_QTY) * product.EXC_RATE |number:ccy_decimal}}</div>
+                                                    <div class="rightEdge" ng-if="(product.ECI_PRICE_FROM * product.ECI_MINIMUM_CHG_QTY) * product.EXC_RATE > 0" ></div>
+                                                    <div class="motorized_text" ng-if="product.ECI_ALLOW_MOTORIZATION_YN == 'Y'">
+                                                        <ul>
+                                                            <li translate="Motorization_available">Motorization available</li>
+                                                        </ul> 
+                                                    </div>	
+                                                </div>	
+                                                <div class="col-md-2 col-xs-2 nopadding pull-right" title="Motorized" ng-if="product.ECI_ALLOW_MOTORIZATION_YN == 'Y'">							
+                                                    <img class="lazyload" data-src="{{image_path + 'motorized.png'}}" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- //product-sec1 -->
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="" ng-include="temp_path + 'sample/material_sample22.html?v='+version"></div>
+        <div class="clearfix"> </div>
+
+    </div>
+
+
+
+
+    <div class="clearfix"> </div>
+</div>
+
+<div class="col-md-12  col-sm-12   col-xs-12 normalpagefooter" ng-include="temp_path + 'home/footer.html?v='+version" ></div>
