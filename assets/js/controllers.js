@@ -95,8 +95,8 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
     
 }]);
 
-controllers.controller('showroomProduct', ['$scope', function ($scope) {
-    
+    controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interval', '$controller', '$rootScope', '$location', '$ngBootbox', '$ngSilentLocation', function ($scope, $route, $http, $interval, $controller, $rootScope, $location, $ngBootbox, $ngSilentLocation) {
+
     $scope.ShowroomleftSideMenu = function (type) {       
         if (type) {
             $('#left_side_loader_div').show();
@@ -110,16 +110,347 @@ controllers.controller('showroomProduct', ['$scope', function ($scope) {
         });
     };
 
+
+    $scope.current_slide = 0;
+    $scope.product_cat = [];
+    $scope.brand_list = [];
+    $scope.likeCheck = [];
+    $scope.styleType = ['Fabric', 'Liner'];
+    $scope.categoryRecord = store.get('categoryRecord');
+   // $scope.$root.enquiry_form.ECE_ENQUIRY_TYPE = 'D';
+
+   $('#loader_div').show();
+    var el;
+    $scope.$root.footer = true;
+    var CATEGORY_CODE = $location.search().id ? $location.search().id : 4456;
+    var type = $location.search().type ? $location.search().type : '';
+
+   var ECP_CODE=CATEGORY_CODE;
+
+   $scope.ecp_code=CATEGORY_CODE;
+    
+    var ECI_CODE = $location.search().item ? $location.search().item : 0;
+    var CHILD_LINE = $location.search().syschild ? $location.search().syschild : 0;
+    var brandId = $route.current.params.brand_id ? $route.current.params.brand_id : 0;
+    $scope.parameter_url = '';
+    $scope.url = '';
+    var item_ajax = true;
+    $scope.item_start_page = 0;
+
+    
+    $scope.productItem = function () {
+        $scope.itemLoadMore = true;
+        $('#loader_div').show();
+    
+            $http({
+                method: 'GET',
+                url:'http://localecommerce/service/ShowroomApi/' + $scope.url,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (response) {
+                $scope.shopping = response.data.shopping;
+                $scope.product_cat = response.data.product_cat ? response.data.product_cat : '';
+                $scope.product_item = response.data.item;
+                item_ajax = true;
+                $scope.itemLoadMore = false;
+                setTimeout(function(){
+                    $('#productslidershow').owlCarousel({
+                        loop: true,
+                        margin: 40,
+                        responsiveClass: true,
+                        dots:false,
+                        navText : ["<img  ng-src='../assets/images/image488.gif' />","<img  ng-src='../assets/images/image487.gif' />"],
+                        responsive: {
+                            0: {
+                                items: 1,
+                                nav: false
+                            },
+                            600: {
+                                items: 2,
+                                nav: false
+                            },
+                            1000: {
+                                items: 3,
+                                nav: true,
+                                loop: true
+                            }
+                        }
+                    })
+                },500);
+               
+                
+
+
+            });
+
+
+        $('#loader_div').hide();
+
+
+    };
+
+
+    $scope.productCatalog = function (url, category_code, tree_data) {
+       
+        $scope.item_start_page = 0;
+        $scope.item_perpage = 10;
+        $scope.product_item = [];
+        $('#loader_div').show();
+        window.scrollTo(0, 0);
+        if (url == 'productInfo') {
+
+            $scope.product_cat_id = category_code;
+            $scope.brandId = '';
+            $scope.room = '';
+            $scope.style = '';
+            $scope.parameter_url = '';
+        } else if (url == 'getProductByBrand') {
+            var brandId= $scope.brandId = category_code;
+            $scope.room = '';
+            $scope.style = '';
+
+           
+        } else if (url == 'room_inspiration') {
+            $scope.brandId = '';
+            $scope.room = category_code;
+            $scope.style = '';
+            $scope.parameter_url = '';
+            //$scope.categoryRecord[2].isCustomHeaderOpen = true;
+        } else if (url == 'style') {
+            url = 'room_inspiration';
+            $scope.brandId = '';
+            $scope.room = ''
+            $scope.style = category_code;
+            $scope.parameter_url = '';
+            //$scope.categoryRecord[3].isCustomHeaderOpen = true;
+        }
+
+        var subCat = tree_data == 'S' ? tree_data : type;
+        $scope.url = url + '/' + category_code + '/' + subCat;
+        item_ajax = false;
+        $scope.productItem();
+ 
+    };
+
+    $scope.productCatalog('productInfo', CATEGORY_CODE, ECP_CODE, ECI_CODE, CHILD_LINE);
+
+
+
+
+
+    // $scope.loadMoreItem = function () {
+    //     if ($scope.item_start_page < $scope.item_count && item_ajax == true) {
+    //         item_ajax = false;
+    //         $scope.productItem();
+    //     }
+
+    // };
+
+
+
+    // $scope.productGallery = function (item,Id) {
+    //     $('#loader_div').show();
+        
+    //     document.getElementById(Id).style.display = "block";
+
+    //     $http.post(service_url + 'ecommerce/productGallery',
+    //         {
+    //             cache: true,
+    //             id: item.ECI_CODE
+    //         }).then(function (response) {
+    //             $scope.product_gallery = response.data[0];
+    //             $scope.gallery = response.data;//dataGroup(response.data, 6);
+
+    //             setTimeout(function(){
+    //                 $('#slideshow').find('.thumb').on('click', function() {
+    //                     loadClickedImage($(this).data('thumb-id'));
+    //                 });
+    //             },500);
+    //             console.log($scope.gallery);
+                
+    //             $('#loader_div').hide();
+    //         });
+
+    // };
+   
+
+
+
+
+    // $scope.galleryPopupView = function ($val) {
+    //     $scope.product_gallery = $val;
+    // };
+
+
+
+  
+    $scope.clear = function (category_code) {
+        $scope.categoryPanel = false;
+        $("#prodInfo" + category_code).hide();
+        $(".row_4455").show();
+    };
+    $scope.getProductList = function () {
+
+        $scope.productArray = [];
+        $scope.brandArray = [];
+        $('ul.product_filter_list input.uk-checkbox').each(function () {
+            if ($(this).is(':checked')) {
+                $scope.productArray.push($(this).val());
+            }
+
+        });
+        $('ul.brand_filter_list input.uk-checkbox').each(function () {
+            if ($(this).is(':checked')) {
+                $scope.brandArray.push($(this).val());
+            }
+
+        });
+        $http.post(service_url + 'ecommerce/productList/' + ECP_CODE,
+            { product_id: $scope.productArray, brand_id: $scope.brandArray }
+        ).then(function (response) {
+            $('.brand_info').addClass('disabled');
+            $scope.product_item = response.data.item;
+            $scope.product_cat = response.data.product_cat;
+            $scope.current_slide = 0;
+            $scope.brand_id = response.data.brand_id;
+            $.each($scope.brand_id, function (i, e) {
+                if (e.length > 0) {
+                    $('.brand_info[brand_id="' + e + '"]').removeClass('disabled');
+                    $('.brand_info[brand_id="' + e + '"]').prop("checked", false);
+                }
+            });
+        });
+    };
+    $scope.removeList = function ($list, $id, $type) {
+        $type = $type ? $type : false;
+        $.each($list, function (i, e) {
+            if (e == $id) {
+                $list.splice(i, 1);
+                return true;
+            }
+        });
+        if ($type == 'productList') {
+            setTimeout(function () {
+                $scope.getProductList();
+            }, 500);
+        }
+
+    };
+    $scope.nextImg = function (type) {
+        if (type == 'next' && $scope.product_cat.length - 1 > $scope.current_slide) {
+            $scope.current_slide = $scope.current_slide + 1;
+        } else if (type == 'previous' && $scope.current_slide > 0) {
+            $scope.current_slide = $scope.current_slide - 1;
+        } else {
+            $scope.current_slide = 0;
+        }
+    };
+    $scope.customDialogOptions = {
+        scope: $scope,
+        backdrop: false,
+        onEscape: function () {
+        }
+    };
+    $scope.toggleComment = function () {
+        $scope.isFormOpen = !$scope.isFormOpen;
+    };
+
+    var stop = $interval(function () {
+        $scope.nextImg('next');
+    }, 5000);
+
+    $scope.stopSlide = function (event) {
+        if (event == 'in') {
+            $interval.cancel(stop);
+        } else if (event == 'out') {
+            stop = $interval(function () {
+                $scope.nextImg('next');
+            }, 2000);
+        }
+    };
+    
+    $scope.ShowroomleftSide = false;    
+    
+     $scope.ShowroomleftSideMenu = function (type) {
+        if (type) {
+            $('#left_side_loader_div').show();
+        } else {
+            $('#left_side_loader_div').hide();
+            
+        }
+        $scope.ShowroomleftSide = type;
+        $('#ShowroomleftSideMenu').animate({
+            width: 'toggle'
+        });
+    };
+
+    $scope.Slider3D = function (item, ProductGalleryModal) {
+
+    
+        console.log('hhhw');
+        $('#loader_div').show();
+
+        $http.post(service_url + 'ecommerce/productGallery',
+        {
+            cache: true,
+            id: item.ECI_CODE
+        }).then(function (response) {
+            $scope.product_gallery = response.data[0];
+            $scope.gallery = response.data;//dataGroup(response.data, 6);
+            
+            console.log($scope.gallery);
+
+            var step_options = {
+                templateUrl: $scope.temp_path + 'popup/showroomProduct3dSlider.html?v='+version,
+                scope: $scope,
+                size: 'large',
+                // backdrop: false,
+                title:null,
+                className: 'slider3D',
+                onEscape: function () {
+                }
+            };
+            $ngBootbox.customDialog(step_options);
+
+            setTimeout(function(){
+              
+                $(document).ready(function () {
+                    var carousel =  $("#carouselGalaryShowRoom").waterwheelCarousel({
+                        flankingItems: 3,
+                        forcedImageHeight:768,                        
+                        edgeFadeEnabled: true
+                    });
+                    $('#prev3D').bind('click', function () {
+                        carousel.prev();
+                        return false
+                      });
+                    
+                      $('#next3D').bind('click', function () {
+                        carousel.next();
+                        return false;
+                      });
+                    console.log('hereee..');
+                });
+
+
+                $('#loader_div').hide();
+            },500);
+            
+
+           
+        });
+        
+   
+    };
+
+
+
 }]);
 
 
 
 
 
-controllers.controller('swatches', ['$scope', '$http', '$location', '$document', '$window', '$route', '$rootScope', '$controller', '$ngSilentLocation', '$ngBootbox', '$translate', function ($scope, $http, $location, $route, $rootScope, $controller, $ngSilentLocation, $ngBootbox, $translate) {
-
-
-   console.log($translate.instant('free_sample'));
+controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$rootScope', '$controller', '$ngSilentLocation', '$ngBootbox', '$translate', function ($scope, $http, $location, $route, $rootScope, $controller, $ngSilentLocation, $ngBootbox, $translate) {
 
     $scope.user_mobile_register = function (isValid) {
         if (isValid == false) {
@@ -194,7 +525,6 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$document',
     $scope.filterArray['sort_by'] = [];
     $scope.filterArray['free_del_with_inst'] = [];
     $scope.filterArray['search'] = '';
-    //$scope.filterArray['mostpopular'] = [];
     $scope.filterArray['tag'] = [];
     $scope.material_code = {};
     $scope.btnLength = {};
@@ -206,34 +536,11 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$document',
     $scope.favourite = 'Y';
     $scope.no_record = false;
     $scope.grid = 4;
-    $scope.salebtn = true;
     $scope.page = $location.search().page == undefined ? 1 : $location.search().page;
     $scope.saleType = $location.search().sa == 'Sale' ? $translate.instant('all') : $translate.instant('sale');
-    $scope.festivalType = $location.search().sa == undefined ? '' : $location.search().sa;
     $scope.offer_code = $route.current.params.offer_code ? $route.current.params.offer_code : '';
 
-    $scope.festivalSale = function(type){
-        window.scrollTo(0, 80);
-        $scope.materialSection = true;
-        $scope.festivalType = type;
-
-        if(type == 'Sale'){
-            $scope.saleType = $translate.instant('all');
-            $('.festivalSale_btn').css('background','#015901');
-            $('.festivalSale_btn').css('border-color','#015901');
-        }else{
-            $scope.saleType = $translate.instant('sale');
-            $('.festivalSale_btn').css('background','#fb0000');
-            $('.festivalSale_btn').css('border-color','#fb0000');
-        }
-        $ngSilentLocation.silent('swatches/'+$scope.offer_code+'?desc='+$location.search().desc+'&id='+$location.search().id+'&page='+$scope.page+'&sa='+type);
-        if ($location.search().id && ['68282','134268','1'].indexOf($location.search().id)>=0) {
-            $scope.ShopNow_rows(0, $location.search().id);
-        } else {
-            $scope.swatchCollection($scope.prodCode, $scope.product_desc, 'direct');
-        }
-
-    }
+    
     
 
     $scope.freeDeliveryWithInst=function(){
@@ -245,38 +552,81 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$document',
         $scope.swatchCollection($scope.prodCode, $scope.product_desc, 'direct');
     }
 
-    $scope.getsampleCategory = function () {
-        if (_.isEmpty($location.search().id)) {
-            $http.get(service_url + 'ecommerce/getsampleCategory',
-                { cache: true }
-            ).then(function (response) {
-                $scope.banner_img = image_path + 'freeSwatches.jpg';
-                $scope.getsampleCategory = response.data.category;
-                $scope.category_desc = $scope.getsampleCategory[0].childline[0].EPG_DESC;
-                $scope.sysid = $scope.getsampleCategory[0].SPT_SYS_ID;
-                $scope.cat_code = $scope.getsampleCategory[0].childline[0].EPG_SYS_ID;
-                $scope.getSampleProduct($scope.cat_code, $scope.category_desc, $scope.sysid);
-                $('.viewHeight').css('opacity', '');
-            });
-        } else {
-            $('#loader_div').show();
-            if ($location.search().id && ['68282','134268','1'].indexOf($location.search().id)>=0) {
-                
-                $scope.ShopNow_rows(0, $location.search().id);
+    
+    $('#loader_div').show();
 
-            } else {
+    $scope.swatchCollection = function (prod_code, $desc, $count) {
+        console.log(prod_code)
+        setTimeout(function(){
+            window.scrollTo(0, 180);
+            $scope.materialSection = true;
+            $scope.material = {};
+            $scope.product_id = prod_code;
 
-                $scope.materialSection = true;
-                
-                $scope.showLoadmore = true;
-                
-                $scope.swatchCollection($location.search().id, $location.search().desc);
-                
+            if ($scope.prodCode != prod_code) {
+                $scope.filter(1, prod_code);
+                $scope.prodCode = prod_code;
             }
-            $scope.banner_img = $scope.s3_image_path;
-            $scope.filter(1, $scope.prodCode);
-        }
+
+            if ($scope.coll_row == undefined || $count == 0 || $count == 'direct') {
+                $scope.coll_row = 0;
+                $scope.collectionGroup = {};
+            }
+        
+            $('div').removeClass('act');
+            $scope.showLoadmore = true;
+            $scope.product_desc = $desc;
+
+            if($location.search().page){
+                $scope.coll_row = $location.search().page * $scope.rowperpage - 20;
+            }
+
+            $('.collGroup').hide();
+        },200);
+
+
+        $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        // send login data
+        $http({
+            method: 'POST',
+            url: 'http://localecommerce/service/ShowroomApi/swatchCollection_rows22',
+            data: $.param({
+                item_id: prod_code,
+                start_page: $scope.coll_row,
+                per_page: $scope.rowperpage,
+                filterArray: $scope.filterArray,
+                id: $location.search().id
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function successCallback(response) {
+            // handle success things
+            console.log(response);
+            $scope.swatchResp(response, 'swatchesCollection');
+        });
+
     };
+
+    if ($location.search().id && ['68282','134268','1'].indexOf($location.search().id)>=0) {
+        
+        $scope.ShopNow_rows(0, $location.search().id);
+
+    } else {
+
+        $scope.materialSection = true;
+        
+        $scope.showLoadmore = true;
+        
+        $scope.swatchCollection($location.search().id, $location.search().desc, 0);
+        
+    }
+
+   
+
+
+
+    $scope.banner_img = $scope.s3_image_path;
+   // $scope.filter(1, $scope.prodCode);
+      
 
 
     $scope.swatchResp = function (response, funcType = false) {
@@ -284,8 +634,6 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$document',
         
         $scope.collection_data = response.data.collection_banner;
         
-
-        $scope.salebtn =  response.data.eciOfferPct.ECI_OFFER_PCT > 0 ? false : true;
         if(funcType == 'swatchesCollection'){
             $('.collGroup').show();
             $('#loader_div').hide();
@@ -299,15 +647,14 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$document',
             var ECC_TEXT_str = response.data.collection_banner;
             var banner_desc='';
 
-            if(ECC_TEXT_str){
-                banner_desc = ECC_TEXT_str && ECC_TEXT_str.ECC_TEXT && ECC_TEXT_str.ECC_TEXT.length > 10 ? response.data.collection_banner.ECC_TEXT : response.data.collection_banner.ECI_DESC;    
-            }else{
+            // if(ECC_TEXT_str){
+            //     banner_desc = ECC_TEXT_str && ECC_TEXT_str.ECC_TEXT && ECC_TEXT_str.ECC_TEXT.length > 10 ? response.data.collection_banner.ECC_TEXT : response.data.collection_banner.ECI_DESC;    
+            // }else{
                 banner_desc= $location.search().desc != undefined ? ($location.search().desc).toUpperCgase() : '';
-            }
+            //}
 
-            $scope.cat_desc = $location.search().desc != undefined ? banner_desc : '';
+            $scope.cat_desc = $location.search().desc;
 
-            if($scope.festivalType != 'Sale'){
                 $scope.collectionGroup = {};
 
                 angular.forEach(response.data.familyGroup, function (item) {
@@ -325,7 +672,6 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$document',
                         $scope.collectionGroup[item.COLLECTION_DESC].push(item);
                     }
                 });
-            }
 
             setTimeout(function () {
                 $scope.material_grid_view($scope.grid); 
@@ -377,11 +723,8 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$document',
 
     };
 
-
-
     $scope.filter = function (type, $code) {
         $scope.selectedIndex = type;
-        //   if (!$scope.brand_list) {
         $http.post(service_url + 'ecommerce/filter',
             { ECI_CODE: $code }
         ).then(function (response) {
@@ -389,12 +732,10 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$document',
             $scope.color_list = response.data.color_list;
             $scope.material_list = response.data.material_list;
             $scope.pattern_list = response.data.pattern_list;
-            $scope.collection_list = ''; //response.data.collection_list;
+            $scope.collection_list = '';
             $scope.filter_tag = response.data.filter_tag;
             $scope.below_price = response.data.below_price;
-            //store.set('below_price',$scope.below_price);
         });
-        // }
         return true;
     };
 
@@ -651,52 +992,6 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$document',
     };
 
 
-    $scope.swatchCollection = function (prod_code, $desc, $count) {
-        setTimeout(function(){
-
-        
-        window.scrollTo(0, 180);
-        $scope.materialSection = true;
-        $scope.material = {};
-        $scope.product_id = prod_code;
-
-        if ($scope.prodCode != prod_code) {
-            $scope.filter(1, prod_code);
-            $scope.prodCode = prod_code;
-        }
-
-        if ($scope.coll_row == undefined || $count == 0 || $count == 'direct') {
-            $scope.coll_row = 0;
-            $scope.collectionGroup = {};
-        }
-       
-        $('div').removeClass('act');
-        $scope.showLoadmore = true;
-        $scope.product_desc = $desc;
-
-        if($location.search().page){
-            $scope.coll_row = $location.search().page * $scope.rowperpage - 20;
-        }
-
-        $('.collGroup').hide();
-        },200);
-        $http.post(service_url + 'ecommerce/swatchCollection_rows22',
-        {
-            item_id: prod_code,
-            start_page: $scope.coll_row,
-            per_page: $scope.rowperpage,
-            filterArray: $scope.filterArray,
-            id: $location.search().id,
-            saleType:$scope.festivalType,
-            cache: true
-        }
-        ).then(function successCallback(response) {
-
-            $scope.swatchResp(response, 'swatchesCollection');
-
-        });
-    };
-
     $scope.mat_row = 0;
 
     $scope.ShopNow_rows = function (ecc_code, prod_code, $count) {
@@ -732,25 +1027,16 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$document',
                 start_page: $scope.mat_row,
                 per_page: $scope.rowperpage,
                 filterArray: $scope.filterArray,
-                saleType:$scope.festivalType,
                 offerType:$scope.offer_code,
                 cache: true
             }
         ).then(function successCallback(response) {
             $scope.collection_data = response.data.collection_banner;
-            //$scope.below_price = store.get('below_price');
             $scope.swatchResp(response);
 
         });
     };
 
-setTimeout(function(){
-    var color = $location.search().sa == 'Sale' ? '#015901' : '#fb0000';
-
-    $('.festivalSale_btnss').css('background', color);
-    $('.festivalSale_btnss').css('border-color', color);
-},200);
-    
     
 
     $scope.filterByTop = function (n) {
@@ -899,8 +1185,6 @@ setTimeout(function(){
         var data = angular.merge({}, material, $scope.productCart[code]);
         $scope.material_checkout(data, 'NON_PRODUCT');
     };
-
-    $scope.getsampleCategory();
 
     $scope.material_grid_view=function(val){
         $scope.grid = val;

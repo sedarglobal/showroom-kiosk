@@ -5,13 +5,10 @@
         <div class="clearfix"></div>
         <!-- /banner_inner -->
         <div class="services-breadcrumb_w3ls_agileinfo">
-            <div class="inner_breadcrumb_agileits_w3"  ng-if="cat_desc == ''">
-                <h6 translate="swachtes_heading"> Order free samples in <span class="arial_font"> 3 </span> steps </h6>
-                <center translate="Try_from_more "></center>
-            </div>
-            <div class="inner_breadcrumb_agileits_w3" id="inner_breadcrumb"  ng-if="cat_desc != ''">
-
-                <h6 class="swaches__bnr_heading left_side" ng-if="cat_desc != '.'" ><span class="DroidKufi_Bold" ng-bind-html="cat_desc | htmlSafe">{{cat_desc}}</span>  </h6>
+            <div class="inner_breadcrumb_agileits_w3" id="inner_breadcrumb">
+                <h6 class="swaches__bnr_heading left_side" ng-if="cat_desc != '.'" >
+                    <span class="DroidKufi_Bold" ng-bind-html="cat_desc | htmlSafe">{{cat_desc}}</span>  
+                </h6>
                 <h6 class="swaches__bnr_heading DroidKufi_Bold" ng-if="cat_desc == '.'" > Shop Now </h6>
             </div>
         </div>
@@ -115,7 +112,7 @@
             </div>
         </div>
         <div class="clearfix"></div>
-        <div class="" ng-include="temp_path + 'sample/material_sample22.html?v='+version"></div>
+        <div class="" ng-include="temp_path + 'sample/material_sample.html?v='+version"></div>
         <div class="clearfix"> </div>
 
     </div>
@@ -126,4 +123,3 @@
     <div class="clearfix"> </div>
 </div>
 
-<div class="col-md-12  col-sm-12   col-xs-12 normalpagefooter" ng-include="temp_path + 'home/footer.html?v='+version" ></div>
