@@ -53,7 +53,7 @@
                                                 class="btn btn-warning one" ng-if="row.ECI_ALLOW_CUSTOMIZATION_YN == 'Y'"
                                                 style="color: #000;background: #fac775; border: none;">Start
                                                 Customizing</a>
-                                        <button type="button" class="btn btn-warning two">More Photos</button>
+                                        <button type="button" class="btn btn-warning two" ng-click="Productgallery();" >More Photos</button>
                                     </div>
                                     <div class="browsebutton col-md-12">
                                         <a ng-href="swatches?desc={{row.ECI_DESC}}&id={{row.ECI_CODE}}{{row.EIC_ECC_CODES?'&&ecc_code='+row.EIC_ECC_CODES:'' }}"

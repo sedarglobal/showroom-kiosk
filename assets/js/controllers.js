@@ -144,7 +144,7 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
     
             $http({
                 method: 'GET',
-                url:'http://ecommerce-pwa/service/ShowroomApi/' + $scope.url,
+                url:'http://localecommerce/service/ShowroomApi/' + $scope.url,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (response) {
                 $scope.shopping = response.data.shopping;
@@ -448,6 +448,26 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
    
     };
 
+    $scope.Productgallery = function () { 
+        var step_options = {
+            templateUrl: $scope.temp_path + 'showroom/thumbSlider.html?v='+version,
+            scope: $scope,
+            size: 'large',
+            // backdrop: false,
+            // title:' $translate.instant('sign_up')',
+            title:null,
+            className: 'thumbSlider',
+            onEscape: function () {
+            }
+        };
+        
+        $ngBootbox.customDialog(step_options);
+       
+        
+    };
+    
+    
+
 
 
 }]);
@@ -595,7 +615,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
         // send login data
         $http({
             method: 'POST',
-            url: 'http://ecommerce-pwa/service/ShowroomApi/swatchCollection_rows22',
+            url: 'http://localecommerce/service/ShowroomApi/swatchCollection_rows22',
             data: $.param({
                 item_id: prod_code,
                 start_page: $scope.coll_row,
