@@ -144,7 +144,7 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
     
             $http({
                 method: 'GET',
-                url:'http://localecommerce/service/ShowroomApi/' + $scope.url,
+                url:'http://ecommerce-pwa/service/ShowroomApi/' + $scope.url,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (response) {
                 $scope.shopping = response.data.shopping;
@@ -158,7 +158,8 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
                         margin: 40,
                         responsiveClass: true,
                         dots:false,
-                        navText : ["<img  ng-src='../assets/images/image488.gif' />","<img  ng-src='../assets/images/image487.gif' />"],
+                        nav: true,
+                        navText : ["<img src='../assets/images/image488.gif' />","<img src='../assets/images/image487.gif' />"],
                         responsive: {
                             0: {
                                 items: 1,
@@ -170,6 +171,11 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
                             },
                             1000: {
                                 items: 3,
+                                nav: true,
+                                loop: true
+                            },
+                            1600: {
+                                items: 4,
                                 nav: true,
                                 loop: true
                             }
@@ -589,7 +595,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
         // send login data
         $http({
             method: 'POST',
-            url: 'http://localecommerce/service/ShowroomApi/swatchCollection_rows22',
+            url: 'http://ecommerce-pwa/service/ShowroomApi/swatchCollection_rows22',
             data: $.param({
                 item_id: prod_code,
                 start_page: $scope.coll_row,
