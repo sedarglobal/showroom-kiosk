@@ -1,0 +1,67 @@
+<style>
+    .hr_border{
+        margin-top: 0.5em;margin-bottom: 0.5em;margin-left: auto;margin-right: auto;border-bottom: 1px #ccc solid;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12" ng-repeat="parent_step in midd109">
+
+        <div class="col-md-12 nopadding" ng-repeat="item in parent_step.child" ng-class="{active_icon: item.EIS_CODE == control_selected}">
+            <div class="col-md-12 nopadding" ng-click="controlType(item, parent_step)">
+                    <div ng-if="item.EIS_IMAGE_PATH">
+                        <label class="checkbox-inline" style="margin-bottom: 8px;">
+                            <input type="radio" name="control_selected" ng-model="control_selected" value="{{item.EIS_CODE}}"></label>
+                        <img ng-src="{{s3_image_path + item.EIS_IMAGE_PATH}}" class="mount_width" width="30px">
+                        <span class="product_title " style="font-size: 13px;">{{item.EIS_DESC}}</span>
+                    </div>
+                    <div ng-if="!item.EIS_IMAGE_PATH"> 
+                        <img  ng-src="{{image_path + 'default_img/' + default_img[item.EIS_CODE]}}" class="mount_width" width="30px">
+                        <span class="product_title"  style="font-size: 13px;">{{item.EIS_DESC}}</span>
+                    </div> 
+            </div>
+
+            
+            <div class="col-md-12 hr_border" ng-repeat="child_step in item.child">
+                
+                <label class="col-md-3" style="font-size: 12px;color: #bfbfbf;padding-right: 3px;padding-top: 3px;">{{child_step.EIS_DESC}}</label>
+                <div class="col-md-9 nopadding">
+                    <div class="col-md-4 nopadding" ng-if="child_step.child" ng-repeat="val in child_step.child" style="padding-bottom: 10px;">
+                        <label>
+                            <input type="radio" name="step_ecs_code{{child_step.ECS_CODE}}" class="rediochecker" value="{{val.EIS_CODE}}" ng-click="stepSelection(val, child_step)" style="margin-top: 0px;">
+                            <span class="product_title"  style="font-size: 12px;">{{val.EIS_DESC}}</span>
+                            <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(val)" style="position: initial;padding: 1px;margin-left: 5px;">
+                        </label>
+
+                        <div ng-if="val.child" ng-repeat="val22 in val.child">
+                            <label class="col-md-12" style="font-size: 12px;color: #bfbfbf;padding-right: 3px;padding-top: 3px;position: absolute;top: 30px;left: -129px;">{{val22.EIS_DESC}}</label>
+                            <div class="col-md-12 nopadding middletemplate" ng-include="temp_path + 'tool/' + val22.ECS_HTML_TEMPLATE_PATH"></div> 
+                        </div>                        
+                    </div>
+                    
+                    <div class="col-md-4 nopadding" ng-if="child_step.color" ng-repeat="val in child_step.color" style="padding-bottom: 10px;">
+                        <label>
+                            <input type="radio" name="remote_selected" class="rediochecker" ng-model="remote_selected"  value="{{val.ECM_CODE}}" ng-click="remoteType(val, child_step)" style="margin-top: 0px;">
+                            <span class="text-center" translate="{{val.ECM_DESC}}"   style="font-size: 12px;">{{val.ECM_DESC}}{{remote_selected}}</span>
+                            <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(val)" style="position: initial;padding: 1px;margin-left: 5px;">
+                        </label>
+                    </div>
+                </div>
+                
+                
+            </div>
+           
+        </div>
+       
+    </div>
+</div>         
+
+
+
+<script>
+    $(document).ready(function(){
+        setTimeout(function () {
+            $('#lengthOfWire').val(2.5);
+    }, 5000);
+    });
+</script>

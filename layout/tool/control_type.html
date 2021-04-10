@@ -1,0 +1,76 @@
+<div class="col-xs-12 nopadding">
+    <!-- PARENT STEP -->
+    <div class="col-md-12" ng-repeat="parent_step in midd109">
+       
+        <div class="mb-10" dynamic-class="{{parent_step.child_length}}" ng-repeat="item in parent_step.child" ng-class="{active_icon: item.EIS_CODE == control_selected}">
+            <div class="col-md-11 nopadding" ng-click="controlType(item, parent_step)">
+                
+                <center>
+                    <div ng-if="item.EIS_IMAGE_PATH">
+                        <img ng-src="{{s3_image_path + item.EIS_IMAGE_PATH}}" class="mount_width">
+                    </div>
+                    <div ng-if="!item.EIS_IMAGE_PATH"> 
+                        <img  ng-src="{{image_path + 'default_img/' + default_img[item.EIS_CODE]}}" class="mount_width" check-image>
+                    </div>
+                </center>
+                <div class="product_title" style="text-align: center;"><span class="text-center">{{item.EIS_DESC}}</span></div>
+            </div>
+            <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(item)">
+        </div>	
+        <div class="col-md-12 nopadding" id="{{parent_step.ECS_CODE}}" ng-repeat="item in parent_step.child">
+            <div id="{{child_step.ECS_CODE}}" ng-repeat="child_step in item.child" ng-if="control_selected == item.EIS_CODE && ['109127','109129','109130','109132'].indexOf(child_step.ECS_CODE) ==-1">
+                <div class="col-xs-12 step_background mb-10">
+                    {{child_step.EIS_DESC}} 
+                    <b>&nbsp;&nbsp;
+                        <span id="desc{{child_step.ECS_CODE}}" class="pull-right validationCheck" style="font-size: 13px;">
+                            <i ng-if="step_array[child_step.ECS_CODE].option_desc == ''" class="fas fa-exclamation hide" style="font-size: 10px !important;color: red;" title="{{'step_error_mgs' | translate :{step_name: child_step.EIS_DESC } }} " ></i> 
+                            <span ng-if="step_array[child_step.ECS_CODE].desc != ''">{{step_array[child_step.ECS_CODE].desc}} </span>
+                            <span ng-if="step_array[child_step.ECS_CODE].desc == ''">{{step_array[child_step.ECS_CODE].option_desc}} </span>
+
+                        </span>
+                    </b>
+                </div>
+                <div class="col-md-12 nopadding middletemplate" ng-include="temp_path + 'tool/' + child_step.ECS_HTML_TEMPLATE_PATH"></div> 
+            </div>
+        </div>
+    </div> 
+    <!-- PARENT STEP -->
+
+    <!-- INNER CHILD PARENT STEP -->
+    <div class=" col-md-6 col-sm-6 col-xs-6 mb-10" ng-repeat="item in child_step.child" ng-class="{active_icon: item.EIS_CODE == control_selected}">
+        <div class="col-md-11 nopadding" ng-click="controlType(item, child_step)">
+            <center>
+                <div ng-if="item.EIS_IMAGE_PATH">
+                    <img ng-src="{{s3_image_path + item.EIS_IMAGE_PATH}}" class="mount_width">
+                </div>
+                <div ng-if="!item.EIS_IMAGE_PATH"> 
+                    <img  ng-src="{{image_path + 'default_img/' + default_img[item.EIS_CODE]}}" class="mount_width" check-image>
+                </div>
+            </center>
+            <div class="product_title" style="text-align: center;"><span class="text-center">{{item.EIS_DESC}}</span></div>
+        </div>    
+        <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(item)">
+
+    </div>
+
+    <div id="{{item.ECS_CODE}}" class="col-md-12 nopadding" ng-repeat="item in child_step.child">
+        <div ng-repeat="child_step in item.child" ng-if="control_selected == item.EIS_CODE">
+            <div class="col-xs-12 step_background mb-10">
+                {{child_step.EIS_DESC}} 
+                <b>&nbsp;&nbsp;
+                    <span id="desc{{child_step.ECS_CODE}}" class="pull-right validationCheck" style="font-size: 13px;">
+                        <i class="fas fa-exclamation hide" style="font-size: 10px !important;color: red;" title="{{'step_error_mgs' | translate :{step_name: child_step.EIS_DESC } }}"></i> 
+                        <span>{{step_array[child_step.ECS_CODE].option_desc}} </span>
+                    </span>
+                </b>   
+            </div>
+            <div class="col-md-12 nopadding middletemplate" ng-include="temp_path + 'tool/' + child_step.ECS_HTML_TEMPLATE_PATH"></div> 
+        </div>
+    </div>
+    <!-- INNER CHILD PARENT STEP -->
+
+
+</div>         
+
+
+

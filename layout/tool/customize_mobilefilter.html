@@ -1,0 +1,192 @@
+<style>
+    .product_list_section .panel-group{
+        margin-top: 0px !important;
+    }
+    .filter_close_btn i{
+        padding: 5px;
+        font-size: 18px;
+    }
+    .color_list {
+        padding: 5px;
+    }
+    .category_line{
+        padding-left: 0px;
+    }
+    .category_line span{
+        padding-left: 8px;
+    }
+</style>
+
+<div id="customize_mobilefilter" ng-show="customize_mobilefilter">
+    <div class="group-by" ng-show="customize_mobilefilter">
+        <aside class="widget widget_categories">           
+            <div class="col-xs-12 "  style="padding: 5px; border-bottom: 1px solid #bbb7b7;">
+                <div class="left_filter_top">
+                    <!-- <div class="filter_close_btn" ng-click="customizemobilefilter(false);"></i></div> -->
+                        <span class="pull-left"  style="padding-top: 4px;font-weight: bold;font-size: 12px;">Filter by</span>
+                        <span class="pull-right" ng-click="customizemobilefilter(false);" ><i class="fas fa-times-circle"></i></span>
+                        <!-- <span class="pull-right">
+                            <button class="btn btn-new-dark" ng-click="searchFilter(product_id, product_desc);customizemobilefilter(false)" title="{{filter_search?'Search Filter':'Please select the filter'}}"  style="padding: 7px 15px;font-weight: bold;margin: 0px;">Apply</button>
+                            <button class="btn freeSample" ng-click="rangeFilter('clear');customizemobilefilter(false)" title="Clear"  style="padding: 7px 15px;font-weight: bold;margin: 0px;border-radius: 5px;">Clear</button>
+                        </span>     -->
+                    </div>       
+            </div>
+            <div class="col-xs-12"> 
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">   
+                    <div class="nav_product side_navbar" id="navbarNav" data-simplebar ng-if="['5965','134268'].indexOf(category_code)>=0" style="height: 80vh;">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="col-md-12 col-xs-12" ng-repeat="rowTag in filter_tag" ng-click="filterSection(rowTag.EPF_FILTER_TAG,'tag')" style="padding:0 2px">
+                                <input type="radio" id="{{rowTag.EPF_FILTER_TAG}}" ng-checked="(rowTag.EPF_FILTER_TAG == filterArray['tag'])" name="optradio" style="width: 20px;margin: 0;">
+                                <!-- <span style="vertical-align: middle;">{{rowTag.EPF_FILTER_TAG}}</span> -->
+                                <label for="{{rowTag.EPF_FILTER_TAG}}" style="vertical-align: middle; font-weight:100">{{rowTag.EPF_FILTER_TAG}}</label>
+                            
+                            </div>
+                        </div>
+                        <div style="width: 100%; margin-bottom:10px; color:#000">
+                        <strong>Filter Color</strong>
+                        </div>                       
+                            <div class="category_line color_list" ng-repeat="item in color_list" ng-if="item.CL_CODE != '00'" style="padding: 15px;">                                         
+                                    <div ng-click="rootFilter(item.CL_CODE)" ng-class="{ active_icon: filterArray['color'].indexOf(item.CL_CODE) >= 0 }" title="{{item.CL_DESC}}"> 
+                                        <div class="color_image" >
+                                                        <img src="{{item.CL_IMAGE_PATH}}" title="{{item.CL_DESC}}">
+                                                        <span class="text-center">{{item.CL_DESC}}</span>
+                                            </div>
+                                    </div>                                        
+                            </div>                      
+                    </div>
+
+
+                    <div class="nav_product side_navbar" id="navbarNav" data-simplebar ng-if="!['5965','134268'].indexOf(category_code) == false">
+                        <accordion close-others="true">                                                                           
+                            <!-- <accordion-group  is-open="Price_btn" class="product_list_section"  heading="Price">
+                                <accordion-heading>
+                                    <div class="side_nav_menu">
+                                        <span  >Price</span>
+                                        <i class="pull-right left-dir fa" ng-class="{'fa-angle-up': Price_btn, 'fa-angle-down': !Price_btn}"></i>
+                                    </div>
+                                </accordion-heading>                               
+                                    <div class="category_line price_filter">
+                                        <input type="radio" name="price" ng-model="filterArray['price'][0]" ng-value="1" ng-click="filterSection(1, 'price')">
+                                        Below {{total_ccy_code}} 50
+                                    </div>   
+                                    <div class="category_line  price_filter">
+                                        <input type="radio" name="price" ng-model="filterArray['price'][0]" ng-value="2" ng-click="filterSection(2, 'price')">
+                                        {{total_ccy_code}} 50 to {{total_ccy_code}} 100
+                                    </div>    
+                                    <div class="category_line  price_filter">
+                                         <input type="radio" name="price" ng-model="filterArray['price'][0]" ng-value="3" ng-click="filterSection(3, 'price')" >
+                                          {{total_ccy_code}} 100 to {{total_ccy_code}} 250
+                                    </div>    
+                                    <div class="category_line price_filter">
+                                        <input type="radio" name="price" ng-model="filterArray['price'][0]" ng-value="4"  ng-click="filterSection(4, 'price')" >
+                                         Above {{total_ccy_code}} 250
+                                    </div>                                 
+                            </accordion-group> -->
+                            <accordion-group  is-open="color_btn" class="product_list_section"  heading="Color">
+                                <accordion-heading>
+                                    <div class="side_nav_menu">
+                                        <span  >Color</span>
+                                        <i class="pull-right left-dir fa" ng-class="{'fa-angle-up': color_btn, 'fa-angle-down': !color_btn}"></i>
+                                    </div>
+                                </accordion-heading>                               
+                                    <div class="category_line color_list" ng-repeat="item in color_list" ng-if="item.CL_CODE != '00'" >                                         
+                                            <div ng-click="filterSection(item.CL_CODE, 'color')" ng-class="{ active_icon: filterArray['color'].indexOf(item.CL_CODE) >= 0 }" title="{{item.CL_DESC}}"> 
+                                                <div class="color_image" >
+                                                                <img src="{{item.CL_IMAGE_PATH}}" title="{{item.CL_DESC}}">
+                                                                <span class="text-center">{{item.CL_DESC}}</span>
+                                                    </div>
+                                            </div>                                        
+                                    </div>                      
+                            </accordion-group>
+                            <accordion-group  is-open="Design_btn" class="product_list_section"  heading="Design">
+                                <accordion-heading>
+                                    <div class="side_nav_menu">
+                                        <span  >Pattern</span>
+                                        <i class="pull-right left-dir fa" ng-class="{'fa-angle-up': Design_btn, 'fa-angle-down': !Design_btn}"></i>
+                                    </div>
+                                </accordion-heading>                               
+                                    <div class="category_line pattern_list color_list" ng-repeat="item in pattern_list"> 
+                                            <div class="only_text"  ng-click="filterSection(item.IT_CODE, 'pattern')" ng-class="{
+                                                    active_icon: filterArray['pattern'].indexOf(item.IT_CODE) >= 0
+                                                    }" data-toggle="tooltip" title="{{item.IT_DESC}}">  
+                                                <span class="">{{item.IT_DESC}} </span>
+                                            </div>           
+                                    </div>                      
+                            </accordion-group>
+                            <accordion-group  is-open="Brand_btn" class="product_list_section"  heading="Brand">
+                                <accordion-heading>
+                                    <div class="side_nav_menu">
+                                        <span  >Brand</span>
+                                        <i class="pull-right left-dir fa" ng-class="{'fa-angle-up': Brand_btn, 'fa-angle-down': !Brand_btn}"></i>
+                                    </div>
+                                </accordion-heading>                               
+                                    <div class="category_line brand_list color_list"  ng-repeat="item in brand_list" ng-if="item.BR_CODE != '00'"> 
+                                            <div class="only_text"  ng-click="filterSection(item.BR_CODE, 'brand')" ng-class="{
+                                                    active_icon: filterArray['brand'].indexOf(item.BR_CODE) >= 0
+                                                    }" data-toggle="tooltip" title="{{item.BR_DESC}}" > 
+                                                <span class="">{{item.BR_DESC}}</span>
+                                            </div>
+                                    </div>                      
+                            </accordion-group> 
+                            <accordion-group  is-open="Collection_btn" class="product_list_section"  heading="Collection">
+                                <accordion-heading>
+                                    <div class="side_nav_menu">
+                                        <span  >Collection</span>
+                                        <i class="pull-right left-dir fa" ng-class="{'fa-angle-up': Collection_btn, 'fa-angle-down': !Collection_btn}"></i>
+                                    </div>
+                                </accordion-heading>                                
+                                    <div class="category_line collection_list color_list"  ng-repeat="item in collection_list">                                         
+                                            <div ng-click="filterSection(item.ECC_CODE, 'collection')" ng-class="{active_icon: filterArray['collection'].indexOf(item.ECC_CODE) >= 0}" data-toggle="tooltip" title="{{item.ECC_DESC}}"> 
+                                                <div class="collection_image" style="width: 100% ;" >
+                                                    <!-- <img ng-src="{{s3_image_path + item.ECC_IMAGE_PATH}}" title="{{item.ECC_DESC}}"  width="35%"> -->
+                                                    <span class="text-center">{{item.ECC_DESC}}</span>
+                                                </div>
+                                            </div>                                        
+                                    </div> 
+                                    <div ng-if="collection_list.length <= 0">
+                                        <span style="color: #CE5454; font-size: 14px;" translate="Please_select_the_brand">Please select the brand.</span>
+                                    </div>                     
+                            </accordion-group>
+                            
+                            
+                            <accordion-group  is-open="Material_btn" class="product_list_section"  heading="Material">
+                                <accordion-heading>
+                                    <div class="side_nav_menu">
+                                        <span  >Material</span>
+                                        <i class="pull-right left-dir fa" ng-class="{'fa-angle-up': Material_btn, 'fa-angle-down': !Material_btn}"></i>
+                                    </div>
+                                </accordion-heading>   
+                                    <div class="category_line color_list"  ng-repeat="item in material_list" ng-if="item.MT_CODE != '00'"> 
+                                            <div class="only_text"  ng-click="filterSection(item.MT_CODE, 'material')" ng-class="{ active_icon: filterArray['material'].indexOf(item.MT_CODE) >= 0 }" data-toggle="tooltip" title="{{item.MT_DESC}}" > 
+                                                <span class="">{{item.MT_DESC}}</span>
+                                            </div>
+                                    </div>                      
+                            </accordion-group>  
+                           
+                                                    
+                            
+                              
+
+                        </accordion>
+                    </div>
+
+                </div>
+            </div>   
+        </aside>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

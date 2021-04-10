@@ -1,0 +1,111 @@
+<style>
+    /*.active_icon:before {
+        font-family: FontAwesome;
+        content: "\f00c"; 
+        font-size: 16px; 
+        color: white; 
+        position: absolute; 
+        left: 71%; 
+        background: #999;
+        padding: 2px 6px;
+        box-shadow: -1px 1px 5px -1px black;
+    }*/
+    .heading.title {
+        color: #000;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+    }
+</style>
+<div class="col-md-12 col-xs-12 nopadding">
+    <div class="col-md-12 col-xs-12 nopadding" ng-repeat="parent_step in midd2025">
+        <div class="col-md-6 col-xs-6 mb-10" ng-repeat="item in parent_step.child" ng-class="{active_icon: item.EIS_CODE == base_selected}">
+            <div class="col-md-12 col-xs-12 nopadding" ng-click="baseType(item, parent_step)">
+				<center>
+					<div ng-if="item.EIS_IMAGE_PATH">
+						<img ng-src="{{s3_image_path + item.EIS_IMAGE_PATH}}" width="100%" height="120px">
+					</div>
+					<div ng-if="!item.EIS_IMAGE_PATH"> 
+						<img ng-src="{{image_path + 'default_img/' + default_img[item.EIS_CODE]}}" width="100%" height="120px" aa="{{item.EIS_CODE}}">
+					</div>
+				</center>
+			    <div class="product_title"><span class="text-center">{{item.EIS_DESC}}</span></div>
+			</div>
+            <!--            <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-bootbox-title="{{item.EIS_DESC}}" ng-bootbox-custom-dialog="{{item.EIS_MORE.length>0?item.EIS_MORE:' '}}" ng-bootbox-options="customDialogOptions" ng-bootbox-class-name="tool_pupup" />-->
+            <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(item)"/>
+        </div>
+        <div class="col-md-12 " ng-repeat="item in parent_step.child">
+            <div ng-repeat="child_step in item.child" ng-if="base_selected == item.EIS_CODE">
+                <div class="col-xs-12 step_background mb-10">
+                    {{child_step.EIS_DESC}}
+					<b>&nbsp;&nbsp;
+						<span id="desc{{child_step.ECS_CODE}}" class="pull-right desc{{step.ECS_CODE}}"style="font-size: 13px;">
+							<i class="fas fa-exclamation hide" style="font-size: 10px !important;color: red;" title="{{'step_error_mgs' | translate :{step_name: child_step.EIS_DESC } }}"></i> 
+							<span>{{step_array[child_step.ECS_CODE].option_desc}} </span>
+						</span>
+					</b>					
+                </div>
+                <div class="col-md-12 nopadding middletemplate" ng-include="temp_path + 'tool/' + child_step.ECS_HTML_TEMPLATE_PATH"></div> 
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="col-md-6 col-xs-6 mb-10" ng-repeat="item in child_step.child" ng-class="{active_icon: item.EIS_CODE == base_selected}">
+        <center ng-click="baseType(item, child_step)">
+            <div ng-if="item.EIS_IMAGE_PATH">
+                <img ng-src="{{s3_image_path + item.EIS_IMAGE_PATH}}" width="100%" height="120px">
+            </div>
+            <div ng-if="!item.EIS_IMAGE_PATH"> 
+                <img ng-src="{{image_path + 'default_img/' + default_img[item.EIS_CODE]}}" width="100%" height="120px" aa="{{item.EIS_CODE}}">
+            </div>
+        </center>
+        <!--            <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-bootbox-title="{{item.EIS_DESC}}" ng-bootbox-custom-dialog="{{item.EIS_MORE.length>0?item.EIS_MORE:' '}}" ng-bootbox-options="customDialogOptions" ng-bootbox-class-name="tool_pupup" />-->
+        <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(item)"/>
+        <div class="product_title"><span class="text-center">{{item.EIS_DESC}}</span></div>
+    </div>
+    <div class="col-md-12" ng-repeat="item in child_step.child">
+        <div ng-repeat="child_step in item.child" ng-if="base_selected == item.EIS_CODE">
+            <div class="col-xs-12 step_background mb-10">
+                {{child_step.EIS_DESC}}
+				<b>&nbsp;&nbsp;
+					<span id="desc{{child_step.ECS_CODE}}" class="pull-right desc{{step.ECS_CODE}}"style="font-size: 13px;">
+						<i class="fas fa-exclamation hide" style="font-size: 10px !important;color: red;" title="{{'step_error_mgs' | translate :{step_name: child_step.EIS_DESC } }}"></i> 
+						<span>{{step_array[child_step.ECS_CODE].option_desc}} </span>
+					</span>
+				</b>     
+            </div>
+            <div class="col-md-12 nopadding middletemplate" ng-include="temp_path + 'tool/' + child_step.ECS_HTML_TEMPLATE_PATH"></div> 
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- <div class="col-md-12 col-xs-12" ng-if="base_selected == 'BA01' && operating_side.length > 0">
+        <hr>
+        <div class="col-xs-12">
+            <b>Operating Side</b>      
+        </div>
+
+        <div class=" col-md-6 col-sm-6 col-xs-6" style="margin-bottom: 25px;" ng-repeat="item in operating_side" ng-class="{
+                    active_icon: item.EIS_CODE == manual_control_selected
+                }">
+            <center ng-click="manualControl(item)">
+                <div ng-if="item.EIS_IMAGE_PATH">
+                    <img ng-src="{{s3_image_path + item.EIS_IMAGE_PATH}}" class="mount_width">
+                </div>
+                <div ng-if="!item.EIS_IMAGE_PATH"> 
+                    <img  ng-src="{{image_path + 'default_img/' + default_img[item.EIS_CODE]}}" class="mount_width" check-image>
+                </div>
+            </center>
+            <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(item)">
+            <div class="product_title" style="text-align: center;"><span class="text-center">{{item.EIS_DESC}}</span></div>
+        </div>
+    </div> -->
+</div>

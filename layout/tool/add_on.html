@@ -1,0 +1,16 @@
+<div class="col-md-12 col-xs-12 nopadding" style="background: white">
+    <!-- PARENT STEP -->
+    <div class="col-md-12 col-xs-12 nopadding "  ng-repeat="parent_step in midd111" style="padding: 0 15px 15px;">
+            <div ng-repeat="child_step in parent_step.child" ng-if="child_step.EIS_CODE == 'STEP'">
+                <div class="col-xs-12 step_background mb-10">
+                    {{child_step.EIS_DESC}}
+                    <b>&nbsp;&nbsp;
+                        <span id="desc{{child_step.ECS_CODE}}" class="pull-right desc{{child_step.ECS_CODE}}"style="font-size: 13px;">
+                            <span>{{step_array[child_step.ECS_CODE].option_desc}} </span>
+                        </span>
+                    </b>   
+                </div>
+                <div class="col-md-12 nopadding middletemplate" ng-include="temp_path + 'tool/' + child_step.ECS_HTML_TEMPLATE_PATH"></div> 
+            </div>
+    </div>
+</div>                    

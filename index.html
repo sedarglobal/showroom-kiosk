@@ -1,44 +1,55 @@
 <!DOCTYPE html>
-<html ng-app = "acs" ng-controller="root" ng-init="init()">
+<html ng-app="acs" ng-controller="root" ng-init="init()">
+
 <head>
     <title>Home</title>
     <base href="/">
     <meta charset="utf-8">
-  
-    <link rel="stylesheet" href ="./assets/css/bootstrap.min.css">
-     
-    <link rel="stylesheet" href ="./assets/css/owl.carousel.css">
-    <link rel="stylesheet" href ="./assets/css/owl.theme.default.css">
+
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="./assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="./assets/css/owl.theme.default.css">
     <link href="https://ast.sedarglobal.com/fontawesome/css/fontawasome-5.min.css?v=1" type="text/css" rel="stylesheet">
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-route.min.js"></script> -->
-    <link rel="stylesheet" href ="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href ="./assets/css/swatch.css">
     <script src="./assets/js/jquery.min.js"></script>
-   
-    
     <script src="https://ast.sedarglobal.com/js/lodash.min.js?v=1"></script>
+
+
     <script src="https://ast.sedarglobal.com/js/angular.min.js?v=1"></script>
     <script src="https://ast.sedarglobal.com/js/angular-route.min.js?v=1"></script>
     <script src="https://ast.sedarglobal.com/js/angular-translate.js?v=1"></script>
     <script src="https://ast.sedarglobal.com/js/angular-translate-loader-static-files.min.js?v=1"></script>
     <script src="https://ast.sedarglobal.com/js/ngSilent.js?v=1"></script>
     <script src="./assets/js/ngBootbox.min.js"></script>
+    <script src="https://ast.sedarglobal.com/js/three.min.js?v=2"></script>
     <script src="https://ast.sedarglobal.com/js/jquery.pajinatify.js?v=1"></script>
+    <script src="https://ast.sedarglobal.com/js/OBJLoader.min.js?v=2"></script>
+
     <script src="https://ast.sedarglobal.com/js/store.min.js?v=1"></script>
     <script src="./assets/js/application.js?v=2"></script>
     <script src="./assets/js/controllers.js?v=2"></script>
     <script src="./assets/js/services.js?v=2"></script>
     <script src="./assets/js/directives.js?v=2"></script>
     <script src="./assets/js/filters.js?v=2"></script>
-    
+
     <script>
         var version = '2';
+        var service_url = "http://ecommerce-pwa/service/";
         var temp_path = 'layout/';
-        var service_url = 'http://localecommerce/service/ShowroomApi/';
+        var image_path = 'assets/images/';
+        
+        var font_path = './assets/three_js_fonts/';
+        var image_upload = service_url + 'uploads/';
+        var obj_path = image_upload + 'obj/';
     </script>
 
+
 </head>
+
 <body>
     <div id="left_side_loader_div"></div>
     <div class="scroll-container" ng-view></div>
@@ -48,4 +59,5 @@
 <script src="./assets/js/bootbox.min.js"></script>
 
 <script src="./assets/js/custom.js"></script>
+
 </html>

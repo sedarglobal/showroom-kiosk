@@ -1,0 +1,38 @@
+<div class="col-md-12 col-xs-12 nopadding" style="background: white">
+	<div class="col-md-12 col-xs-12 nopadding" style="color: #333;">
+
+		<!-- PARENT STEP -->
+		<div class="col-md-12 col-xs-12">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12">
+					<!-- <select id="lengthOfWire" class=" form-control nya-selectpicker" ng-model="lengthOfWire.value" ng-change="lengthOfWireFun(lengthOfWire,child_step, item)" style="height: auto;" >
+						<option ng-repeat="val in wire_length_array" value="{{val}}">{{val|number:2}} LMT</option>
+					</select>  -->
+
+					<!-- <select ng-options="option for option in wire_length_array track by option" ng-model="lengthOfWire.value" ng-change="lengthOfWireFun(lengthOfWire.value)" style="height: 32px; border: 1px solid #b2b2b2;">
+					</select> -->
+					<select class="form-control" id="lengthOfWire" ng-options="option as option.label  for option in wire_length_array track by option.id" ng-model="lengthOfWire" ng-change="lengthOfWireFun(lengthOfWire,child_step, item)" style="height: auto;" >
+					</select>
+				</div>
+			</div>
+	
+		</div>
+		<!-- PARENT STEP -->
+
+		<!-- INNER CHILD PARENT STEP -->
+			<!-- <div class="col-md-12 col-xs-12" ng-if="(['PO02', 'PO05'].indexOf(control_selected) >= 0) && (motorized.name == 'MO01' || motorized.name == 'MO03')">
+				<hr>
+				<div class="row">
+					<label for="length_of_wire" class="col-xs-6">Length of wire</label>
+					<div class="col-xs-4 col-sm-4 col-md-6">
+						<select class="nya-selectpicker form-control" ng-model="length_of_wire" ng-change="lengthOfWireFun(length_of_wire)" style="height: auto;" >
+							<option ng-repeat="val in wire_length_array" value="{{val}}">{{val|number:2}} LMT</option>
+						</select> 
+					</div>
+				</div>
+			</div> -->
+		<!-- INNER CHILD PARENT STEP -->
+
+
+    </div>
+</div>

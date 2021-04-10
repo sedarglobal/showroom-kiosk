@@ -1,0 +1,41 @@
+<div class="col-md-12 col-xs-12 nopadding">
+    <!-- PARENT STEP -->
+    <div class="col-md-12 mb-10" ng-repeat="childs_step in midd3283">
+        <div class="col-xs-4 col-sm-6 col-md-4 mb-10 text-left" ng-repeat="val in childs_step.child" ng-class="{active_icon1: val.EIS_CODE == motorPosition_selected}">
+            <label >
+                <input type="radio" class="rediochecker" ng-model="motorPositionValue.name" value="{{val.EIS_CODE}}" ng-click="motorPosition(val, childs_step)">
+            </label>
+            <span class="product_title" style="text-align: center">{{val.EIS_DESC}}</span>
+                <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(val)" style="position: initial;margin-top: 8px;">
+            
+        </div>	
+    </div> 
+    <!-- PARENT STEP -->
+
+    <!-- INNER CHILD PARENT STEP -->
+    <div class="col-xs-4 col-sm-6 col-md-4 mb-10 text-left" ng-repeat="val in child_step.child" ng-class="{active_icon1: val.EIS_CODE == motorPosition_selected}">
+        <label >
+            <input type="radio" class="rediochecker" ng-model="motorPositionValue.name" value="{{val.EIS_CODE}}" ng-click="motorPosition(val, child_step)">
+        </label>
+        <span class="product_title" style="text-align: center">{{val.EIS_DESC}}</span>
+        <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(val)">
+    
+    </div>
+
+    <div class="col-md-12" ng-repeat="item in child_step.child">
+        <div ng-repeat="child_step in item.child" ng-if="motorPosition_selected == item.EIS_CODE">
+            <div class="col-xs-12">
+                <b>{{child_step.EIS_DESC}}</b>   
+
+                <b>&nbsp;&nbsp;
+                    <span id="desc{{child_step.ECS_CODE}}" class="pull-right desc{{step.ECS_CODE}}"style="font-size: 13px;">
+                        <i class="fas fa-exclamation hide" style="font-size: 10px !important;color: red;" title="{{'step_error_mgs' | translate :{step_name: child_step.EIS_DESC } }}" ng-if="step_array[child_step.ECS_CODE].option_desc == ''"></i> 
+                        <span ng-if="step_array[child_step.ECS_CODE].option_desc != ''">{{step_array[child_step.ECS_CODE].option_desc}} </span>
+                    </span>
+                </b>    
+            </div>
+            <div class="col-md-12 nopadding slide-animate middletemplate" ng-include="temp_path + 'tool/' + child_step.ECS_HTML_TEMPLATE_PATH"></div> 
+        </div>
+    </div>
+    <!-- INNER CHILD PARENT STEP -->
+</div>

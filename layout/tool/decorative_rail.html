@@ -1,0 +1,28 @@
+<div class="col-md-12 col-xs-12 nopadding">
+    <div class="col-md-12 col-xs-12"  ng-repeat="parent in midd109131">
+        <div class="col-md-4 col-xs-6 pro_item"  ng-repeat="item in parent.color" ng-class="{active_icon: item.ECM_CODE == glassColor_selected}">
+            <center  ng-click="glassColor(item, parent)"><img ng-src="{{item.ECM_THUMBNAIL_IMAGES?image_upload+item.ECM_THUMBNAIL_IMAGES:image_upload + item.ECM_IMAGE_PATH}}" width="100%" height="100px"></center>
+            <!--             <img ng-src="{{image_path}}Information icon-01.png" class="zoom_icon" ng-bootbox-title="{{item.ECMT_DESC}}" ng-bootbox-custom-dialog="{{item.EIS_MORE}}" ng-bootbox-options="customDialogOptions" ng-bootbox-class-name="tool_pupup" />-->
+            <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="matrialPopup(item)"/>
+            <div class="product_title"><span class="text-center">{{item.ECM_DESC}}</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- INNER CHILD PARENT STEP -->
+<div class="col-md-3 col-xs-6  pro_item"  ng-repeat="item in child_step.color" ng-class="{active_icon: item.ECM_CODE == glassColor_selected}">
+    <center ng-click="glassColor(item, child_step)">
+        <div class="col-md-12 col-xs-12 nopadding">
+            <img ng-src="{{item.ECM_THUMBNAIL_IMAGES?image_upload+item.ECM_THUMBNAIL_IMAGES:image_upload + item.ECM_IMAGE_PATH}}" width="100%" title="{{item.ECM_TOOL_TIP}}">
+        </div>
+    </center>
+
+    <div class="col-md-12 nopadding">
+        <div class="product_title" style="width:85%;height: 22px;overflow: hidden;float: left;">
+            <span class="text-center">{{item.ECM_DESC}}</span>
+        </div>
+        <div class="info_img">
+            <img ng-src="{{image_path}}Information icon-01.png"  class="fas fa-info-circle" ng-click="matrialPopup(item)" />
+        </div>
+    </div>
+</div>

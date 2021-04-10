@@ -1,0 +1,45 @@
+<div class="col-md-12 col-xs-12 nopadding">
+    <!-- PARENT STEP -->
+    <div class="col-md-12" ng-repeat="parent_step in midd4068">
+        <div class="col-xs-6 col-sm-6 col-md-4 mb-10" ng-repeat="item in parent_step.child" style="text-align: center;" ng-class="{active_icon: item.EIS_CODE == typeOfMotor_selected}">
+            <label style="padding: 5px">
+                <input type="radio" class="rediochecker" ng-model="motorized.name" value="{{item.EIS_CODE}}" id="redio_btn" ng-click="typeOfMotor(item, parent_step)">
+            </label>
+            <div class="product_title" style="text-align: center"><span class="text-center">{{item.EIS_DESC}}</span>
+                <span ng-bootbox-title="{{item.EIS_DESC}}" ng-bootbox-custom-dialog="{{item.EIS_MORE}}" ng-bootbox-class-name="tool_pupup">   
+                    <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" style="margin-top: 0px;" />
+                </span>
+            </div>
+        </div>	
+    </div> 
+    <!-- PARENT STEP -->
+
+    <!-- INNER CHILD PARENT STEP -->
+    <div class="col-xs-6 col-sm-6 col-md-4 mb-10" ng-repeat="val in child_step.child"  ng-if="val.EIS_MIN_WIDTH <= measurement_width.value && val.EIS_MAX_HEIGHT >= measurement_height.value"  ng-class="{active_icon1: val.EIS_CODE == typeOfMotor_selected}" >
+        <label class="">
+            <input type="radio" class="rediochecker" ng-model="motorized.name" value="{{val.EIS_CODE}}" id="redio_btn" ng-click="typeOfMotor(val, child_step)">
+        </label>
+        <span class="product_title" style="text-align: center">{{val.EIS_DESC}}</span>
+             
+                <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-bootbox-title="{{val.EIS_DESC}}" ng-bootbox-custom-dialog="{{val.EIS_MORE}}" ng-bootbox-class-name="tool_pupup" style="margin-bottom: 8px;"/>
+            
+        
+    </div>
+
+    <div class="col-md-12" ng-repeat="item in child_step.child" >
+        <div ng-repeat="child_step in item.child" ng-if="typeOfMotor_selected == item.EIS_CODE">
+            <div class="col-xs-12 nopadding" ng-if="child_step.ECS_CODE != 251975">
+            <div class="col-xs-12 step_background mb-10">
+                {{child_step.EIS_DESC}}
+                <b>&nbsp;&nbsp;
+                    <span id="desc{{child_step.ECS_CODE}}" class="pull-right " style="font-size: 13px;">
+                        <span>{{step_array[5747].option_desc}} </span>
+                    </span>
+                </b>
+            </div>
+            <div class="col-md-12 nopadding slide-animate middletemplate" ng-include="temp_path + 'tool/' + child_step.ECS_HTML_TEMPLATE_PATH"></div> 
+            </div>
+        </div>
+    </div>
+    <!-- INNER CHILD PARENT STEP -->
+</div>

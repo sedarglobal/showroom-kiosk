@@ -1,0 +1,1122 @@
+<style>
+    .col-md-12.nopadding.slide-animate.middletemplate {
+        min-height: 50px;
+    }
+    .filter_menu ul li {
+        list-style: none;
+        padding: 2px 10px;
+        text-align: justify;
+    }
+    .filter_menu ul li:hover{
+        background: #000;
+        color: #fff;
+        cursor: pointer;
+    }
+    .filter_item center img {
+        height: 60px;
+        cursor: pointer;
+        border: 1px solid #e3e3e380;
+        width: 90%;
+    }
+
+
+    .brand_filter_item center img {
+        width: 100%;
+        cursor: pointer;
+    }
+    .brand_filter_item .active_icon::before {
+        background-size: 27px;
+        background-repeat: no-repeat;
+        top: 0px;
+        right: -20px
+    }
+    .material_section .active_icon::before, .pattern_section .active_icon::before {
+        background-size: 27px;
+        background-repeat: no-repeat;
+        right: 0;
+    }
+
+    .material_section .filter_item,.pattern_section .filter_item {
+        padding: 5px 0px;
+    }
+
+    /*    .brand_section .active_icon::before, .material_section .active_icon::before, .pattern_section .active_icon::before {
+            right: 22px;
+            margin-top:5px; 
+        }*/
+
+    .filter_pupup .modal-body {
+        position: relative;
+        padding: 20px;
+        max-height: 450px;
+         /* overflow-y: scroll; */
+    }
+    .filter_section {
+        max-height: 320px;
+        /* overflow-y: auto;  */
+    }
+    .select_brand ul li,.select_color ul li{
+        list-style:none;
+        float: left;
+    }
+    .select_brand ul li .without_img {
+        margin: 2px;
+        width: 26px;
+        height: 26px;
+        font-size: 12px;
+        text-align: center;
+        padding-top: 1px;
+    }
+    .select_color img {
+        width: 26px;
+        height: 26px;
+        /*        border-radius: 50%;*/
+        border: 1px solid #e3e3e380;
+        margin: 4px;
+    }
+    .select_brand .pull-right ul li {
+        margin: 2px;
+        cursor: pointer;
+    }
+    .select_brand, .select_color, .select_collection {
+        background-color: #f5f5f599;
+        border-color: #b2b2b2;
+        margin-bottom: 0.3em;
+        font-size: 12px;
+    }
+    .select_brand .pull-right ul li img {
+        width: 100%; 
+        height: 10px;
+    }
+    .selsect_filter .delete_icon {
+        color: #fe0b0b;
+        margin-top: 0px;
+        position: absolute;
+        margin-left: 25px;
+        font-size: 12px;
+        cursor: pointer;
+        display: none;
+        z-index: 1;
+    }
+    .filter_menu  .dropdown-content{
+        margin-left: -50px;
+    }
+    .select_brand ul li:hover .delete_icon,.select_color ul li:hover .delete_icon,.select_collection ul li:hover .delete_icon {
+        display:block;          
+    }
+    .filter_title {
+        padding-top: 2px;
+        line-height: 30px;
+    }
+    .color_section {
+        margin-top: 10px;
+        padding: 3px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .filter_tab ul li a {
+        padding: 5px;
+        cursor: pointer;
+    }
+    .collection_filter_item img {
+        width: 100%;
+        /*        height: 50px;
+        */    }
+    .collection_section{
+        padding: 10px 0;
+    }
+    .select_collection ul li {
+        list-style: none;
+        width: 95px;
+        float: left;
+        margin: 4px;
+    }
+    .select_collection ul li img {
+        height: 32px;
+        width: 100%;
+        padding-top: 2px;
+    }
+    .filter_title_text {
+        padding: 3px;
+        position: relative;
+        color: black;
+        font-size: 12px;
+        text-align: justify;
+        width: 100%;
+    }
+    .fontCol{
+        color: #fe0b0b;
+        font-weight: bold;
+    }
+
+
+    .color_popup md-slider .md-thumb{
+        transform: scale(1);
+        top: 18px;
+    }
+
+    .color_popup md-slider .md-focus-ring{
+        transform: scale(1);
+        top: 11px;
+    }
+
+    .color_popup md-slider .md-track{
+        height: 10px;
+    }
+
+
+
+.slider-labels {
+  margin-top: 10px;
+}
+
+/* Functional styling;
+ * These styles are required for noUiSlider to function.
+ * You don't need to change these rules to apply your design.
+ */
+.noUi-target,.noUi-target * {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -ms-touch-action: none;
+  touch-action: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.noUi-target {
+  position: relative;
+  direction: ltr;
+}
+
+.noUi-base {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+/* Fix 401 */
+}
+
+.noUi-origin {
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.noUi-handle {
+  position: relative;
+  z-index: 1;
+}
+
+.noUi-stacking .noUi-handle {
+/* This class is applied to the lower origin when
+   its values is > 50%. */
+  z-index: 10;
+}
+
+.noUi-state-tap .noUi-origin {
+  -webkit-transition: left 0.3s,top .3s;
+  transition: left 0.3s,top .3s;
+}
+
+.noUi-state-drag * {
+  cursor: inherit !important;
+}
+
+/* Painting and performance;
+ * Browsers can paint handles in their own layer.
+ */
+.noUi-base,.noUi-handle {
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+
+/* Slider size and handle placement;
+ */
+.noUi-horizontal {
+  height: 4px;
+}
+
+.noUi-horizontal .noUi-handle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  left: -7px;
+  top: -7px;
+  background-color: #345DBB;
+}
+
+/* Styling;
+ */
+.noUi-background {
+  background: #D6D7D9;
+}
+
+.noUi-connect {
+  background: #345DBB;
+  -webkit-transition: background 450ms;
+  transition: background 450ms;
+}
+
+.noUi-origin {
+  border-radius: 2px;
+}
+
+.noUi-target {
+  border-radius: 2px;
+}
+
+.noUi-target.noUi-connect {
+}
+
+/* Handles and cursors;
+ */
+.noUi-draggable {
+  cursor: w-resize;
+}
+
+.noUi-vertical .noUi-draggable {
+  cursor: n-resize;
+}
+
+.noUi-handle {
+  cursor: default;
+  -webkit-box-sizing: content-box !important;
+  -moz-box-sizing: content-box !important;
+  box-sizing: content-box !important;
+}
+
+.noUi-handle:active {
+  border: 8px solid #345DBB;
+  border: 8px solid rgba(53,93,187,0.38);
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  left: -14px;
+  top: -14px;
+}
+
+/* Disabled state;
+ */
+[disabled].noUi-connect,[disabled] .noUi-connect {
+  background: #B8B8B8;
+}
+
+[disabled].noUi-origin,[disabled] .noUi-handle {
+  cursor: not-allowed;
+}
+
+
+body {
+  background:#ecf9fa;
+}
+
+.price-range-slider {
+	width:100%;
+    float:left;
+    padding:15px 20px;
+}
+
+.range-value {
+    margin:0;
+}
+	
+.range-value input {
+    width:100%;
+    background:none;
+    color: #000;
+    font-size: 16px;
+    font-weight: initial;
+    box-shadow: none;
+    border: none;
+    margin: 20px 0 20px 0;
+}
+
+
+.range-bar {
+    border: none;
+    background: #e5e5e5;
+    height: 5px !important;	
+    width: 96%;
+    margin-left: 8px;
+    border-radius: 5px;
+}
+
+.ui-slider-range, .ui-slider-handle + span {
+    background : #828282 !important;
+}
+		
+.ui-slider-handle {
+    border:none;
+    border-radius:25px;
+    background:#828282;
+    border:2px solid  #828282 !important;
+    height:25px !important;
+    width:25px !important;
+    top: -0.8em !important;
+    cursor:pointer;
+}
+.ui-slider-handle::after{
+    background:#828282 !important;
+}   
+	
+/*--- /.price-range-slider ---*/
+
+.freeSample, .freeSample a{
+    color:#f0f0f0;
+    text-align: center;
+    padding: 8px 0px;
+    text-transform: uppercase;
+    background-color: #f1a64b;
+    border-radius:3px;
+    font-size: 11px;
+    letter-spacing: 0px;
+    cursor:pointer;
+    border: 1px solid #f1a64b;
+}
+
+.freeSample:hover, .freeSample a:hover{
+    color:#f0f0f0;
+    background-color: #c6893f;
+    cursor:pointer;
+    border: 1px solid #c6893f;
+}
+
+
+</style>
+
+<script>
+setTimeout(function(){
+    var scope = angular.element($('.view')).scope();
+    var price_band = scope.price_range;
+    var band = price_band?price_band.length:0; 
+    switch(band){
+    case 1:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A'],
+            step: 10,
+            range: true,
+            set: ['A'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = ['A', 'A'];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+
+        break;
+    case 2:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B'],
+            step: 10,
+            range: true,
+            set: ['A', 'B'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 3:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C'],
+            step: 10,
+            range: true,
+            set: ['A', 'B'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 4:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D'],
+            step: 10,
+            range: true,
+            set: ['A', 'B'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 5:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E'],
+            step: 10,
+            range: true,
+            set: ['A', 'B'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 6:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F'],
+            step: 10,
+            range: true,
+            set: ['A', 'B'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 7:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G'],
+            step: 10,
+            range: true,
+            set: ['A', 'C'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 8:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H'],
+            step: 10,
+            range: true,
+            set: ['A', 'C'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 9:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I'],
+            step: 10,
+            range: true,
+            set: ['A', 'C'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 10:
+    new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 11:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J','K'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 12:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J','K','L'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 13:
+    
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J','K','L','M'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                //console.log(vals);
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+                //console.log(scope.rangeValues);
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+
+        break;
+    case 14:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J','K','L','M','N'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 15:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 16:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 17:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 18:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 19:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 20:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 21:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 22:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 23:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 24:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+    case 25:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;    
+    case 26:
+        new rSlider({
+            target: '#slider3',
+            values:  ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
+            step: 10,
+            range: true,
+            set: ['A', 'E'],
+            scale: true,
+            labels: false,
+            tooltip: false,
+            onChange: function (vals) {
+                scope.rangeValues = [vals.split(',')[0], vals.split(',')[1]];
+
+                $('.rs-scale span ins:first').html('Low');
+                $('.rs-scale span ins:Last').html('High');
+            }
+        });
+        break;
+   
+    }
+},2500);
+
+
+</script>
+
+<div ng-click="customizemobilefilter(true)"  id="filtersmob" style="display: none;background-color: #f5f5f5;border-color: #ddd;padding: 4px 15px;" class="RJA step_title_name mobile_filter"  >
+   <button role="button" tabindex="0" style="background: transparent;border: none;padding: 0;"> <i class="fas fa-filter"  ></i> </button> 
+    <span translate="filter">Filter</span>
+</div>
+
+
+<!-- <div class="col-md-12">
+    <i class="fas fa-filter"></i> 
+    <span translate="filter">Filter</span>
+    <span class="filterByColor pull-right" translate="filterByColor" ng-click="tooltipstertooltip(color_list)">Filter by Color</span>
+
+</div> -->
+
+
+<accordion-group is-open="true" id="filters" ng-if="['5965','134268','5950'].indexOf(category_code)>=0">
+    
+    <accordion-heading style="margin-top:40px">
+        <div class="step_title_name modalColorPop">
+            <!--            <div style="width:6%; float:left;"><b></b> </div> -->
+                <span>
+                    <i class="fas fa-filter"></i> 
+                    <span translate="filter">Filter</span>
+                </span>
+                <b class="pull-right fa" ng-class="{'fa-angle-down': step.isOpen, 'fa-angle-right': !step.isOpen}"></b>
+                <span class="pull-right left-dir">
+                   
+                <span class="filterByColor" translate="filterByColor" ng-click="tooltipstertooltip(color_list)">Filter by Color</span>
+                </span>   
+               
+ 
+            <!-- <b>&nbsp;&nbsp;<span class="pull-right desc3247" style="font-size: 13px;">
+                    <i class="fas fa-exclamation hide"></i> 
+                </span>
+            </b> -->
+        </div>
+    </accordion-heading>
+    <div class="col-md-3 col-xs-6" ng-repeat="rowTag in filter_tag" ng-click="filterSection(rowTag.EPF_FILTER_TAG,'tag')" style="padding:0 2px">
+        <input type="radio" ng-checked="(rowTag.EPF_FILTER_TAG == filterArray['tag'])" name="optradio" style="width: 20px;margin: 0;">
+        <span style="vertical-align: middle;" ng-class="rowTag.EPF_FILTER_TAG == 'Sale' ? 'fontCol' : ''">{{rowTag.EPF_FILTER_EN}}</span>
+       
+    </div>
+
+    <div class="col-md-12 col-xs-12 nopadding" style="margin-top: 1em;" ng-if="(dev_mod) && (vales > 0)">
+        <hr>
+        
+        <div class="col-md-6 col-xs-12 nopadding">
+        <p>Price Range</p>
+        </div>
+        <div class="col-md-6 col-xs-12 nopadding" ng-show="priceRangeBtn">
+            <button class="btn-new-dark" ng-click="filterSection(rangeValues,'price_range', 'price_range')" title="{{filter_search?'Search Filter':'Please select the filter'}}" style="padding: 5px 10px;font-weight: bold;margin: 0px;float:right" ><span translate="apply_range">Apply</span></span></button>
+        </div>
+        <div class="col-md-6 col-xs-12 nopadding" ng-hide="priceRangeBtn">
+            <button class="freeSample" ng-click="clearRange()" title="Clear" style="padding: 5px 10px;font-weight: bold;margin: 0px;border-radius: 5px;float:right;"><span translate="clear_range">Clear</span></button>
+        </div>
+        <div class="price-range-slider">
+            <div class="slider-container">
+                <input type="text" id="slider3" class="slider" />
+            </div>
+        </div>
+    
+        
+    </div>
+    
+  
+</accordion-group>
+
+
+<accordion-group is-open="true" id="filters" ng-if="['5965','134268','5950'].indexOf(category_code) == -1">
+    
+    <accordion-heading style="margin-top:40px">
+        <div class="step_title_name">
+            <!--            <div style="width:6%; float:left;"><b></b> </div> -->
+            <i class="fas fa-filter"></i> 
+            <span translate="filter">Filter</span>
+            <b class="pull-right fa" ng-class="{'fa-angle-down': step.isOpen, 'fa-angle-right': !step.isOpen}"></b>
+
+            <!-- <b>&nbsp;&nbsp;<span class="pull-right desc3247" style="font-size: 13px;">
+                    <i class="fas fa-exclamation hide"></i> 
+                </span>
+            </b> -->
+        </div>
+    </accordion-heading>
+    <div class="col-md-12 col-xs-12 filter_section"  data-simplebar>
+
+        <div class="row filter_tab">
+            <ul class="nav nav-tabs">
+                <li><a data-toggle="tab" ng-click="filter(4)" translate="collection">Collection</a></li>
+                <li><a data-toggle="tab" ng-click="filter(0)" translate="brand">Brand</a></li>
+                <li class="active"><a data-toggle="tab" ng-click="filter(1)" translate="color">Color</a></li>
+                <li><a data-toggle="tab" ng-click="filter(2)" translate="material">Material</a></li>
+                <li><a data-toggle="tab" ng-click="filter(3)" translate="pattern">Pattern</a></li>
+            </ul>
+        </div>
+
+
+        <div class="row" style="margin-bottom: 1em;">
+
+            <div class="col-md-12 nopadding collection_section" ng-if="selectedIndex == 4">
+                <div class="col-md-4 col-sm-3 col-xs-4 nopadding collection_filter_item" ng-repeat="item in collection_list">
+
+                    <div class="col-md-12"  ng-click="filterSection(item.ECC_CODE, 'collection')" ng-class="{
+                            active_icon: filterArray['collection'].indexOf(item.ECC_CODE) >= 0
+                        }" data-toggle="tooltip" title="{{item.ECC_DESC}}" > 
+
+                        <center>
+                        <!-- <img ng-src="{{s3_image_path + item.ECC_IMAGE_PATH}}" title="{{item.ECC_DESC}}" check-image> -->
+                            <div class="text" style="font-size:11px">
+                                <span class="text-center">{{item.ECC_DESC}}</span>
+                            </div>
+                        </center>
+
+                    </div>
+                </div> 
+            </div>
+            <div class="col-md-12 brand_section nopadding select_row" ng-if="selectedIndex == 0">
+                <div class="col-lg-4 col-md-6 col-sm-2 col-xs-6 brand_filter_item" ng-repeat="item in brand_list" ng-if="item.BR_CODE != '00'">
+
+                    <div class="col-md-12 nopadding"  ng-click="filterSection(item.BR_CODE, 'brand')" ng-class="{
+                            active_icon: filterArray['brand'].indexOf(item.BR_CODE) >= 0
+                        }" data-toggle="tooltip" title="{{item.BR_DESC}}" > 
+                        <center>
+                            <!--                        <img ng-src="{{item.BR_IMAGE_PATH_2}}" title="{{item.BR_DESC}}">-->
+                            <div class="filter_title_text" style="margin-top:5px;">
+                                <span class="text-center">{{item.BR_DESC}}</span>
+                            </div>
+
+                        </center>
+                    </div>
+                </div> 
+            </div>
+            <div class="col-md-12 nopadding color_section select_row" ng-if="selectedIndex == 1">
+                <div class="col-md-3 col-sm-2 col-xs-4 filter_item nopadding " ng-repeat="item in color_list" ng-if="item.CL_CODE != '00'"> 
+                    <div ng-click="filterSection(item.CL_CODE, 'color')" ng-class="{ active_icon: filterArray['color'].indexOf(item.CL_CODE) >= 0 }" data-toggle="tooltip" title="{{item.CL_DESC}} "> 
+                        <center><img ng-src="{{item.CL_IMAGE_PATH}}" title="{{item.CL_DESC}}">
+                            <div class="text" style="font-size:11px;">
+                                <span class="text-center">{{item.CL_DESC}}</span>
+                            </div>
+                        </center>
+                    </div>
+                </div> 
+            </div>
+
+            <div class="col-md-12 nopadding material_section select_row" ng-if="selectedIndex == 2">
+                <div class="col-md-3 col-sm-2 col-xs-6 filter_item " ng-repeat="item in material_list" ng-if="item.MT_CODE != '00'" > 
+                    <div class="col-md-12" ng-click="filterSection(item.MT_CODE, 'material')" ng-class="{ active_icon: filterArray['material'].indexOf(item.MT_CODE) >= 0 }" data-toggle="tooltip" title="{{item.MT_DESC}}">  
+                        <center>
+                            <!--                        <span class="without_img">{{item.MT_DESC.charAt(0).toUpperCase()}}</span>-->
+                            <div class="filter_title_text">  
+                                <span class="text-center">{{item.MT_DESC}}</span>
+                            </div>
+                        </center>
+                    </div>
+                </div> 
+            </div>
+
+            <div class="col-md-12 nopadding pattern_section select_row" ng-if="selectedIndex == 3">
+                <div class="col-md-3 col-sm-2 col-xs-6 filter_item " ng-repeat="item in pattern_list">
+                    <div class="col-md-12"  ng-click="filterSection(item.IT_CODE, 'pattern')" ng-class="{
+                            active_icon: filterArray['pattern'].indexOf(item.IT_CODE) >= 0
+                        }" data-toggle="tooltip" title="{{item.IT_DESC}}">  
+                        <center>
+                            <!--                        <span class="without_img">{{item.IT_DESC.charAt(0).toUpperCase()}}</span>-->
+                            <div class="filter_title_text">  
+                                <span class="text-center">{{item.IT_DESC}} </span>
+                            </div>
+                        </center>
+                    </div>
+                </div> 
+            </div> 
+        </div>
+    </div>
+</accordion-group>
+
+<div class="col-md-12 col-xs-12 selsect_filter" style="background: #fff;padding: 3px 10px 0px 10px" ng-if="['5965','134268','5950'].indexOf(category_code) == -1">
+
+    <div class="col-md-12 col-xs-12 select_collection" ng-if="filterArray['collection'].length > 0 && ecc_code_id.length<=0">
+        <div class="pull-left col-md-2 nopadding filter_title" translate="Collection">Collection</div>
+        <div class="pull-right col-md-10">
+            <ul>
+                <li ng-repeat="item in collection_list" ng-if="filterArray['collection'].indexOf(item.ECC_CODE) >= 0"  data-toggle="tooltip"  title="{{item.ECC_DESC}}">                        
+                    <i class="fas fa-times delete_icon" ng-click="removeFilterList(filterArray['collection'], item.ECC_CODE)" data-toggle="tooltip" title="remove"></i>
+                    <!-- <img ng-src="{{s3_image_path + item.ECC_IMAGE_PATH}}" title="{{item.ECC_DESC}}" width="100%" height="50px" check-image> -->
+
+                    <div class="filter_title_text">
+                        <span class="text-center">{{item.ECC_DESC}}</span>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="col-md-12 col-xs-12 select_brand" ng-if="filterArray['brand'].length > 0">
+        <div class="pull-left col-md-2 nopadding filter_title" translate="Brand">Brand</div>
+        <div class="pull-right col-md-10">
+            <ul>
+                <li ng-repeat="item in brand_list" ng-if="filterArray['brand'].indexOf(item.BR_CODE) >= 0"  data-toggle="tooltip"  title="{{item.BR_DESC}}">
+                    <!--                        <span class="without_img">{{item.BR_DESC.charAt(0).toUpperCase()}}</span>-->
+                    <i class="fas fa-times delete_icon" ng-click="removeFilterList(filterArray['brand'], item.BR_CODE)" data-toggle="tooltip" title="remove"></i>
+                    <div class="filter_title_text">
+                        <span class="text-center">{{item.BR_DESC}}</span>
+                    </div>
+                    <!--                        <img ng-src="{{item.BR_IMAGE_PATH_2}}" title="{{item.BR_DESC}}">-->
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-12 col-xs-12 select_color" ng-if="filterArray['color'].length > 0">
+        <div class="pull-left col-md-2 nopadding filter_title" translate="Color">Color</div>
+        <div class="pull-right col-md-10">
+            <ul>
+                <li ng-repeat="item in color_list" ng-if="filterArray['color'].indexOf(item.CL_CODE) >= 0" data-toggle="tooltip"  title="{{item.CL_DESC}}">
+                    <i class="fas fa-times delete_icon" ng-click="removeFilterList(filterArray['color'], item.CL_CODE)" data-toggle="tooltip" title="remove"></i>
+                    <img ng-src="{{item.CL_IMAGE_PATH}}" title="{{item.CL_DESC}}" check-image>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-12 col-xs-12 select_brand" ng-if="filterArray['material'].length > 0">
+        <div class="pull-left col-md-2 nopadding filter_title" translate="Material">Material</div>
+        <div class="pull-right col-md-10">
+            <ul>
+                <li ng-repeat="item in material_list" ng-if="filterArray['material'].indexOf(item.MT_CODE) >= 0" data-toggle="tooltip" title="{{item.MT_DESC}}">
+                    <!--                        <span class="without_img">{{item.MT_DESC.charAt(0).toUpperCase()}}</span>-->
+                    <i class="fas fa-times delete_icon" ng-click="removeFilterList(filterArray['material'], item.MT_CODE)" data-toggle="tooltip" title="remove"></i>
+                    <span class="without_img">{{item.MT_DESC}}</span>
+                </li>
+
+            </ul>
+        </div>             
+    </div>
+    <div class="col-md-12 col-xs-12 select_brand" ng-if="filterArray['pattern'].length > 0">
+        <div class="pull-left col-md-2 nopadding filter_title" translate="Pattern">Pattern</div>
+        <div class="pull-right col-md-10">
+            <ul>
+                <li ng-repeat="item in pattern_list" ng-if="filterArray['pattern'].indexOf(item.IT_CODE) >= 0" data-toggle="tooltip"  title="{{item.IT_DESC}}">
+                    <!--                        <span class="without_img">{{item.IT_DESC.charAt(0).toUpperCase()}}</span>-->
+                    <i class="fas fa-times delete_icon" ng-click="removeFilterList(filterArray['pattern'], item.IT_CODE)" data-toggle="tooltip" title="remove"></i>
+                    <span class="without_img">{{item.IT_DESC}}</span>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>  

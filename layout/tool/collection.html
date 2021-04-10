@@ -1,0 +1,19 @@
+<style>
+
+    .panel-body{
+        padding: 15px 0;
+    }
+</style>
+
+<div class="col-md-12 col-xs-12 nopadding" ng-hide="showData" customscrollbar>
+    <div class="col-md-12 col-xs-12 nopadding"  >
+
+        <div class="pro_item col-md-4"  ng-repeat="item in midd101" ng-class="{active_icon: item.ECC_CODE == collection_selected}" >
+            <center ng-click="collection(item)" ><img ng-src="{{s3_image_path + item.ECC_IMAGE_PATH}}" width="100%" height="100px" ></center>
+           <img ng-src="{{image_path}}Information icon-01.png"  class="fas fa-info-circle zoom_icon" ng-bootbox-title="{{item.ECC_DESC}}" ng-bootbox-custom-dialog="{{item.ECC_MORE.length>0?item.ECC_MORE:' '}}" ng-bootbox-options="customDialogOptions" ng-bootbox-class-name="tool_pupup" />
+<!--    <img ng-src="{{image_path}}Information icon-01.png" class="zoom_icon" style="width:15px;height:15px">-->
+            
+            <div class="product_title"><span class="text-center">{{item.ECC_DESC}}</span></div>
+        </div>
+    </div>                   
+</div>

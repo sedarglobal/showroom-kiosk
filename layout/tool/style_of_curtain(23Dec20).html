@@ -1,0 +1,49 @@
+
+<style>
+    .heading.title {
+        color: #000;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .style_curtain_title{
+        text-align: left;
+    }
+    .mb-2{
+        margin-bottom:2px;
+    }
+    .style_curtain .zoom_icon{
+        bottom: 10px;
+    }
+    .carousel_arrow_cumz .item{
+        width: 30px;
+        float: right;
+        cursor: pointer;
+    }
+</style>
+  
+<div class="col-md-12  col-sm-12 col-xs-12 nopadding">
+    <!-- PARENT STEP -->
+    <div id="carousel-example-1z" class="carousel slide col-md-12 col-sm-12 col-xs-12 nopadding mb-2">
+        <div class="col-md-12 carousel_arrow_cumz text-right">
+            <a class="" href="#carousel-example-1z" data-slide="prev"><i class="fal fa-long-arrow-right fa-lg"></i></a>
+            <a class="" href="#carousel-example-1z" data-slide="next"><i class="fal fa-long-arrow-left fa-lg"></i></a>
+        </div>
+        <div class="carousel-inner">
+            <div class="item carousel slide col-md-12 nopadding" ng-repeat="(key,parent_step) in style_of_proList.child" ng-class="{active: key == 1}">
+                <div class="mb-2 col-md-3 col-sm-4 col-xs-6 style_curtain" ng-repeat="(key11,item) in parent_step">
+                    <div class="col-md-11 nopadding"  ng-class="{active_icon: item.EIS_CODE == curtain_selected}">
+                    <a ng-href="customizing/{{category_code}}/{{item.EIS_CODE}}">
+                        <center>
+                            <img ng-src="{{s3_image_path + item.EIS_IMAGE_PATH}}" class="mount_width" width="100px">
+                            <div class="product_title style_curtain_title">{{item.EIS_DESC}}</div>
+                        </center>
+                    </a>
+                    </div>
+                    <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(item)" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    

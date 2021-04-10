@@ -1,0 +1,47 @@
+<div class="col-md-12 col-xs-12 nopadding">
+    <div class="col-md-12 col-xs-12"  ng-repeat="parent in midd63990">
+        <div class="col-md-4 col-xs-6 pro_item"  ng-repeat="item in parent.color" ng-class="{active_icon: item.ECM_CODE == glue_selected}">
+            <div class="col-xs-12 nopadding" ng-click="glue(item, parent)">
+                <center>
+                    <img ng-src="{{item.ECM_THUMBNAIL_IMAGES?image_upload+item.ECM_THUMBNAIL_IMAGES:image_upload + item.ECM_IMAGE_PATH}}" width="100%" height="100px">
+                </center>
+                <div class="product_title"><span class="text-center">{{item.ITEM_ID}}</span></div>
+            </div>
+            <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="matrialPopup(item)"/>
+        </div>
+    </div>
+</div>
+
+<!-- INNER CHILD PARENT STEP -->
+<div class="col-md-12 col-xs-12 nopadding mb-10" ng-hide="glue_qty_show">
+    <div class="col-md-12 col-xs-12">
+        <div class="col-md-5 col-sm-5 nopadding"> <label for="Quantity" translate="quantity">Quantity :</label></div>
+        <div class="col-md-5 col-sm-6 nopadding">
+            <select ng-options="option for option in range track by option" ng-model="glueQty.value" ng-change="glueQtyUpdate(glueQty.value)" style="height: 32px; border: 1px solid #b2b2b2;"></select>
+        </div>
+        <div class="col-md-12 col-sm-12 nopadding" ng-hide="glue_recommend">
+            <p class="has-error" translate="we_recommend_glue" translate-values="{pcs:{{step_array[child_step.ECS_CODE]?step_array[child_step.ECS_CODE].pcs:0}} }">* We recommend <b>{{step_array[child_step.ECS_CODE]?step_array[child_step.ECS_CODE].pcs:0}} packet(s)</b>.</p>
+        </div> 
+    </div>
+</div>
+<div class="col-md-6 col-xs-6  pro_item"  ng-repeat="item in child_step.color" ng-class="{active_icon: item.ECM_CODE == glue_selected}">
+    <div class="col-xs-12 nopadding" ng-click="glue(item, child_step)">
+        <center>
+            <img ng-src="{{item.ECM_THUMBNAIL_IMAGES?image_upload+item.ECM_THUMBNAIL_IMAGES:image_upload + item.ECM_IMAGE_PATH}}" width="100%" height="100px" title="{{item.ECM_TOOL_TIP}}">
+        </center>
+        <div class="product_title"><span class="text-center">{{item.ITEM_ID | translate}}</span></div>
+    </div>
+    <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="matrialPopup(item)"/>
+</div>
+<div class="col-md-6 col-xs-6  pro_item"  ng-class="{active_icon: no_glue == glue_selected}">
+    <div class="col-xs-12 nopadding" ng-click="noglue('no_glue')">
+        <center>
+            <img ng-src="{{image_path  + 'noGlue.jpg'}}" width="100%" height="100px" >
+        </center>
+        <div class="product_title"><span class="text-center" translate="without_glue">Without Glue</span></div>
+    </div>
+</div>
+<div class="col-md-12 nopadding" ng-hide="glue_recommend">
+    <!-- <p class="has-error">* We recommend for <b>{{formula_qty}} roll(s)</b>.</p> -->
+    <p class="has-error" translate="roll_error_mgs">* Recommended packet(s) are calculated by our professional installers. Quantity requirement may vary (shortage/excess) during installation depending on the skill of the installer. We recommend you double check with your installer and add an extra packet for your convenience.</p>
+</div>

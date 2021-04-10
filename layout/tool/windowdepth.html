@@ -1,0 +1,15 @@
+<div class="col-md-12 col-xs-12 nopadding" style="background: white">
+	<div class="col-md-12 col-xs-12 nopadding" style="color: #333;">
+		<!-- PARENT STEP -->
+		<!-- <div class="col-md-12 col-xs-12"  ng-repeat="parent_step in midd5740">
+			<input type="number" name="window_depth" class="form-control" placeholder="--" ng-model="window_depth" min="0.1" max="50" ng-class="{'has-error':divided}" ng-keyup="windowDepth(parent_step)" > 
+		</div> -->
+		<!--<label for="depth"  style="font-size: 12px;" class="pull-right">Min Depth <span style="font-weight: normal;font-size: 13px;">(Min:{{child_step.EIS_MIN_WIDTH}}cm)</span></label>-->
+		<span for="depth" style="font-size: 12px;" class="pull-right" translate="windowdepath_str" translate-values="{depth_val:child_step.EIS_MIN_WIDTH}"></span>
+		
+		<input type="number" name="depth" id="depth" class="form-control" placeholder="--" ng-model="window_depth.value" min="{{child_step.EIS_MIN_WIDTH}}" ng-class="{'has-error':divided}" ng-keyup="windowDepth(child_step, item)">
+
+			<!-- <input type="number" class="form-control" placeholder="--" ng-model="depth.value" min="0.1" max="50" ng-class="{'has-error':divided}" ng-keyup="windowDepth(child_step)" >  -->
+		
+    </div>
+</div>

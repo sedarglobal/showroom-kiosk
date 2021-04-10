@@ -1,0 +1,22 @@
+<div class="col-md-12 col-xs-12 nopadding" customscrollbar>
+    <div class="col-md-12 col-xs-12 nopadding" ng-repeat="item in midd113">
+        <div class="form-group col-md-12">
+            <label translate="select_room">Select Room</label>
+            <select class="nya-selectpicker form-control" id="roomTypeValue" ng-model="roomTypeCode" ng-change="itemLabel(item)" >
+                <option ng-repeat="option in roomType" value="{{option.VSL_CODE}}" label_code="{{option.VSL_CODE}}"  desc_en="{{option.VSL_DESC_EN}}">{{option.VSL_DESC}}</option>
+            </select>             
+        </div>
+        <div class="form-group col-md-12" >
+            <label translate="description">Description</label>
+            <input type="text" name="description" id="description" class="form-control" ng-model="roomDescription"  placeholder="{{'Left_Right_Center' | translate}}"  ng-keyup="itemLabel(item)">
+        </div>
+            <!-- <div class="form-group col-md-12" style="margin-bottom: 60px;">
+                <div ng-if="item.EIS_DESC.length > 0">
+                    <span ng-bootbox-title="{{item.EIS_DESC.length>0?item.EIS_DESC:'..'}}" ng-bootbox-custom-dialog="{{item.EIS_MORE.length>0?item.EIS_MORE:' '}}" ng-bootbox-options="customDialogOptions" ng-bootbox-class-name="tool_pupup" >            
+                        <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" />
+                        <a  style="color:#72aff3">Installation Instructions</a> 
+                    </span>
+                </div>
+            </div> -->
+        </div>                    
+</div>

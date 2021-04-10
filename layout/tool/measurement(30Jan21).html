@@ -1,0 +1,176 @@
+<style>
+    .ng-invalid {
+        border-color: red;
+        /*        background: #e917171a;
+        */    }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type='number'] {
+        -moz-appearance:textfield;
+    }
+    .measurement_whq label{
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+</style>
+
+<div class="col-md-12 col-xs-12 col-sm-12 nopadding"  customscrollbar>
+    <div class="col-md-12 col-xs-12 col-sm-12 nopadding" ng-repeat="parent_step in midd107">
+      
+        <form action="/action_page.php" name="myForm">
+            <div class="col-md-12  col-sm-12 col-xs-12 nopadding" ng-if="pro_item.ECI_QTY_CALCULATION_TYPE == 'BOTH'">
+                <div class="col-md-12 col-sm-12 col-xs-12nopadding mb-20">
+                    <div class="col-sm-12 col-md-8 col-xs-12 nopadding">
+                        <!-- <label><input type="radio" name="" ng-model="chooseone" ng-value="1" value="1" ng-click="toggleDiv()" class="measure_redio" id="roll_radio">{{qtyText}} :</label> -->
+                        <label>{{qtyText}}</label>
+                    </div>
+                    <div class="col-sm-12 col-md-4  col-xs-12 nopadding">
+                        <!-- <fieldset ng-disabled="isChecked">   -->
+                        <fieldset>
+                            <div class="col-md-12 col-sm-12  col-xs-12 nopadding">
+                                <select ng-options="option for option in range track by option" ng-model="qty.value" ng-change="quantityUpdate(qty.value)" style="height: 32px; border: 1px solid #b2b2b2;">
+                                </select>
+
+                                <!-- <select ng-model="qty.value" id="selectQty" ng-change="quantityUpdate(qty.value, pro_item.ECI_QTY_CALCULATION_TYPE)" style="height: 32px; border: 1px solid #b2b2b2;">
+                                    <option ng-value="0" selected="selected">---</option>
+                                    <option ng-repeat="option in range" ng-value="{{option}}">{{option}}</option>
+                                </select> -->
+                            </div>
+
+                        </fieldset>
+                    </div>
+                </div>
+                <div class=" col-md-12 col-sm-12 col-xs-12 nopadding" ng-if="pro_item.ECI_CODE != '1143189'"> 
+
+                    <!-- <input type="radio" name="" ng-model="chooseone" ng-value="2" value="2" ng-click="toggleDiv()" class="measure_redio" id="measure_radio">Measurement :</label>    -->
+                    <!-- <fieldset ng-disabled="!isChecked">      -->
+                    <fieldset>
+                        <div class="col-md-6 col-sm-12 col-xs-12 nopadding">
+                            <label translate="roll_calculation_tool">Roll calculation tool : </label>  
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12 nopadding" ng-hide="recommend">
+                            <p class="has-error" translate="we_recommend" translate-values="{pic:{{step_array[107].pcs}} }">* We recommend <b>{{step_array[107].pcs}} roll(s)</b>.</p>
+                        </div> 
+                        <div class=" col-md-12 col-sm-12 col-xs-12 nopadding" ng-if="pro_item.ECI_RESTRICT_TO_MATERIAL_WIDTH_YN == 'Y'">
+                            <div translate="wall_width" translate-values="{min_width:{{parent_step.measurement.ECI_MIN_WIDTH}},max_width:{{mat_width ? mat_width : prod_mat_width}} }"><b>Wall Width</b> (Min:{{parent_step.measurement.ECI_MIN_WIDTH}}cm Max:{{mat_width ? mat_width : prod_mat_width}}cm)</div>
+                            <input type="number" name="width" id="measurement_width" class="form-control pro_item" placeholder="--" ng-model="measurement_width.value" min="{{parent_step.measurement.ECI_MIN_WIDTH}}" max="{{mat_width ? mat_width : prod_mat_width}}" ng-blur="measurementFunc(parent_step)" ng-class="{'has-error':divided}">
+                        </div>
+                        <div class=" col-md-12 col-sm-12 col-xs-12 nopadding" ng-if="pro_item.ECI_RESTRICT_TO_MATERIAL_WIDTH_YN == 'Y'">
+                            <div translate="wall_height" translate-values="{min_height:{{parent_step.measurement.ECI_MIN_HEIGHT}},max_height:{{parent_step.measurement.ECI_MAX_HEIGHT}} }"> <b>Wall Height </b> (Min:{{parent_step.measurement.ECI_MIN_HEIGHT}}cm Max:{{parent_step.measurement.ECI_MAX_HEIGHT}}cm)</div>
+                            <input type="number" name="height" id="measurement_height" class="form-control" placeholder="--" ng-model="measurement_height.value" min="{{parent_step.measurement.ECI_MIN_HEIGHT}}" max="{{parent_step.measurement.ECI_MAX_HEIGHT}}" ng-class="{'has-error':divided}" ng-blur="measurementFunc(parent_step)">
+                        </div>
+                        <div class=" col-md-12 col-sm-12 col-xs-12 nopadding" ng-if="pro_item.ECI_RESTRICT_TO_MATERIAL_WIDTH_YN == 'N'">
+                            <div translate="wall_width" translate-values="{min_width:{{parent_step.measurement.ECI_MIN_WIDTH}},max_width:{{parent_step.measurement.ECI_MAX_WIDTH}} }"><b>Wall Width </b>(Min:{{parent_step.measurement.ECI_MIN_WIDTH}}cm Max:{{parent_step.measurement.ECI_MAX_WIDTH}}cm)</div>
+                            <input type="number" name="width" id="measurement_width" class="form-control pro_item" placeholder="--" ng-model="measurement_width.value" min="{{parent_step.measurement.ECI_MIN_WIDTH}}" max="{{parent_step.measurement.ECI_MAX_WIDTH}}" ng-blur="measurementFunc(parent_step)" ng-class="{'has-error':divided}">
+                        </div>
+                        <div class=" col-md-12 col-sm-12 col-xs-12 nopadding" ng-if="pro_item.ECI_RESTRICT_TO_MATERIAL_WIDTH_YN == 'N'">
+                            <div translate="wall_height" translate-values="{min_height:{{parent_step.measurement.ECI_MIN_HEIGHT}},max_height:{{parent_step.measurement.ECI_MAX_HEIGHT}} }"> <b>Wall Height</b> (Min:{{parent_step.measurement.ECI_MIN_HEIGHT}}cm Max:{{parent_step.measurement.ECI_MAX_HEIGHT}}cm)</div>
+                            <input type="number" name="height" id="measurement_height" class="form-control" placeholder="--" ng-model="measurement_height.value" min="{{parent_step.measurement.ECI_MIN_HEIGHT}}" max="{{parent_step.measurement.ECI_MAX_HEIGHT}}" ng-class="{'has-error':divided}" ng-blur="measurementFunc(parent_step)">
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 nopadding" ng-hide="recommend">
+                            <!-- <p class="has-error">* We recommend for <b>{{step_array[107].pcs}} roll(s)</b>.</p> -->
+                            <p class="has-error" translate="roll_error_mgs">* Recommended roll(s) are calculated by our professional installers. Quantity requirement may vary (shortage/excess) during installation depending on the skill of the installer. We recommend you double check with your installer and add an extra roll for your convenience.</p>
+                        </div>
+                        <!-- <div class="col-md-12 nopadding" ng-hide="no_material">
+                            <p class="has-error">* Please choose a color selection.</p>
+                        </div> -->
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 nopadding" ng-if="pro_item.ECI_QTY_CALCULATION_TYPE != 'BOTH' && advanced_custonize_pro.indexOf(category_code)==-1">
+                <div class=" col-md-12 col-sm-12 col-xs-12 nopadding">
+                    <div class="col-md-5 col-sm-5 col-xs-6 nopadding right-side"> <label for="Quantity" translate="quantity">Quantity :</label></div>
+                    <div class="col-md-5 col-sm-6 col-xs-6 nopadding">
+                        <select ng-options="option for option in range track by option" ng-model="qty.value" ng-change="quantityUpdate(qty.value)" style="height: 32px; border: 1px solid #b2b2b2;"></select>
+                    </div>
+                </div>
+               
+                <div class=" col-md-12 col-sm-12 col-xs-12 nopadding" ng-if="pro_item.ECI_RESTRICT_TO_MATERIAL_WIDTH_YN == 'Y'">    
+                    <label for="width"  style="font-size: 12px;"><span translate="product_width">Product Width</span>  <span style="font-weight: normal;font-size: 13px;" translate="measurement_width" translate-values="{min_width:parent_step.measurement.ECI_MIN_WIDTH,max_width:mat_width ? mat_width : prod_mat_width}"></span></label>
+                    <input type="number" name="width" id="measurement_width" class="form-control pro_item" placeholder="--" ng-model="measurement_width.value" min="{{parent_step.measurement.ECI_MIN_WIDTH}}" max="{{mat_width ? mat_width : prod_mat_width}}" ng-blur="measurementFunc(parent_step)" ng-class="{'has-error':divided}">
+                </div>
+                <div class=" col-md-12 col-sm-12 col-xs-12 nopadding" ng-if="pro_item.ECI_RESTRICT_TO_MATERIAL_WIDTH_YN == 'Y'">
+                    <label for="height" style="font-size: 12px;"><span translate="product_height">Product Height</span>  <span style="font-weight: normal;font-size: 13px;" translate="measurement_height" translate-values={min_height:parent_step.measurement.ECI_MIN_HEIGHT,max_height:eci_max_height}></span></label>
+                    <input type="number" name="height" id="measurement_height" class="form-control" placeholder="--" ng-model="measurement_height.value" min="{{parent_step.measurement.ECI_MIN_HEIGHT}}" max="{{eci_max_height}}" ng-class="{'has-error':divided}" ng-blur="measurementFunc(parent_step)">
+                </div>
+                <div class=" col-md-12 col-sm-12 col-xs-12 nopadding" ng-if="pro_item.ECI_RESTRICT_TO_MATERIAL_WIDTH_YN == 'N'">
+                    <label for="width"  style="font-size: 12px;"><span translate="product_width">Product Width</span> <span style="font-weight: normal;font-size: 13px;" translate="measurement_width" translate-values="{min_width:parent_step.measurement.ECI_MIN_WIDTH,max_width:parent_step.measurement.ECI_MAX_WIDTH}">(Min:{{parent_step.measurement.ECI_MIN_WIDTH}}cm Max:{{parent_step.measurement.ECI_MAX_WIDTH}}cm)</span></label>
+                    <input type="number" name="width" id="measurement_width" class="form-control pro_item" placeholder="--" ng-model="measurement_width.value" min="{{parent_step.measurement.ECI_MIN_WIDTH}}" max="{{parent_step.measurement.ECI_MAX_WIDTH}}" ng-blur="measurementFunc(parent_step)" ng-class="{'has-error':divided}">
+                </div>
+                <div class=" col-md-12 col-sm-12 col-xs-12 nopadding" ng-if="pro_item.ECI_RESTRICT_TO_MATERIAL_WIDTH_YN == 'N'">
+                    <label for="height" style="font-size: 12px;"> <span translate="product_height">Product Height</span> <span style="font-weight: normal;font-size: 13px;" translate="measurement_width" translate-values="{min_width:parent_step.measurement.ECI_MIN_HEIGHT,max_width:parent_step.measurement.ECI_MAX_HEIGHT}">(Min:{{parent_step.measurement.ECI_MIN_HEIGHT}}cm Max:{{parent_step.measurement.ECI_MAX_HEIGHT}}cm) </span></label>
+                    <input type="number" name="height" id="measurement_height" class="form-control" placeholder="--" ng-model="measurement_height.value" min="{{parent_step.measurement.ECI_MIN_HEIGHT}}" max="{{parent_step.measurement.ECI_MAX_HEIGHT}}" ng-class="{'has-error':divided}" ng-blur="measurementFunc(parent_step)">
+                </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 nopadding measurement" ng-if="pro_item.ECI_QTY_CALCULATION_TYPE != 'BOTH' && advanced_custonize_pro.indexOf(category_code)>=0">               
+
+                <div class=" col-md-4 col-sm-12  col-xs-4 right-side" ng-if="pro_item.ECI_RESTRICT_TO_MATERIAL_WIDTH_YN == 'Y'">    
+                    <!-- <label for="width"  style="font-size: 12px;"><span translate="width"> Width</span>  <span style="font-weight: normal;font-size: 13px;" translate="measurement_width" translate-values="{min_width:parent_step.measurement.ECI_MIN_WIDTH,max_width:mat_width ? mat_width : prod_mat_width}"></span></label> -->
+                    <label for="width"  style="font-size: 12px;"><span translate="width"> Width</span>  </label>
+                    <input type="number" name="width" id="measurement_width" class="form-control pro_item" placeholder="--" ng-model="measurement_width.value" min="{{parent_step.measurement.ECI_MIN_WIDTH}}" max="{{mat_width ? mat_width : prod_mat_width}}" ng-blur="measurementFunc(parent_step)" ng-class="{'has-error':divided}">
+                </div>
+                <div class=" col-md-4 col-sm-12  col-xs-4 right-side" ng-if="pro_item.ECI_RESTRICT_TO_MATERIAL_WIDTH_YN == 'Y'">
+                    <!-- <label for="height" style="font-size: 12px;"><span translate="height"> Height</span>  <span style="font-weight: normal;font-size: 13px;" translate="measurement_height" translate-values={min_height:parent_step.measurement.ECI_MIN_HEIGHT,max_height:eci_max_height}></span></label> -->
+                    <label for="height" style="font-size: 12px;"><span translate="Height"> Height</span>  </label>
+                    <input type="number" name="height" id="measurement_height" class="form-control" placeholder="--11" ng-model="measurement_height.value" min="{{parent_step.measurement.ECI_MIN_HEIGHT}}" max="{{eci_max_height}}" ng-class="{'has-error':divided}" ng-blur="measurementFunc(parent_step)">
+                </div>
+
+
+                <div class="col-md-5 col-sm-4 col-xs-12 right-side nopadding measurement_whq" ng-if="pro_item.ECI_RESTRICT_TO_MATERIAL_WIDTH_YN == 'N'">
+                    <!-- <label for="width"  style="font-size: 12px;"><span translate="width">Width</span> <span style="font-weight: normal;font-size: 13px;" translate="measurement_width" translate-values="{min_width:parent_step.measurement.ECI_MIN_WIDTH,max_width:parent_step.measurement.ECI_MAX_WIDTH}">(Min:{{parent_step.measurement.ECI_MIN_WIDTH}}cm Max:{{parent_step.measurement.ECI_MAX_WIDTH}}cm)</span></label> -->
+                    <label for="width"  style="font-size: 12px;padding-top: 6px;" class="col-md-3 col-sm-5 col-xs-6 text-center right-side"><span translate="Width">Width</span> </label>
+                    <div class="col-md-9 col-sm-7 col-xs-6  nopadding">
+                            <input type="number" name="width" id="measurement_width" class="form-control pro_item" placeholder="{{'measurement_width' | translate : {min_width:parent_step.measurement.ECI_MIN_WIDTH,max_width:parent_step.measurement.ECI_MAX_WIDTH} }}" ng-model="measurement_width.value" min="{{parent_step.measurement.ECI_MIN_WIDTH}}" max="{{parent_step.measurement.ECI_MAX_WIDTH}}" ng-blur="measurementFunc(parent_step)" ng-class="{'has-error':divided}">
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-4 col-xs-12 right-side nopadding measurement_whq" ng-if="pro_item.ECI_RESTRICT_TO_MATERIAL_WIDTH_YN == 'N'">
+                    <!-- <label for="height" style="font-size: 12px;"> <span translate="product_height">Height</span> <span style="font-weight: normal;font-size: 13px;" translate="measurement_width" translate-values="{min_width:parent_step.measurement.ECI_MIN_HEIGHT,max_width:parent_step.measurement.ECI_MAX_HEIGHT}">(Min:{{parent_step.measurement.ECI_MIN_HEIGHT}}cm Max:{{parent_step.measurement.ECI_MAX_HEIGHT}}cm) </span></label> -->
+                    <label for="height" style="font-size: 12px;padding-top: 6px;" class="col-md-3 col-sm-5 col-xs-6 text-center right-side"> <span translate="Height">Height</span> </label>
+                        <div class="col-md-9 col-sm-7 col-xs-6 nopadding">
+                            <input type="number" name="height" id="measurement_height" class="form-control" placeholder="{{'measurement_width' | translate : {min_width:parent_step.measurement.ECI_MIN_HEIGHT,max_width:parent_step.measurement.ECI_MAX_HEIGHT} }}" ng-model="measurement_height.value" min="{{parent_step.measurement.ECI_MIN_HEIGHT}}" max="{{parent_step.measurement.ECI_MAX_HEIGHT}}" ng-class="{'has-error':divided}" ng-blur="measurementFunc(parent_step)">
+                        </div>
+                    </div>
+
+                <div class="col-md-2  col-sm-4 col-xs-12 Quantity nopadding measurement_whq">
+                    <!-- <div class="col-md-12  col-sm-12 col-xs-12 nopadding right-side"> -->
+                         <label for="Quantity" style="font-size: 12px;padding-top: 6px;" class="col-md-5 col-sm-5 col-xs-6 text-center right-side"><span translate="Qty">Qty</span> </label>
+                         
+                    <!-- </div> -->
+                    <div class="col-md-7 col-sm-7 col-xs-6 nopadding">
+                        <select ng-options="option for option in range track by option" ng-model="qty.value" ng-change="quantityUpdate(qty.value)" style="height: 32px; border: 1px solid #b2b2b2;padding: 0px;"></select>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12 nopadding">
+                <p class="has-error">{{textureTurned}}</p>
+                <h6 class="title" style="margin: 0;padding-top: 5px;" translate="Need_help_taking_measurements">Need help taking measurements</h6>
+                <div class="row">
+                    <div class="col-md-6" ng-repeat="child in parent_step.child" ng-if="['OUTSIDE_M', 'INSIDE_M'].indexOf(child.EIS_CODE) >= 0" >
+                        <span class="title" style="font-size: 11px;">{{child.EIS_DESC}}</span>
+                        <a ng-href="{{s3_image_path + child.EIS_IMAGE_PATH}}" target="_blank" title="PDF" ng-if="child.EIS_IMAGE_PATH"><i class="fas fa-file-pdf"></i></a>
+                        <span ng-if="child.EIS_IMAGE_PATH && child.EIS_INFO_IMAGE_PATH"> | </span>
+                        <a ng-href="{{s3_image_path + child.EIS_INFO_IMAGE_PATH}}" target="_blank" title="Video" ng-if="child.EIS_INFO_IMAGE_PATH"><i class="far fa-play-circle"></i></a>
+                    </div> 
+                </div>
+            </div>
+        </form> 
+    </div>        
+</div>
+
+<!---
+<div class="col-md-12  col-sm-12 col-xs-12 cust_change_selection" style="margin-top:15px;" ng-if="advanced_custonize_pro.indexOf(category_code)>=0">
+    <span style="color:#fff; font-size: 12px;" translate="material_section">Material Section </span>
+    <span style="color: blue;font-size: 11px;padding-left:20px;" ng-click="colorSectionPopup()" translate="change_section">Change Section</span>
+    <b>&nbsp;&nbsp;<span class="cust_step_title pull-right left-dir desc102" style="font-size: 13px; color: #fff;font-weight: bold;padding: 3px 20px 0 0px;">
+        <i class="fas fa-exclamation hide" style="font-size: 10px !important;color: red;" title="{{'color_section' | translate }}"></i> 
+    </span></b>
+</div>-->

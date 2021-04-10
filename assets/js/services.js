@@ -109,7 +109,8 @@ angular.module('acs.services', []).
         var scene = new THREE.Scene();
         var manager = new THREE.LoadingManager();
         var textureLoader = new THREE.TextureLoader(manager);
-        textureLoader.setCrossOrigin('anonymous');
+       // textureLoader.setCrossOrigin('anonymous');
+        textureLoader.setCrossOrigin('Access-Control-Allow-Origin');
         var texture_bump, texture_alphaMap, valance_texture,
                 texture_displacementMap, cornice_texture;
         var bottom_bar_type = 'BOTTOM_BAR1'//aluminium;
@@ -122,7 +123,7 @@ angular.module('acs.services', []).
         texture.alphaTest = 0.5;
         texture.anisotropy = 16;
         var loader = new THREE.OBJLoader(manager);
-        //loader.setCrossOrigin('anonymous')
+       // loader.setCrossOrigin('Access-Control-Allow-Origin')
         var border_texture, back_side_texture, bottom_bar_color, ladder_texture,
                 cord_texture, trimming_texture, trimming_texture_alphaMap;
         var aluminium_texture = border_texture = back_side_texture = trimming_texture,

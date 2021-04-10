@@ -1,0 +1,44 @@
+<div class="col-md-12 col-xs-12 nopadding" style="background: white">
+    <div class="col-md-12 col-xs-12 nopadding" style="color: #333;">
+
+        <!-- PARENT STEP -->
+        <div class="col-md-12" ng-repeat="childs_step in midd60272">
+            <!-- <div ng-repeat="child in childs_step.child"> -->
+            <div class="col-md-4 col-sm-4 col-xs-4 mb-10" ng-repeat="item in childs_step.color" ng-class="{active_icon: item.ECM_CODE == remote_selected}">
+                <div class="col-md-11 nopadding" ng-click="panelTrack(item, childs_step)">
+                    <center>
+                        <div ng-if="item.ECM_IMAGE_PATH || item.ECM_THUMBNAIL_IMAGES">
+                            <img ng-src="{{item.ECM_THUMBNAIL_IMAGES?image_upload+item.ECM_THUMBNAIL_IMAGES:image_upload + item.ECM_IMAGE_PATH}}" class="mount_width" check-image>
+                        </div>
+                    </center>z
+                    <div class="product_title" style="text-align: center;"><span class="text-center">{{item.ECM_DESC}}</span></div>
+                </div>
+                <div class="info_img">
+                    <img ng-src="{{image_path}}Information icon-01.png"  class="fas fa-info-circle" ng-click="remotepopup(item)" />
+                </div>
+                <!--                <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-bootbox-title="{{item.ECM_DESC}}" ng-bootbox-custom-dialog="{{item.ECM_MORE.length>0?item.ECM_MORE:' '}}" ng-bootbox-options="customDialogOptions" ng-bootbox-class-name="tool_pupup">-->
+            </div>
+            <!-- </div>	 -->
+        </div> 
+        <!-- PARENT STEP -->
+
+        <!-- INNER CHILD PARENT STEP -->
+        <div class=" col-md-4 col-sm-4 col-xs-4 mb-10" ng-repeat="item in child_step.color" ng-class="{active_icon: item.ECM_CODE == remote_selected}">
+            <div class="col-md-11 nopadding"  ng-click="panelTrack(item, child_step)">
+                <center>
+                    <div ng-if="item.ECM_IMAGE_PATH || item.ECM_THUMBNAIL_IMAGES">
+                        <img ng-src="{{item.ECM_THUMBNAIL_IMAGES?image_upload+item.ECM_THUMBNAIL_IMAGES:image_upload + item.ECM_IMAGE_PATH}}" class="mount_width" check-image>
+                    </div>
+                </center>
+                <div class="product_title" style="text-align: center;"><span class="text-center">{{item.ECM_DESC}}</span></div>
+            </div>
+            <div class="info_img">
+                <img ng-src="{{image_path}}Information icon-01.png"  class="fas fa-info-circle" ng-click="remotepopup(item)" />
+            </div>
+            <!--            <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-bootbox-title="{{item.ECM_DESC}}" ng-bootbox-custom-dialog="{{item.ECM_MORE.length>0?item.ECM_MORE:' '}}" ng-bootbox-options="customDialogOptions" ng-bootbox-class-name="tool_pupup">-->
+        </div>
+        <!-- INNER CHILD PARENT STEP -->
+
+
+    </div>
+</div>

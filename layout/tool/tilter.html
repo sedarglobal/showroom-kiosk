@@ -1,0 +1,11 @@
+<div class="col-md-12 col-xs-12 nopadding">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-xs-6" ng-repeat="val in midd2912" style="text-align: center;">
+        <label>
+            <input type="radio" class="rediochecker " ng-model="tilter.name" value="{{val.EIS_CODE}}" ng-change="tilterType(val)">
+            <br>{{val.EIS_DESC}}
+        </label>
+        <!--        <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-bootbox-title="{{val.EIS_DESC}}" ng-bootbox-custom-dialog="{{val.EIS_MORE.length>0?val.EIS_MORE:' '}}" ng-bootbox-options="customDialogOptions" ng-bootbox-class-name="tool_pupup" style="position: initial;margin-top: -1px;">-->
+        <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(val)" style="position: initial;margin-top: -1px;"/>
+    </div>
+
+</div>

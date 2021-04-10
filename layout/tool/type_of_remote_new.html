@@ -1,0 +1,37 @@
+<div class="col-md-12 col-xs-12 nopadding" style="background: white">
+    <div class="col-md-12 col-xs-12 nopadding" style="color: #333;">
+
+        <!-- PARENT STEP -->
+        <div class="col-md-12" ng-repeat="childs_step in midd5745">
+            <!-- <div ng-repeat="child in childs_step.child"> -->
+            <div class="col-md-4 col-sm-6 col-xs-6 mb-10" ng-repeat="item in childs_step.color" ng-class="{active_icon: item.ECM_CODE == remote_selected}">
+                <div class="col-md-11 nopadding" ng-click="remoteType(item, childs_step)">
+                    <center>
+                        <div ng-if="item.ECM_IMAGE_PATH || item.ECM_THUMBNAIL_IMAGES">
+                            <img ng-src="{{item.ECM_THUMBNAIL_IMAGES?image_upload+item.ECM_THUMBNAIL_IMAGES:image_upload + item.ECM_IMAGE_PATH}}" class="mount_width" check-image>
+                        </div>
+                    </center>
+                    <div class="product_title" style="text-align: center;"><span class="text-center">{{item.ECM_DESC}} </span></div>
+                </div>
+                <div class="info_img">
+                    <img ng-src="{{image_path}}Information icon-01.png"  class="fas fa-info-circle" ng-click="remotepopup(item)" />
+                </div>
+                <!--                <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-bootbox-title="{{item.ECM_DESC}}" ng-bootbox-custom-dialog="{{item.ECM_MORE.length>0?item.ECM_MORE:' '}}" ng-bootbox-options="customDialogOptions" ng-bootbox-class-name="tool_pupup">-->
+            </div>
+            <!-- </div>	 -->
+        </div> 
+        <!-- PARENT STEP -->
+
+        <!-- INNER CHILD PARENT STEP -->
+        <div class=" col-md-4 col-sm-6 col-xs-6 mb-10" ng-repeat="item in child_step.color" ng-class="{active_icon11: item.ECM_CODE == remote_selected}">
+            <label>
+                <input type="radio" name="remote_selected" class="rediochecker" ng-model="remote_selected"  value="{{item.ECM_CODE}}" ng-click="remoteType(item, child_step)" style="margin-top: 0px;">
+                <span class="text-center" translate="{{item.ECM_DESC}}"   style="font-size: 12px;">{{item.ECM_DESC}}</span>
+                <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(item)" >
+            </label>           
+        </div>
+        <!-- INNER CHILD PARENT STEP -->
+
+
+    </div>
+</div>

@@ -1,0 +1,58 @@
+
+<div class="col-md-12 col-xs-12 nopadding">
+    <!-- PARENT STEP -->
+    <div class="col-md-12 col-xs-12 nopadding mb-10" ng-repeat="parent_step in midd110">
+        <div class="col-md-6 col-sm-6 col-xs-6 mb-10" ng-repeat="item in parent_step.child"  ng-class="{active_icon: item.EIS_CODE == bottom_selected}">
+            <div class="col-xs-11 nopadding" ng-click="bottomType(item, parent_step)">
+                <center>
+                    <div ng-if="item.EIS_IMAGE_PATH">
+                        <img ng-src="{{s3_image_path + item.EIS_IMAGE_PATH}}" class="mount_width">
+                    </div>
+                    <div ng-if="!item.EIS_IMAGE_PATH"> 
+                        <img ng-src="{{image_path + 'default_img/' + default_img[item.EIS_CODE]}}" class="mount_width">
+                    </div>
+                </center>
+                <div class="product_title" style="text-align: center;"><span class="text-center">{{item.EIS_DESC}}</span></div>
+            </div>    
+             <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(item)" />
+        </div>
+        <div class="col-md-12" ng-repeat="item in parent_step.child">
+            <div ng-repeat="child_step in item.child" ng-if="bottom_selected == item.EIS_CODE">
+                <div class="col-xs-12 step_background mb-10">
+                    <b>{{child_step.EIS_DESC}}</b>      
+                </div>
+                <div class="col-md-12 nopadding slide-animate middletemplate" ng-include="temp_path + 'tool/' + child_step.ECS_HTML_TEMPLATE_PATH"></div> 
+            </div>
+        </div>
+    </div>
+    <!-- PARENT STEP -->
+    
+    <!-- INNER CHILD PARENT STEP -->
+    <div class="col-md-6 col-sm-6 col-xs-6 mb-10" ng-repeat="item in child_step.child"  ng-class="{active_icon: item.EIS_CODE == bottom_selected}">
+        <div class="col-xs-11 nopadding" ng-click="bottomType(item)">
+            <center>
+                <div ng-if="item.EIS_IMAGE_PATH">
+                    <img ng-src="{{s3_image_path + item.EIS_IMAGE_PATH}}" class="mount_width">
+                </div>
+                <div ng-if="!item.EIS_IMAGE_PATH"> 
+                    <img ng-src="{{image_path + 'default_img/' + default_img[item.EIS_CODE]}}" class="mount_width">
+                </div>
+            </center>
+            <div class="product_title" style="text-align: center;"><span class="text-center">{{item.EIS_DESC}}</span></div>
+        </div>    
+            <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(item)" />
+    </div>
+    <div class="col-md-12 " ng-repeat="item in child_step.child">
+        <div ng-repeat="child_step in item.child" ng-if="bottom_selected == item.EIS_CODE">
+            <div class="col-xs-12 step_background mb-10">
+                <b>{{child_step.EIS_DESC}}</b>      
+            </div>
+            <div class="col-md-12 nopadding slide-animate middletemplate" ng-include="temp_path + 'tool/' + child_step.ECS_HTML_TEMPLATE_PATH"></div> 
+        </div>
+    </div>
+    <!-- INNER CHILD PARENT STEP -->
+
+
+
+
+</div>

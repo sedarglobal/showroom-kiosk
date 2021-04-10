@@ -1,0 +1,13 @@
+
+<div class="col-md-12 col-xs-12 nopadding" >
+
+
+    <div class="col-md-12 col-xs-12 nopadding" style="background: white; color: #333;padding: 10px;height: 445px;">
+        <div class="col-md-6 col-xs-6 pro_item" ng-repeat="item in midd" ng-class="{active_icon: item.OBJ_CODE == design_selected}">
+
+            <center ng-click="designType(item)"><img ng-src="{{image_upload + item.OBJ_MAIN_TEXTURE_PATH}}" width="100%" height="100px"></center>
+<!--             <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-bootbox-title="{{item.ECMT_DESC}}" ng-bootbox-custom-dialog="{{item.EIS_MORE}}" ng-bootbox-options="customDialogOptions" ng-bootbox-class-name="tool_pupup">-->
+            <div class="product_title" style="text-align: center;"><span class="text-center">{{item.OBJ_DESC}}</span></div>
+        </div>
+    </div>                    
+</div>

@@ -1,0 +1,50 @@
+<style>
+    .heading.title {
+        color: #000;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+    }
+</style>
+<div class="col-md-12 col-xs-12 nopadding">
+    <div class="col-md-12 col-xs-12 nopadding" style="background: white;color: #333;padding: 10px;" >
+        <div class=" col-md-6 col-sm-6 col-xs-6" ng-repeat="item in midd2915" ng-class="{active_icon: item.EIS_CODE == cornice_selected}">
+			<div class="col-md-11 nopadding" ng-click="cornice(item, step)">	
+				<center>
+					<div ng-if="item.EIS_IMAGE_PATH">
+						<img ng-src="{{s3_image_path + item.EIS_IMAGE_PATH}}" class="mount_width" check-image>
+					</div>
+					<div ng-if="!item.EIS_IMAGE_PATH"> 
+						<img ng-src="{{image_path + 'default_img/' + default_img[item.EIS_CODE]" class="mount_width" check-image>
+					</div>
+					<div class="product_title" style="text-align: center;"><span class="text-center">{{item.EIS_DESC}}</span></div>
+				</center>
+			</div>
+            <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-bootbox-title="{{item.EIS_DESC}}" ng-bootbox-custom-dialog="{{item.EIS_MORE.length>0?item.EIS_MORE:' '}}" ng-bootbox-options="customDialogOptions" ng-bootbox-class-name="tool_pupup" />
+        </div>
+    </div>
+    <div class="col-md-12 col-xs-12" ng-if="cornice_selected == 'COR01' && color_data2915.length > 0">
+        <h6 class="heading title">cornice Color</h6>
+        <div class="col-md-4 col-xs-4  pro_item" ng-if="cornice_selected == 'COR01'" ng-repeat="item in color_data2915" ng-class="{active_icon: item.ECM_CODE == corniceColor_selected }">
+            <center ng-click="corniceColor(item)">
+                <div class="col-md-12 col-xs-12 nopadding" style="position: relative;z-index: 1;" ng-if="zig_zagImg.indexOf(item.ECM_ECI_CODE) != 0">
+                    <img ng-src="{{asset_img}}Zigzag-01-01.png" class="color_img_popup"  width="100%" style="height: 120px;" >
+                </div>
+                <div class="col-md-12 col-xs-12 nopadding" style="margin-top: -120px;">
+                    <img ng-src="{{item.ECM_THUMBNAIL_IMAGES?image_upload+item.ECM_THUMBNAIL_IMAGES:image_upload + item.ECM_IMAGE_PATH}}" width="100%" style="height: 119px;" title="{{item.ECM_TOOL_TIP}}">
+                </div>
+            </center>
+            <div class="col-md-12 nopadding">
+                <div class="product_title" style="width:85%;height: 22px;overflow: hidden;float: left;">
+                    <span class="text-center">{{item.ECM_ITEM_ID}}</span>
+                </div>
+                <div class="info_img">
+                    <img ng-src="{{image_path}}Information icon-01.png"  class="fas fa-info-circle" ng-click="matrialPopup(item)" />
+                </div>
+            </div>
+        </div>
+<!--        <div class="col-md-12 load_more" ng-hide="load_more_cornice" >
+            <a class="pull-right" href="" ng-click="loadMoreValanceColor()"> More...</a>
+        </div>-->
+    </div>
+</div>

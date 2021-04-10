@@ -1,0 +1,26 @@
+<div class="color_section">
+    <div class="col-md-12 col-xs-12 collection">
+        My Favorite <i class="fa-heart fas  heart_icon" style="margin-top: -5px; font-size: 15px;"></i>
+        <img ng-src="{{image_path}}Information icon-01.png"  class="fas fa-info-circle zoom_icon" ng-bootbox-title="Favorite Texture" ng-bootbox-custom-dialog="Your favorite texture listing" ng-bootbox-options="customDialogOptions" ng-bootbox-class-name="tool_pupup"  style="right:10px;"/>      
+    </div>
+    <div class="color pro_item {{material_columns[ECI_MATERIAL_ROWS]}}" ng-repeat="item in favorite_texture">
+        <div class="col-md-12 col-xs-12 nopadding"  ng-click="colorSection(item, step)" ng-class="{active_icon: item.ECM_CODE == color_selected}" style="padding: 0 7px 7px 0px;"> 
+            <div class="col-md-12 col-xs-12 nopadding" style="position: relative;z-index: 1;" ng-if="ECI_MATERIAL_EDGE == 'Z'">
+                <img ng-src="{{asset_img}}Zigzag-01-01.png" class="color_img_popup"  width="100%" style="height: 120px;" >
+            </div>
+            <div class="col-md-12 col-xs-12 nopadding" ng-class="ECI_MATERIAL_EDGE=='Z' ? 'margin_top120' : ''" >
+                <img ng-src="{{item.ECM_THUMBNAIL_IMAGES?image_upload+item.ECM_THUMBNAIL_IMAGES:back_side_img.indexOf(item.ECM_ECI_CODE) < 0 ? image_upload + item.ECM_IMAGE_PATH : image_upload + item.ECM_BACK_SIDE_TEXTURE_IMG_PATH}}" title="{{item.ECM_TOOL_TIP}}" ng-class="ECI_MATERIAL_ROWS >= 2 ? 'no_full_img' : 'full_img'">
+            </div>
+
+
+            <div class="col-md-12 nopadding" style="z-index: 57;">
+                <div class="product_title" style="width:85%;height: 22px;overflow: hidden;float: left;">
+                    <span class="text-center">{{item.ECM_ITEM_ID}}</span>
+                </div>
+                <div class="info_img">
+                    <img ng-src="{{image_path}}Information icon-01.png"  class="fas fa-info-circle" ng-click="matrialPopup(item)" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<!-- <div class="col-md-12 col-xs-12 nopadding" style="background: white"> -->
+    <!-- <div class="col-md-12 col-xs-12 nopadding" style="color: #333;"> -->
+        <!-- <div class=" col-md-6 col-sm-6 col-xs-6" style="margin-bottom: 25px;" ng-repeat="item in midd2913" ng-class="{active_icon: item.EIS_CODE == opening_direction }"> -->
+            <!-- <center ng-click="openingDirection(item)"> -->
+                <!-- <div ng-if="item.EIS_IMAGE_PATH"> -->
+                    <!-- <img ng-src="{{s3_image_path + item.EIS_IMAGE_PATH}}" class="mount_width"> -->
+                <!-- </div> -->
+                <!-- <div ng-if="!item.EIS_IMAGE_PATH">  -->
+                    <!-- <img  ng-src="{{image_path + 'default_img/' + default_img[item.EIS_CODE]}}" class="mount_width" check-image> -->
+                <!-- </div> -->
+            <!-- </center> -->
+            <!-- <img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(item)"> -->
+            <!-- <div class="product_title" style="text-align: center;"><span class="text-center">{{item.EIS_DESC}}</span></div> -->
+        <!-- </div> -->
+    <!-- </div>                     -->
+<!-- </div> -->
+
+
+<div class="col-md-12 col-xs-12 nopadding" style="background: white">
+	<div class="col-md-12 col-xs-12 nopadding" style="color: #333;">
+		
+		<!-- PARENT STEP -->
+		<div class="col-md-12" ng-repeat="parent_step in midd2913">
+			<div class=" col-md-6 col-sm-6 col-xs-4" style="margin-bottom: 25px;" ng-repeat="child_item in parent_step.child" ng-class="{active_icon: child_item.EIS_CODE == opening_direction}">
+				<div class="col-md-11 nopadding" ng-click="openingDirection(child_item, step)">  
+					<center>
+						<div ng-if="child_item.EIS_IMAGE_PATH">
+							<img ng-src="{{s3_image_path + child_item.EIS_IMAGE_PATH}}" class="mount_width">
+						</div>
+						<div ng-if="!child_item.EIS_IMAGE_PATH"> 
+							<img  ng-src="{{image_path + 'default_img/' + default_img[child_item.EIS_CODE]}}" class="mount_width" check-image>
+						</div>
+						<div class="product_title" style="text-align: center;"><span class="text-center">{{child_item.EIS_DESC}}</span></div>
+					</center>
+				</div>
+				<img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(child_item)">
+			</div>	
+			<div class="col-md-12" ng-repeat="item in parent_step.child">
+				<div ng-repeat="child_step in item.child" ng-if="opening_direction == item.EIS_CODE">
+					<div class="col-xs-12">
+						{{child_step.EIS_DESC}}  
+						<b>&nbsp;&nbsp;
+							<span id="desc{{child_step.ECS_CODE}}" class="pull-right desc{{step.ECS_CODE}}"style="font-size: 13px;">
+								<i class="fas fa-exclamation hide" style="font-size: 10px !important;color: red;" title="{{'step_error_mgs' | translate :{step_name: child_step.EIS_DESC } }}"></i> 
+								<span>{{step_array[child_step.ECS_CODE].option_desc}} </span>
+							</span>
+						</b> 	
+					</div>
+					<div class="col-md-12 nopadding slide-animate middletemplate" ng-include="temp_path + 'tool/' + child_step.ECS_HTML_TEMPLATE_PATH"></div> 
+				</div>
+			</div>
+		</div> 
+		<!-- PARENT STEP -->
+
+		<!-- INNER CHILD PARENT STEP -->
+		<div class=" col-md-6 col-sm-6 col-xs-4" style="margin-bottom: 25px;" ng-repeat="child_item in child_step.child" ng-class="{active_icon: child_item.EIS_CODE == opening_direction}">
+			<div class="col-md-11 nopadding" ng-click="openingDirection(child_item, step)">  
+				<center ng-click="openingDirection(child_item, step)">
+					<div ng-if="child_item.EIS_IMAGE_PATH">
+						<img ng-src="{{s3_image_path + child_item.EIS_IMAGE_PATH}}" class="mount_width">
+					</div>
+					<div ng-if="!child_item.EIS_IMAGE_PATH"> 
+						<img  ng-src="{{image_path + 'default_img/' + default_img[child_item.EIS_CODE]}}" class="mount_width" check-image>
+					</div>
+					<div class="product_title"><span class="text-center">{{child_item.EIS_DESC}}</span></div>
+				</center>
+			</div>	
+			<img ng-src="{{image_path}}Information icon-01.png"  class="zoom_icon" ng-click="steps_info(child_item)">
+		</div>
+
+		<div class="col-md-12" ng-repeat="item in child_step.child">
+			<div ng-repeat="child_step in item.child" ng-if="opening_direction == item.EIS_CODE">
+				<div class="col-xs-12">
+					{{child_step.EIS_DESC}}
+					<b>&nbsp;&nbsp;
+						<span id="desc{{child_step.ECS_CODE}}" class="pull-right desc{{step.ECS_CODE}}"style="font-size: 13px;">
+							<i class="fas fa-exclamation hide" style="font-size: 10px !important;color: red;" title="{{'step_error_mgs' | translate :{step_name: child_step.EIS_DESC } }}"></i> 
+							<span>{{step_array[child_step.ECS_CODE].option_desc}} </span>
+						</span>
+					</b> 	
+				</div>
+				<div class="col-md-12 nopadding slide-animate middletemplate" ng-include="temp_path + 'tool/' + child_step.ECS_HTML_TEMPLATE_PATH"></div> 
+			</div>
+		</div>
+		<!-- INNER CHILD PARENT STEP -->
+	
+    </div>
+</div>
