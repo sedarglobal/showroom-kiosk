@@ -107,7 +107,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
     
             $http({
                 method: 'GET',
-                url: service_url + $scope.url,
+                url: service_url + 'ShowroomApi/' + $scope.url,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (response) {
                 $scope.shopping = response.data.shopping;
@@ -539,7 +539,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
         // send login data
         $http({
             method: 'POST',
-            url: service_url+ 'swatchCollection_rows22',
+            url: service_url+ 'ShowroomApi/swatchCollection_rows22',
             data: $.param({
                 item_id: prod_code,
                 start_page: $scope.coll_row,
@@ -587,7 +587,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
         
         $http({
             method: 'POST',
-            url: service_url+ 'ShopNow_rows22',
+            url: service_url+ 'ShowroomApi/ShopNow_rows22',
             data: $.param({
                 item_id: prod_code,
                 start_page: $scope.mat_row,
