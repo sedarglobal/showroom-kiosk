@@ -95,7 +95,7 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
     
 }]);
 
-    controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interval', '$controller', '$rootScope', '$location', '$ngBootbox', '$ngSilentLocation', function ($scope, $route, $http, $interval, $controller, $rootScope, $location, $ngBootbox, $ngSilentLocation) {
+controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interval', '$controller', '$rootScope', '$location', '$ngBootbox', '$ngSilentLocation', function ($scope, $route, $http, $interval, $controller, $rootScope, $location, $ngBootbox, $ngSilentLocation) {
 
     $scope.ShowroomleftSideMenu = function (type) {       
         if (type) {
@@ -180,12 +180,8 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
                                 loop: true
                             }
                         }
-                    })
+                    });
                 },500);
-               
-                
-
-
             });
 
 
@@ -220,14 +216,12 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
             $scope.room = category_code;
             $scope.style = '';
             $scope.parameter_url = '';
-            //$scope.categoryRecord[2].isCustomHeaderOpen = true;
         } else if (url == 'style') {
             url = 'room_inspiration';
             $scope.brandId = '';
             $scope.room = ''
             $scope.style = category_code;
             $scope.parameter_url = '';
-            //$scope.categoryRecord[3].isCustomHeaderOpen = true;
         }
 
         var subCat = tree_data == 'S' ? tree_data : type;
@@ -294,6 +288,7 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
         $("#prodInfo" + category_code).hide();
         $(".row_4455").show();
     };
+
     $scope.getProductList = function () {
 
         $scope.productArray = [];
@@ -326,6 +321,7 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
             });
         });
     };
+
     $scope.removeList = function ($list, $id, $type) {
         $type = $type ? $type : false;
         $.each($list, function (i, e) {
@@ -341,6 +337,7 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
         }
 
     };
+
     $scope.nextImg = function (type) {
         if (type == 'next' && $scope.product_cat.length - 1 > $scope.current_slide) {
             $scope.current_slide = $scope.current_slide + 1;
@@ -350,12 +347,14 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
             $scope.current_slide = 0;
         }
     };
+
     $scope.customDialogOptions = {
         scope: $scope,
         backdrop: false,
         onEscape: function () {
         }
     };
+
     $scope.toggleComment = function () {
         $scope.isFormOpen = !$scope.isFormOpen;
     };
@@ -376,7 +375,7 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
     
     $scope.ShowroomleftSide = false;    
     
-     $scope.ShowroomleftSideMenu = function (type) {
+    $scope.ShowroomleftSideMenu = function (type) {
         if (type) {
             $('#left_side_loader_div').show();
         } else {
@@ -390,9 +389,7 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
     };
 
     $scope.Slider3D = function (item, ProductGalleryModal) {
-
-    
-        console.log('hhhw');
+   
         $('#loader_div').show();
 
         $http.post(service_url + 'ecommerce/productGallery',
@@ -444,7 +441,6 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
 
            
         });
-        
    
     };
 
@@ -477,6 +473,9 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
 
 
 controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$rootScope', '$controller', '$ngSilentLocation', '$ngBootbox', '$translate', function ($scope, $http, $location, $route, $rootScope, $controller, $ngSilentLocation, $ngBootbox, $translate) {
+
+
+    $scope.upload_url = 'https://www.sedarglobal.com/service/uploads/';
 
     $scope.user_mobile_register = function (isValid) {
         if (isValid == false) {
@@ -676,7 +675,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
             // if(ECC_TEXT_str){
             //     banner_desc = ECC_TEXT_str && ECC_TEXT_str.ECC_TEXT && ECC_TEXT_str.ECC_TEXT.length > 10 ? response.data.collection_banner.ECC_TEXT : response.data.collection_banner.ECI_DESC;    
             // }else{
-                banner_desc= $location.search().desc != undefined ? ($location.search().desc).toUpperCgase() : '';
+                banner_desc= $location.search().desc != undefined ? ($location.search().desc).toUpperCase() : '';
             //}
 
             $scope.cat_desc = $location.search().desc;

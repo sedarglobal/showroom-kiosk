@@ -5,17 +5,16 @@
             <a href="#"><em class="fas fa-bars" ng-click="ShowroomleftSideMenu(true)"></em></a>
         </div>
         <div class="productheading">
-            <h1> <span class="PorterBold">Curtain</span> <span>&</span> <span class="PorterBold"> drapes</span></h1>
+            <!-- <h1> <span class="PorterBold">Curtain</span> <span>&</span> <span class="PorterBold"> drapes</span></h1>
             <p>We develop & bring international trends to deliver world class designs <br> to our customers. Imbibed in
                 each of our products are features like <br> robust construction, durability and long-lasting
-                performance.</p>
+                performance.</p> -->
+                <p ng-bind-html="product_cat[0].EPG_MORE | htmlSafe">{{product_cat[0].EPG_MORE}}  </p>    
         </div>
         <div class="Singleproductslider">
             
             <div class="container">
                 <div class="col-md-12">
-
-                   
 
                     <div class="owl-carousel owl-theme" id="productslidershow">
                         
