@@ -996,6 +996,101 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
     };
    
 }]);
+
+controllers.controller('materialFamily', ['$scope', '$http', '$location', '$controller', '$rootScope', '$ngBootbox', '$translate', function ($scope, $http, $location, $controller, $rootScope, $ngBootbox, $translate) {
+
+    
+    window.scrollTo(0, 0);
+    $('.viewHeight').css('opacity', 0);
+    $scope.ecm_code = $location.search().id;
+    $scope.if_code = $location.search().if;
+    $scope.prod_code = $location.search().prod_id;
+    $scope.cat_code = $location.search().cat_code;
+    $scope.selectedIndex = 0;
+
+    $scope.free_sample_text = $translate.instant('free_sample');
+    $scope.added_text = $translate.instant('added');
+    
+   
+    $scope.getIfMaterial = function (if_code, prod_code, ecm_code) {
+        $('#loader_div').show();
+        var prod_code = _.isEmpty(prod_code) == true ? 0 : prod_code;
+        $http.post(service_url + 'ShowroomApi/getFamily_Mat/' + prod_code + '/' + ecm_code,
+            { cache: true }).then(function (response) {
+                $('#loader_div').hide();
+                $('.viewHeight').css('opacity', '');
+                $scope.material_info = response.data.material_info[0];
+                $scope.life_style_info=response.data.life_style_info;
+                $scope.family = response.data.material_info.family;
+                $scope.guideline = response.data.guideline;
+                $scope.pattern = response.data.pattern;
+                $scope.detail = response.data.detail;
+                $scope.product = response.data.product;
+                $scope.status = response.data.status;
+
+                
+
+                $scope.imageZoomLoad = function () {
+                    imageZoom("myimage", "myresult");
+                };
+
+                setTimeout(function () {
+                    $scope.imageZoomLoad();
+                    $('.feature_and_benefit').find('img').remove();
+                    $('.how_to').remove();
+                    $('.feature_and_benefit p')[1].remove();
+                }, 500);
+            });
+    };
+    
+    $scope.getIfMaterial($scope.if_code, $scope.prod_code, $scope.ecm_code);
+    $scope.selectedtab = 0;
+    $scope.navtab = function (val, pattern) {
+        //$scope.selectedtab = val;
+        $scope.loader = true;
+        $http.post(service_url + 'ShowroomApi/similarmaterial/' + $scope.ecm_code + '/' + $scope.prod_code + '/' + pattern, {
+            cache: true
+        }).then(function (response) {
+            $scope.detail = response.data.detail;
+            $scope.status = response.data.status;
+            $scope.loader = false;
+        });
+    };
+    $scope.lifeStyle = function (img) {
+
+        var img_src = image_upload + img;
+        //console.log(img_src);
+        //$('#myresult').css('')
+        $('#myimage').attr('src', img_src);
+        $('#myresult').css('background-image', 'url(' + img_src + ')');
+    }
+
+    $scope.nonProduct = function (mat_family, ifCode, singleFamily) {
+        var data = singleFamily == undefined ? mat_family : singleFamily;
+        $('#nonDirect' + data.ECM_IF_CODE).removeClass('hide');
+        $('#addDirect' + data.ECM_IF_CODE).addClass('hide');
+        $scope.material_checkout(data, 'NON_PRODUCT');
+    };
+
+    $scope.tooltipstertooltip = function (tooltipitem) {
+
+        $scope.productList = tooltipitem;
+
+        var matrial_options = {
+            templateUrl: $scope.temp_path + 'popup/product.html?v='+version,
+            scope: $scope,
+            // backdrop: false,
+            title: 'SELECT MODEL FOR YOUR CURTAIN',
+            className: 'material_popup',
+            onEscape: function () {
+            }
+        };
+        $ngBootbox.customDialog(matrial_options);
+
+
+    };
+}]);
+
 controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$http', '$route', '$ngBootbox', '$controller', '$translate', 'threeJS',function ($scope, $rootScope, $location, $http, $route, $ngBootbox, $controller, $translate,threeJS) {
 
     

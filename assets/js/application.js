@@ -46,7 +46,15 @@ var myApp = angular.module("acs", ['acs.controllers', 'acs.filters','acs.service
 					return $translate.onReady();
 					}]
 				}
-			})
+			}).when('/material', {
+                controller: 'materialFamily',
+                templateUrl: temp_path + 'sample/material.html?v='+version,
+                resolve: {
+                translateReady: ['$translate', function ($translate) {
+                    return $translate.onReady();
+                    }]
+                }
+            })
             .otherwise({
                 redirectTo: '/'
             });
