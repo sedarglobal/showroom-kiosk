@@ -55,43 +55,6 @@ controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScop
    
 };
 
-    // $http({method : 'GET',url : 'https://api.parse.com/1/classes/Users', headers: { 'X-Parse-Application-Id':'XXXXXXXXXXXXX', 'X-Parse-REST-API-Key':'YYYYYYYYYYYYY'}})
-    // .success(function(data, status) {
-    //     $scope.items = data;
-    //     })
-    // .error(function(data, status) {
-    //     alert("Error");
-    // });
-
-
-    // $http.get('https://www.sedarglobal.com/service/ecommerce/getHomeList',{
-    //     cache : true
-    // }).then(function (response) {
-    //     if (response.data.status) {
-    //         $rootScope.shopping = response.data.shopping;
-    //         $scope.$root.country_list = response.data.COUNTRY;
-    //         $scope.$root.page_head = response.data.PAGE_HEAD;
-    //         $scope.$root.category = response.data.category;
-    //         $scope.$root.sedar_catalog = dataGroup(response.data.PAGE_HEAD[4].PAGE_LINE, 4);
-    //         store.set('categoryRecord', response.data.category);
-    //         $scope.geo_location =  response.data.SITE_REGION.GEO_COUNTRY;
-    //         if($location.$$search["country"]){
-    //             $scope.$root.office_country = $location.$$search["country"];
-    //         }else{
-    //             $scope.$root.office_country = $scope.geo_location ? $scope.geo_location : 'AE';
-    //         }
-            
-    //         $scope.$root.site_region = response.data.SITE_REGION;
-    //         $scope.$root.exc_rate = response.data.exc_rate;
-
-    //         setTimeout(function () {
-    //             $('.selectpicker').selectpicker('refresh');
-    //             //$scope.beInspired();
-    //         }, 500);
-    //     }
-    // });
- 
-  
     
 }]);
 
@@ -236,52 +199,6 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
 
 
 
-
-    // $scope.loadMoreItem = function () {
-    //     if ($scope.item_start_page < $scope.item_count && item_ajax == true) {
-    //         item_ajax = false;
-    //         $scope.productItem();
-    //     }
-
-    // };
-
-
-
-    // $scope.productGallery = function (item,Id) {
-    //     $('#loader_div').show();
-        
-    //     document.getElementById(Id).style.display = "block";
-
-    //     $http.post(service_url + 'ecommerce/productGallery',
-    //         {
-    //             cache: true,
-    //             id: item.ECI_CODE
-    //         }).then(function (response) {
-    //             $scope.product_gallery = response.data[0];
-    //             $scope.gallery = response.data;//dataGroup(response.data, 6);
-
-    //             setTimeout(function(){
-    //                 $('#slideshow').find('.thumb').on('click', function() {
-    //                     loadClickedImage($(this).data('thumb-id'));
-    //                 });
-    //             },500);
-    //             console.log($scope.gallery);
-                
-    //             $('#loader_div').hide();
-    //         });
-
-    // };
-   
-
-
-
-
-    // $scope.galleryPopupView = function ($val) {
-    //     $scope.product_gallery = $val;
-    // };
-
-
-
   
     $scope.clear = function (category_code) {
         $scope.categoryPanel = false;
@@ -305,7 +222,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
             }
 
         });
-        $http.post(service_url + 'ecommerce/productList/' + ECP_CODE,
+        $http.post(service_url + 'ShowroomApi/productList/' + ECP_CODE,
             { product_id: $scope.productArray, brand_id: $scope.brandArray }
         ).then(function (response) {
             $('.brand_info').addClass('disabled');
@@ -392,7 +309,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
    
         $('#loader_div').show();
 
-        $http.post(service_url + 'ecommerce/productGallery',
+        $http.post(service_url + 'ShowroomApi/productGallery',
         {
             cache: true,
             id: item.ECI_CODE
@@ -482,7 +399,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
             $scope.submitted = true;
         } else {
             store.remove('user_mobile');
-            $http.post(service_url + 'ecommerce/user_mobile_register', {
+            $http.post(service_url + 'ShowroomApi/user_mobile_register', {
                 data: $scope.input
             }).then(function (response) {
                 $scope.waiting = false;
@@ -808,7 +725,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
 
     $scope.filter = function (type, $code) {
         $scope.selectedIndex = type;
-        $http.post(service_url + 'ecommerce/filter',
+        $http.post(service_url + 'ShowroomApi/filter',
             { ECI_CODE: $code }
         ).then(function (response) {
             $scope.brand_list = response.data.brand_list;
@@ -860,7 +777,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
         }
 
         if (type == 'brand') {
-            $http.post(service_url + 'ecommerce/getCollectionByBrand/' + $scope.product_id,
+            $http.post(service_url + 'ShowroomApi/getCollectionByBrand/' + $scope.product_id,
                 {
                     BR_CODE: $scope.filterArray['brand'],
                     ECC_CODE: $location.search().ecc_code && $location.search().ecc_code.length>0 ?$location.search().ecc_code.split(',') : ''
@@ -875,7 +792,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
         $('#loader_div').show();
         $scope.materialSection = false;
         $scope.category_desc = $desc;
-        $http.post(service_url + 'ecommerce/getSampleProduct/' + category_code + '/' + $code,
+        $http.post(service_url + 'ShowroomApi/getSampleProduct/' + category_code + '/' + $code,
             { cache: true }
         ).then(function (response) {
             $scope.item = response.data.item;
@@ -1366,7 +1283,7 @@ controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$ht
     
     $http({
         method: 'POST',
-        url:service_url + 'ecommerce/customizing',
+        url:service_url + 'ShowroomApi/customizing',
         data:$.param({ ECI_CODE: ECI_CODE, cart_id: cart_id, matrial_id: matrial_id, cache: true }),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).then(function (response) {
@@ -1804,7 +1721,7 @@ var list_lenth=$('.style_curtain').length
 
             $http({
                 method: 'POST',
-                url:service_url + 'ecommerce/stepSection',
+                url:service_url + 'ShowroomApi/stepSection',
                 data:$.param({ cache: true, item_id: $scope.item_id, step_id: step_id, system_id: setp_obj.EIS_SYS_ID, eis_code: setp_obj.EIS_CODE, collection_id: $scope.collection_selected, base_type: $scope.base_selected, start_page: start_page, per_page: per_page, filterArray: $scope.filterArray, matrial_id: matrial_id, material_code: $scope.BorderFamily_selected, step_option_Code: step_option}),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (response) {
@@ -2076,7 +1993,7 @@ var list_lenth=$('.style_curtain').length
         $('#search_matrialID').val('');
         var start_page = $scope.midd102[index].color.length + 1;
         var per_page = $scope.midd102[index].color.length + 9;
-        $http.post(service_url + 'ecommerce/loadMoreColor',
+        $http.post(service_url + 'ShowroomApi/loadMoreColor',
             { cache: true, item_id: $scope.item_id, collection_id: collection_id, start_page: start_page, per_page: per_page, filterArray: $scope.filterArray }
         ).then(function (response) {
             for (var i = 0; i < response.data.data.length; i++) {
@@ -2092,7 +2009,7 @@ var list_lenth=$('.style_curtain').length
         $('#search_matrialID').val('');
         var start_page = $scope.color_data1480.length + 1;
         var per_page = $scope.color_data1480.length + 9;
-        $http.post(service_url + 'ecommerce/loadMoreColor',
+        $http.post(service_url + 'ShowroomApi/loadMoreColor',
             { cache: true, item_id: $scope.item_id, collection_id: collection_id, start_page: start_page, per_page: per_page, filterArray: $scope.filterArray }
         ).then(function (response) {
             for (var i = 0; i < response.data.data.length; i++) {
@@ -2111,7 +2028,7 @@ var list_lenth=$('.style_curtain').length
                 if(['5964','5957','5965','68243','5941','5978','5954'].indexOf($scope.category_code)>=0){
                     $scope.filterArray['m_width'] = '';
                 }
-                $http.post(service_url + 'ecommerce/stepSection',
+                $http.post(service_url + 'ShowroomApi/stepSection',
                     { cache: true, item_id: ECI_CODE, step_id: 102, eis_code: 'STEP', start_page_collection: start_page_collection, filterArray: $scope.filterArray }
                 ).then(function (response) {
                     console.log(response);
@@ -2129,7 +2046,7 @@ var list_lenth=$('.style_curtain').length
     $scope.colorstep = function ($postData) {
 
         $scope.showLoadmore = true;
-        $http.post(service_url + 'ecommerce/colorstep',
+        $http.post(service_url + 'ShowroomApi/colorstep',
             { cache: true, data: $postData, filterArray: $scope.filterArray}
         ).then(function (response) {
             if (response.data.status) {
@@ -2209,7 +2126,7 @@ var list_lenth=$('.style_curtain').length
         //    $scope.load_more = true;
         var search_matrial = $('#search_matrialID').val().replace(/ /g, "");
         if (search_matrial.length > 1) {
-            $http.post(service_url + 'ecommerce/searchMatrial/' + search_matrial,
+            $http.post(service_url + 'ShowroomApi/searchMatrial/' + search_matrial,
                 { cache: true, item_id: $scope.item_id, filterArray: $scope.filterArray }
             ).then(function (response) {
                 $scope.midd102 = response.data.data;
@@ -2414,7 +2331,7 @@ var list_lenth=$('.style_curtain').length
         console.log($scope.mat_row);
         console.log(ecc_code);
         console.log($scope.mat_row[ecc_code]);
-        $http.post(service_url + 'ecommerce/materialIfCode/' + ecc_code + '/' + prod_code + '/' + $scope.mat_row[ecc_code] + '/' + $scope.mat_perpage, {
+        $http.post(service_url + 'ShowroomApi/materialIfCode/' + ecc_code + '/' + prod_code + '/' + $scope.mat_row[ecc_code] + '/' + $scope.mat_perpage, {
             cache: true
         }).then(function successCallback(response) {
             //console.log(response.data.material);
@@ -2487,7 +2404,7 @@ var list_lenth=$('.style_curtain').length
         $scope.lining_option_yn='Y';
         $scope.border_option_yn='Y';
         //  $scope.middletemplate = '';
-        $http.post(service_url + 'ecommerce/getStep',
+        $http.post(service_url + 'ShowroomApi/getStep',
             { ECI_CODE: obj.ECI_CODE, cache: true }
         ).then(function (response) {
             $scope.cont_step = response.data.data;
@@ -2515,7 +2432,7 @@ var list_lenth=$('.style_curtain').length
 
             $http({
                 method: 'POST',
-                url:service_url + 'ecommerce/filter',
+                url:service_url + 'ShowroomApi/filter',
                 data:$.param( { ECI_CODE: ECI_CODE, ECI_ECP_CODE: $scope.itemProduct_array[0],ECC_CODE:$location.search().ecc_code ? $location.search().ecc_code.split(',') : '', cache: true }),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (response) {
@@ -3401,7 +3318,7 @@ var list_lenth=$('.style_curtain').length
 
 
     $scope.panelTrackStep = function (item_code, step_code) {
-        $http.get(service_url + 'Ecommerce/getmaterail_step/' + step_code).then(function (response) {
+        $http.get(service_url + 'ShowroomApi/getmaterail_step/' + step_code).then(function (response) {
             $scope.panelTrack = response.data;
             console.log($scope.panelTrack.EIS_DESC_EN);
             var step_obj2 = {
@@ -3435,7 +3352,7 @@ var list_lenth=$('.style_curtain').length
 
         if(($width>1 && $height>1) || $qty>0){
         //console.log(step_code + ',' + $item_product + ',' + $component_type + ',' + $type + ',' + $width + ',' + $height + ',' + $params1 + ',' + $params2 + ',' + $params3 + ',' + $params4 + ',' + $params5 + ',' + $qty + ',' + $ref_option + ',' + $materialType);
-        $http.post(service_url + 'Ecommerce/getmotor_bracket', {
+        $http.post(service_url + 'ShowroomApi/getmotor_bracket', {
             cache: true, item_product: $item_product, component_type: $component_type, p_type: $type, width: $width, height: $height, params1: $params1, params2: $params2, params3: $params3, params4: $params4, params5: $params5, qty: $qty, ref_option: $ref_option, materialType: $materialType, reserve_stock: $reserve_stock
         }).then(function (response) {
             //console.log(response.data);
@@ -3479,7 +3396,7 @@ var list_lenth=$('.style_curtain').length
                         
                         var base64_img = threeJS.canvasImg();
                         $('#loader_div').show();
-                        $http.post(service_url + 'ecommerce/checkout',
+                        $http.post(service_url + 'ShowroomApi/checkout',
                             { price_list: $scope.price_array, step_array: $scope.step_array, item_list: $scope.itemProduct_array, rowid: cart_id, qty: $scope.qty.value, base64_img: base64_img, formula_qty: $scope.formula_qty, total_price: $scope.total_price, product_yn: $scope.productYN }
                         ).then(function (response) {
                             $scope.add_more_item = false;
@@ -4435,7 +4352,7 @@ var list_lenth=$('.style_curtain').length
         $scope.motorized = {
             name: item.EIS_CODE
         };
-        $http.post(service_url + 'Ecommerce/getmotor_dimension', {
+        $http.post(service_url + 'ShowroomApi/getmotor_dimension', {
             item_product: item.EIS_ECI_CODE, component_type: 'MOTOR', p_type: 1, width: $scope.measurement_width.value, height: $scope.measurement_height.value, params1: item.EIS_CODE, params2: '', params3: '', params4: '', params5: $scope.qty.value
         }).then(function (response) {
             //console.log(response.data);
@@ -4771,7 +4688,7 @@ var list_lenth=$('.style_curtain').length
             $scope.zig_zagImg.push(material_data.ECI_CODE);
         }
         var ECM_ECI_CODE = material_data.ECM_ECI_CODE;
-        $http.post(service_url + 'ecommerce/getFamilyMatrialImg/' + ECM_IF_CODE + '/' + ECM_ECI_CODE, {
+        $http.post(service_url + 'ShowroomApi/getFamilyMatrialImg/' + ECM_IF_CODE + '/' + ECM_ECI_CODE, {
             cache: true
         }).then(function (response) {
             $scope.family_img = dataGroup(response.data.family_img, 6);
@@ -5012,7 +4929,7 @@ var list_lenth=$('.style_curtain').length
         if (isValid == false) {
             $scope.submitted = true;
         } else {
-            $http.post(service_url + 'ecommerce/user_mobile_register', {
+            $http.post(service_url + 'ShowroomApi/user_mobile_register', {
                 data: $scope.input
             }).then(function (response) {
                 $scope.waiting = false;
