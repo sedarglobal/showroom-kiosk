@@ -654,7 +654,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
 
                 angular.forEach(response.data.familyGroup, function (item) {
                     
-                    $scope.freesample_addtocart(item);
+                   // $scope.freesample_addtocart(item);
 
                     if($scope.collectionGroup[item.COLLECTION_DESC]==undefined){
                         $scope.collectionGroup[item.COLLECTION_DESC]=[];
@@ -1749,7 +1749,7 @@ var list_lenth=$('.style_curtain').length
 
                         if($scope.filterArray['tag'] != 'Sale'){
                             angular.forEach(response.data.familyGroup, function (item) {
-                                $scope.freesample_addtocart(item);
+                              //  $scope.freesample_addtocart(item);
 
                                 if($scope.collectionGroup[item.ECC_DESC]==undefined){
                                     $scope.collectionGroup[item.ECC_DESC]=[];
@@ -2056,7 +2056,7 @@ var list_lenth=$('.style_curtain').length
                 
                 if($scope.filterArray['tag'] != 'Sale'){
                     angular.forEach(response.data.familyGroup, function (item) {
-                        $scope.freesample_addtocart(item);
+                        //$scope.freesample_addtocart(item);
 
                         if($scope.collectionGroup[item.ECC_DESC]==undefined){
                             $scope.collectionGroup[item.ECC_DESC]=[];
@@ -2085,23 +2085,23 @@ var list_lenth=$('.style_curtain').length
        
     
     
-    $scope.freesample_addtocart = function(if_material)
-    {
+    // $scope.freesample_addtocart = function(if_material)
+    // {
 
-        $scope.family_material[if_material.IF_CODE] = if_material.family;
-        if (if_material.family && $scope.non_product) {
-            setTimeout(function () {
-                var index = $scope.non_product.indexOf($scope.family_material[if_material.IF_CODE][0].ECM_CODE);
-                var val = index >= 0 ? $rootScope.noneProductKey[index].EOL_QTY : '';
-                $scope.qty[if_material.IF_CODE] = { value: val != '' ? val : 1 };
-            }, 500);
-        }
+    //     $scope.family_material[if_material.IF_CODE] = if_material.family;
+    //     if (if_material.family && $scope.non_product) {
+    //         setTimeout(function () {
+    //             var index = $scope.non_product.indexOf($scope.family_material[if_material.IF_CODE][0].ECM_CODE);
+    //             var val = index >= 0 ? $rootScope.noneProductKey[index].EOL_QTY : '';
+    //             $scope.qty[if_material.IF_CODE] = { value: val != '' ? val : 1 };
+    //         }, 500);
+    //     }
         
-        angular.forEach(if_material.family, function (family_material) {
-            $scope.addtoCartBtn[family_material.ECM_CODE] = true;
-            $scope.singleFamily[family_material.ECM_CODE] = family_material;
-        });
-    };
+    //     angular.forEach(if_material.family, function (family_material) {
+    //         $scope.addtoCartBtn[family_material.ECM_CODE] = true;
+    //         $scope.singleFamily[family_material.ECM_CODE] = family_material;
+    //     });
+    // };
 
 
     $scope.loadMore_colorstep = function (step_code) {
