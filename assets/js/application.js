@@ -1,4 +1,4 @@
-var myApp = angular.module("acs", ['acs.controllers', 'acs.filters', 'ngRoute','ngBootbox','pascalprecht.translate'])
+var myApp = angular.module("acs", ['acs.controllers', 'acs.filters', 'acs.directives', 'ngRoute','ngBootbox','pascalprecht.translate'])
     .config(['$routeProvider', '$locationProvider', '$translateProvider', function ($routeProvider, $locationProvider,$translateProvider) {
         $locationProvider.html5Mode({
             enabled: true,
@@ -38,6 +38,15 @@ var myApp = angular.module("acs", ['acs.controllers', 'acs.filters', 'ngRoute','
                     }]
                 }
             })
+            .when('/material', {
+				controller: 'materialFamily',
+				templateUrl: temp_path + 'sample/material.html?v='+version,
+				resolve: {
+				translateReady: ['$translate', function ($translate) {
+					return $translate.onReady();
+					}]
+				}
+			})
             .otherwise({
                 redirectTo: '/'
             });

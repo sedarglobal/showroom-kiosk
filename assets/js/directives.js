@@ -1289,7 +1289,27 @@ angular.module('acs.directives', [])
                     });
                 }
             };
-        }]);
+        }])
+    .directive('pajinatifydir', function(){
+        return{
+            restrict: 'A',
+            link: function(scope, element, attrs){
+
+                scope.$watch(function () {
+                    $('.pagination').pajinatify({
+                        onChange: function (currentPage) {
+                            scope.selectPage(currentPage,location.search.split('id=')[1].split('&')[0]);
+                        },
+                        // debug: 1
+                    });
+                
+                    $('.pagination').pajinatify('set', parseInt(location.search.split('page=')[1]), scope.totalItems);
+                
+                });
+            }
+
+        };
+    });
 
 
 

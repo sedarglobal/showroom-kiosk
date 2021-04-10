@@ -54,7 +54,6 @@
         width: 220px;
     }
 </style>
-<!-- <div class="banner_top innerpage mb-50 wrapper_top_w3layouts" id="home"></div> -->
 <br>
 <div id="mtopFullImage" class="mtop_overlay" onclick="fullscreenBoxClose('mtopFullImage')">
     <div class="mtopclosebtn fal fa-times" onclick="fullscreenBoxClose('mtopFullImage')" title="close"></div>
@@ -122,21 +121,7 @@
                 <p class="font_15 font-weight-bold" translate="brand">Brand</p>
                 <img class="brand_icon lazyload" ng-src="{{material_info.BRAND_LOGO}}" ng-class="{widthauto: material_info.ECM_BR_CODE == 04 }" />
             </div>
-            <div class="col-sm-12 col-xs-12 nopadding mb-20 " ng-if="shopping == true && server_name == true">
-                <p ng-if="material_info.ECI_SHOW_PRICE_YN == 'Y'">
-                    <del ng-if="material_info.PRICE_OFFER_PCT > 0  && material_info.ECI_ALLOW_ADD_TO_CART_YN == 'C'">{{total_ccy_code}} {{material_info.PRICE_WAS_MC | number:ccy_decimal}}</del> &nbsp;
-                    <!-- <span class="item_price">{{total_ccy_code}} {{material_info.PRICE| number:ccy_decimal}}</span> -->
-                    <span class="item_price" ng-if="material_info.ECI_ALLOW_ADD_TO_CART_YN == 'C' && material_info.ECI_PRODUCT_YN == 'Y'"><span style="letter-spacing: 0;font-size: 11px;font-weight: bold; {{material_info.PRICE_OFFER_PCT > 0 ? '' : 'margin-left: -8px;'}}"> <b translate="From">From</b> </span> {{total_ccy_code}} {{material_info.PRICE_MC | number:ccy_decimal}}</span>
-                    <span class="item_price" ng-if="material_info.ECI_ALLOW_ADD_TO_CART_YN == 'C' && material_info.ECI_PRODUCT_YN == 'N'" style="{{material_info.PRICE_OFFER_PCT > 0 ? '' : 'margin-left: -8px;'}}">{{total_ccy_code}} {{material_info.PRICE_MC | number:ccy_decimal}} / {{material_info.ECM_UOM_INITCAP}}</span>
-           
-                </p>
-                <span  class="price_off label label-primary" ng-if="material_info.PRICE_OFFER_PCT > 0  && material_info.ECI_ALLOW_ADD_TO_CART_YN == 'C'" style="display: inline;padding: .2em .6em .3em;font-size: 90%;font-weight: 700;line-height: 1;text-align: center;white-space: nowrap;vertical-align: baseline;border-radius: .25em;background: rgba(225, 225, 225, 0.89) none repeat scroll 0% 0%;"><b translate="off_value" translate-values="{val: '{{material_info.PRICE_OFFER_PCT}}' }">{{material_info.PRICE_OFFER_PCT}}% OFF </b></span>
-
-                <!-- <span>
-                    <i class="fas fa-info-circle" ng-click="matrialPopup(item)"></i>
-                </span> -->
-            </div>
-
+            
             <div class="col-md-3" ng-if="material_info.FREE_DEL_INST_YN == 'FREE_DEL_INST_Y'" style="padding: 0px 0px 8px 0px;">                                                       
                 <img ng-src="{{asset_img}}Installation-Icon.png" alt="Free Delivery with installation" title="Free Delivery with installation" style="height: auto;width: 76px;"/>
             </div>
@@ -144,22 +129,6 @@
             <div class="col-md-12 promocode" style="padding: 0px 0px 8px 0px; position: inherit;"  ng-if="material_info.PROMO == 'B1G1'">
                 <p class="promocode_p" style="margin-bottom: 5px;" translate="b1g1_promo">Buy 1 Get 1: Use Code B1G1</p>
             </div>
-
-            <div class="col-sm-12 col-xs-12 mb-25 nopadding" ng-if="shopping == true && material_info.ECI_ALLOW_ADD_TO_CART_YN == 'C' && server_name == true">
-                <p>{{material_info.DELIVERY_DAYS}}</p>
-            </div>
-
-            <!-- <div class=" color-quality">
-                <div class="text-left col-md-12 nopadding mb-20">
-                    <div class="col-md-2 col-sm-3 col-xs-3 quality_text nopadding">
-                        Quantity :
-                    </div>
-                    <div class="col-md-2 col-sm-3 nopadding">
-                        <div class="item_quantity" counter value="quantity2" min="1" max="30" editable></div>
-                    </div>
-                </div>
-            </div> -->
-
 
             <div class="col-md-4 col-sm-6 col-xs-6 padding_left0  right-side mb-15" ng-if="shopping == true">
                 <div class="col-md-12 col-sm-12 col-xs-12 nopadding">
@@ -302,13 +271,6 @@
                     <li ng-class="{active:selectedtab == key}" ng-repeat="(key, row) in pattern | limitTo : 5" ng-click="navtab(key, row.ECM_ITEM_PATTERN, row.ECM_ECI_CODE)"  ng-if="row.detail != ''">
                         <a data-toggle="tab" translate="{{row.PATTERN_DESC}}">{{row.PATTERN_DESC}}</a>
                     </li>
-                    <!-- <li ng-class="{active:selectedIndex==0}"><a data-toggle="tab"  ng-click="navtab(0)">Plain</a></li>
-                    <li ng-class="{active:selectedIndex==1}"><a data-toggle="tab"  ng-click="navtab(1)">Stripes</a></li>
-                    <li ng-class="{active:selectedIndex==2}"><a data-toggle="tab"  ng-click="navtab(2)">Design</a></li>
-                    <li ng-class="{active:selectedIndex==3}"><a data-toggle="tab"  ng-click="navtab(3)">Floral</a></li>
-                    <li ng-class="{active:selectedIndex==4}"><a data-toggle="tab"  ng-click="navtab(4)">Panel</a></li> -->
-
-
                 </ul>
             </div>
 
@@ -339,23 +301,15 @@
         </div>
     </div>
 </div>
-<div class="col-md-12  col-sm-12 col-xs-12 normalpagefooter" ng-include="temp_path + 'home/footer.html?v='+version" ></div>
 
 <script>
      
-     mouseovershowhide("img-zoom-container", "myimage", "myresult"); 
+    mouseovershowhide("img-zoom-container", "myimage", "myresult"); 
     
-
-    
-        
-     
-            $(document).ready(function () {  
+        $(document).ready(function () {  
                    
             setTimeout(function () { 
-               // if( $(window).width() > 992){  
                
-               
-                //}
                 window.document.onkeydown = function (e) {
                     if (!e) {
                         e = event;
@@ -365,16 +319,17 @@
                     }
                 }
                 
-                }, 500);
-            });
-            function pdf_vedio_open() {
-                var materialBoxVideo = document.getElementById("myVideo");
-                document.getElementById('material-vedio').style.display = 'block';
-                document.getElementById('fade').style.display = 'block';
-                materialBoxVideo.play();
-            }
+            }, 500);
+        });
 
-            function lightbox_close() {
+        function pdf_vedio_open() {
+            var materialBoxVideo = document.getElementById("myVideo");
+            document.getElementById('material-vedio').style.display = 'block';
+            document.getElementById('fade').style.display = 'block';
+            materialBoxVideo.play();
+        }
+
+        function lightbox_close() {
                 var materialBoxVideo = document.getElementById("myVideo");
                 document.getElementById('material-vedio').style.display = 'none';
                 document.getElementById('fade').style.display = 'none';
