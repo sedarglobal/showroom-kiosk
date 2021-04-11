@@ -1,4 +1,4 @@
-var myApp = angular.module("acs", ['acs.controllers', 'acs.filters','acs.services', 'ngRoute','ngBootbox','pascalprecht.translate','ngMaterial'])
+var myApp = angular.module("acs", ['acs.controllers', 'acs.filters','acs.services', 'ngRoute','ngBootbox','pascalprecht.translate','ngMaterial', 'ui.bootstrap', 'ngAnimate', 'ngMessages'])
     .config(['$routeProvider', '$locationProvider', '$translateProvider', function ($routeProvider, $locationProvider,$translateProvider) {
         $locationProvider.html5Mode({
             enabled: true,
