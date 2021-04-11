@@ -1,0 +1,171 @@
+<style>
+.colorSection_popup .color_popup .panel-heading{
+    padding: 0;
+
+}
+.colorSection_popup .color_popup #filters{
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.colorSection_popup .bootbox-close-button.close{
+    color: #ffffff;
+    opacity: 1;
+    
+}
+.colorSection_popup .modal-content{
+    border-radius: 0;
+    
+}
+
+.colorSection_popup .modal-header{
+    background-color: #000000c2;
+    cursor: all-scroll;
+    
+}
+.qtip-light{
+    z-index: 1112 !important;
+}
+.colorSection_popup + .modal-backdrop{
+    background:transparent;
+
+}
+.colorSection_popup .productTile{
+        width: 23.5%; 
+}
+
+
+
+</style>
+<script>
+
+
+  
+  $(document).ready(function(){
+    $( ".colorSection_popup .modal-content").draggable();
+    if (window.innerWidth < 767) {     
+       // $( ".colorSection_popup .modal-content").draggable({ cancel: "colorSection_popup .modal-content" });
+       $( ".colorSection_popup .modal-content").draggable( "destroy" );
+    }
+
+    setTimeout(function(){
+        $('.slider-container').mouseover(function() {
+            $( ".colorSection_popup .modal-content").draggable( "destroy" );
+        }).mouseout(function() {
+            $( ".colorSection_popup .modal-content").draggable();
+        });
+    },200);
+    
+        
+});   
+
+
+
+
+
+
+</script>
+
+<div class="row">
+    
+    
+    
+    <div class="col-md-12 col-sm-12 col-xs-12" >
+        <div class="col-md-12 col-sm-12 col-xs-12 nopadding {{server_name == false ? '' : 'hide'}}">
+            <div class="col-md-offset-2  col-md-8 col-sm-8 col-xs-8 nopadding" style="margin-bottom: 15px;">
+                <div class="nopadding nav_search">
+                    <form class="header_search">
+                        <input type="search" id="material_search" class="form-control searchBox" placeholder="{{'search_placeholder'| translate}}"/>
+                        <button class="btn suarch_btn" ng-click="controlSection(cont_step[3]);">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div id="container" class="col-md-1 col-sm-2 col-xs-2 nopadding" style="margin-bottom: 15px; text-align: right;">
+                <a id="btn-scan-qr">
+                    <img src="{{image_path + 'scan.jpg'}}">
+                <a/>
+                
+                <!-- <div id="qr-result" hidden="">
+                    <b>Data:</b> <span id="outputData"></span>
+                </div> -->
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <canvas hidden="" id="qr-canvas"></canvas>
+            </div>
+        </div>    
+        <div class="col-md-12 col-sm-12 col-xs-12 nopadding res_top color_popup"   ng-include="temp_path + 'tool/filters.html?v='+version"></div>
+
+        <div ng-repeat="step in cont_step" ng-if="step.ECS_CODE == '102'" >
+            <div class="col-md-12 col-sm-12 col-xs-12 nopadding slide-animate middletemplate" ng-include="temp_path + 'tool/' + step.ECS_HTML_TEMPLATE_PATH +'?v='+version"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+        //const qrcode = window.qrcode;
+        const video = document.createElement("video");
+        const canvasElement = document.getElementById("qr-canvas");
+        const canvas = canvasElement.getContext("2d");
+
+        //const qrResult = document.getElementById("qr-result");
+        const outputData = document.getElementById("material_search");
+        const btnScanQR = document.getElementById("btn-scan-qr");
+
+        let scanning = false;
+
+        window.qrcode.callback = res => {
+        if (res) {
+            outputData.value = res;
+            scanning = false;
+
+            video.srcObject.getTracks().forEach(track => {
+            track.stop();
+            });
+
+            //qrResult.hidden = false;
+            canvasElement.hidden = true;
+            btnScanQR.hidden = false;
+        }
+        };
+
+        btnScanQR.onclick = () => {
+        navigator.mediaDevices
+            .getUserMedia(
+                { 
+                    video: { 
+                        facingMode: "user", 
+                    } 
+                })
+            .then(function(stream) {
+            scanning = true;
+            //qrResult.hidden = true;
+            btnScanQR.hidden = true;
+            canvasElement.hidden = false;
+            video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
+            video.srcObject = stream;
+            video.play();
+            tick();
+            scan();
+            });
+        };
+
+        function tick() {
+            canvasElement.height = video.videoHeight;
+            canvasElement.width = video.videoWidth;
+            canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+
+            scanning && requestAnimationFrame(tick);
+        }
+
+        function scan() {
+            try {
+                window.qrcode.decode();
+            } catch (e) {
+                setTimeout(scan, 300);
+            }
+        }
+</script>

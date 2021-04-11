@@ -1,11 +1,11 @@
 var controllers = angular.module('acs.controllers', ['ngSilent']);
 
-controllers.controller('root', ['$scope','$translate', function ($scope,$translate) {
+controllers.controller('root', ['$scope','$translate','$rootScope', function ($scope,$translate,$rootScope) {
     
     $scope.temp_path = temp_path;
     $scope.version = version;
-    $scope.image_path = 'images/';
-    $scope.upload_url = 'https://www.sedarglobal.com/service/uploads/';
+    $scope.image_path = image_path;
+   // $scope.upload_url = 'https://www.sedarglobal.com/service/uploads/';
     $scope.s3_image_path = 'https://bkt.sedarglobal.com/';
 
 
@@ -15,6 +15,7 @@ controllers.controller('root', ['$scope','$translate', function ($scope,$transla
 
     bootbox.setDefaults({ 'locale': langKey });
 	
+    $rootScope.upload_url = image_upload;//'https://www.sedarglobal.com/service/uploads/';
    
 }]);
 
@@ -2713,7 +2714,7 @@ var list_lenth=$('.style_curtain').length
 
         $('.all_steps').children('.collapsing').removeClass('in').attr('style', 'height:0');
         
-        if ($scope.advanced_custonize_pro.indexOf($scope.category_code) > -1) {
+        if ($scope.advanced_custonize_pro && $scope.advanced_custonize_pro.indexOf($scope.category_code) > -1) {
 
             
             setTimeout(function () {
@@ -2858,7 +2859,7 @@ var list_lenth=$('.style_curtain').length
         $scope.lining_option_yn=pro_obj.LINING_APP_YN ?pro_obj.LINING_APP_YN :'N';
         $scope.border_option_yn=pro_obj.BORDER_APP_YN?pro_obj.BORDER_APP_YN:'N';
 
-        if($scope.advanced_custonize_pro.indexOf($scope.category_code) >= 0 && $scope.lining_option_yn=='N' && $scope.glassOption_selected!='LIN01'){
+        if($scope.advanced_custonize_pro && $scope.advanced_custonize_pro.indexOf($scope.category_code) >= 0 && $scope.lining_option_yn=='N' && $scope.glassOption_selected!='LIN01'){
             angular.forEach($scope.midd66773, function (parent_item) {
                 angular.forEach(parent_item.child,function(child_item){
                     if(child_item.EIS_CODE=='LIN01'){
@@ -2875,7 +2876,7 @@ var list_lenth=$('.style_curtain').length
 
       
            
-        if($scope.advanced_custonize_pro.indexOf($scope.category_code) >= 0 && $scope.border_selected && $scope.border_option_yn=='N' && $scope.border_selected!='BOR02'){
+        if($scope.advanced_custonize_pro && $scope.advanced_custonize_pro.indexOf($scope.category_code) >= 0 && $scope.border_selected && $scope.border_option_yn=='N' && $scope.border_selected!='BOR02'){
             delete $scope.step_array[1660];
             delete $scope.price_array[1660];
             $('.desc1660').html('');
@@ -3022,7 +3023,7 @@ var list_lenth=$('.style_curtain').length
     $scope.borderSection = function (item, parent_step) {
        
         
-        if($scope.advanced_custonize_pro.indexOf($scope.category_code) >= 0 && $scope.border_option_yn=='N' && item.EIS_CODE!='BOR02'){
+        if($scope.advanced_custonize_pro && $scope.advanced_custonize_pro.indexOf($scope.category_code) >= 0 && $scope.border_option_yn=='N' && item.EIS_CODE!='BOR02'){
             $ngBootbox.alert($translate.instant('border_option_mgs'));
             return true;
         }
@@ -4280,8 +4281,7 @@ var list_lenth=$('.style_curtain').length
                 success: {
                     label: $translate.instant('keep_the_same_selection'),  // "Continue Shopping",
                     className: "btn-Mydefault pull-left",
-                    callback: function () {
-                       // $location.path('productInfo');
+                    callback: function () {                       
                     var remarks_info = {mgs_key:'fabricLimt_mgs_db',fabric_h:$scope.ECM_LENGTH,mes_height:m_height} ;
                     $scope.step_array[107].remarks = JSON.stringify(remarks_info);
                         $scope.$apply();
@@ -4451,7 +4451,7 @@ var list_lenth=$('.style_curtain').length
         delete $scope.price_array[6572];
         $scope.glassColor_selected = '';
         
-        if($scope.lining_option_yn=='N' && item.EIS_CODE!='LIN01' && $scope.advanced_custonize_pro.indexOf($scope.category_code) > -1 && ['5941','5978'].indexOf($scope.category_code)==-1){
+        if($scope.lining_option_yn=='N' && item.EIS_CODE!='LIN01' && $scope.advanced_custonize_pro && $scope.advanced_custonize_pro.indexOf($scope.category_code) > -1 && ['5941','5978'].indexOf($scope.category_code)==-1){
             $ngBootbox.alert($translate.instant('lining_option_mgs'));
             return true;
         }
@@ -4524,7 +4524,7 @@ var list_lenth=$('.style_curtain').length
 
         //sandeep start
 
-        if ($scope.advanced_custonize_pro.indexOf($scope.category_code) > -1) {
+        if ($scope.advanced_custonize_pro && $scope.advanced_custonize_pro.indexOf($scope.category_code) > -1) {
             $scope.StepOptionPrice(6572, item.ECM_ECI_CODE, $scope.glassColor_selected, '', $scope.measurement_width.value, $scope.measurement_height.value, '', '', '', '', $scope.qty.value, $scope.base_desc, '', 'material', $scope.reserve_stock);
         } else {
             $scope.StepOptionPrice(6572, item.ECM_ECI_CODE, $scope.glassColor_selected, '', $scope.measurement_width.value, $scope.measurement_height.value, '', '', '', '', $scope.qty.value, $scope.base_desc);

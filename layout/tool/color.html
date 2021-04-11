@@ -95,11 +95,11 @@
                             <div class="men-thumb-item mb-5">
                                 <div class="productImageWrap hasRollover">
                                     <div class="prodImgContain">
-                                        <p class="image-caption" style="background: #060606b0;width: 70px;position: absolute;color: #fff !important;">
+                                        <!-- <p class="image-caption" style="background: #060606b0;width: 70px;position: absolute;color: #fff !important;">
                                             <strong ng-repeat="mat_family in material.family | limitTo : 1">
                                                 <span id="offer_{{material.ECM_CODE}}" class="label"  ng-if="mat_family.PRICE_OFFER_PCT > 0 && mat_family.ECI_ALLOW_ADD_TO_CART_YN == 'C'" translate="off_price" translate-values="{price:{{mat_family.PRICE_OFFER_PCT}}}">{{mat_family.PRICE_OFFER_PCT}}% OFF</span>
                                             </strong>
-                                        </p>
+                                        </p> -->
                                         <div class="item active act{{material.ECM_CODE}}" ng-class="{active_icon: group[mat_key].ECM_CODE == color_selected}">
                                             <img class="thumb_swatch" id="applyFamImg{{material.ECM_CODE}}" data-num="{{mat_key}}" ng-src="{{group[mat_key].ECM_THUMBNAIL_IMAGES?upload_url+group[mat_key].ECM_THUMBNAIL_IMAGES.replace('$$/', ''):back_side_img.indexOf(group[mat_key].ECM_ECI_CODE) < 0 ? upload_url + group[mat_key].ECM_IMAGE_PATH.replace('$$/', '')  : upload_url + group[mat_key].ECM_BACK_SIDE_TEXTURE_IMG_PATH.replace('$$/', '')}}" title="{{group[mat_key].ECM_TOOL_TIP}}" alt="{{group[mat_key].ECI_SEO_TAG?group[mat_key].ECI_SEO_TAG:'Material Title'}}" ng-click="colorSection(group[mat_key], step, 'direct', group[mat_key].ECM_CODE)">
                                             <a class="floatLeft customize_{{material.ECM_CODE}}" href="customizing/{{cat_code}}/{{material.ECM_ECI_CODE}}/{{material.ECM_CODE}}"  ng-if="mat_family.ECI_ALLOW_ADD_TO_CART_YN == 'C'">
@@ -110,24 +110,19 @@
                                 </div>
                             </div>		
                     
-                    
                             <div class="prodTileContent item-info-product" ng-repeat="mat_family in material.family| limitTo : 1">
                                 <div class="info-product-price">
-                                    <div class="tileColors mrT0">
+                                    <!-- <div class="tileColors mrT0">
                                         <div class="moreColors moreIF{{material.ECM_CODE}}"></div>
                                         <ul class="colorSwatches"> 
-
                                             <li class="{{key == 0 ? 'active': ''}}"  ng-repeat="(key, family) in material.family" data-was_price="{{family.PRICE_WAS_MC}}" data-price="{{family.PRICE_MC}}" data-colorid="{{material.ECM_CODE}}" data-colorizedroom="{{family.ECM_THUMBNAIL_IMAGES?upload_url+family.ECM_THUMBNAIL_IMAGES.replace('$$/', ''):back_side_img.indexOf(family.ECM_ECI_CODE) < 0 ? upload_url + family.ECM_IMAGE_PATH.replace('$$/', '') : upload_url + family.ECM_BACK_SIDE_TEXTURE_IMG_PATH.replace('$$/', '')}}" data-cat_code="{{cat_code}}" data-ind={{key}} data-family="{{family}}" ng-click="colorSwatches(family,'liswatch', undefined, group[mat_key].ECM_CODE)" ng-if="family.ECM_CODE == group[mat_key].ECM_CODE">
                                                 <img ng-src="{{family.ECM_THUMBNAIL_IMAGES?upload_url+family.ECM_THUMBNAIL_IMAGES.replace('$$/', ''):back_side_img.indexOf(family.ECM_ECI_CODE) < 0 ? upload_url + family.ECM_IMAGE_PATH.replace('$$/', '') : upload_url + family.ECM_BACK_SIDE_TEXTURE_IMG_PATH.replace('$$/', '')}}" title="{{family.ITEM_ID}}" alt="{{family.ECI_SEO_TAG?family.ECI_SEO_TAG:'Material Title'}}" ng-click="material_offerPrice(material,key)" >
                                             </li>
-
                                             <li class="{{key == 0 ? 'active': ''}}"  ng-repeat="(key, family) in material.family" data-was_price="{{family.PRICE_WAS_MC}}" data-price="{{family.PRICE_MC}}" data-colorid="{{material.ECM_CODE}}" data-colorizedroom="{{family.ECM_THUMBNAIL_IMAGES?upload_url+family.ECM_THUMBNAIL_IMAGES.replace('$$/', ''):back_side_img.indexOf(family.ECM_ECI_CODE) < 0 ? upload_url + family.ECM_IMAGE_PATH.replace('$$/', '') : upload_url + family.ECM_BACK_SIDE_TEXTURE_IMG_PATH.replace('$$/', '')}}" data-cat_code="{{cat_code}}" data-ind={{key}} data-family="{{family}}" ng-click="colorSwatches(family,'liswatch', undefined, group[mat_key].ECM_CODE)" ng-if="family.ECM_CODE != group[mat_key].ECM_CODE">
                                                 <img ng-src="{{family.ECM_THUMBNAIL_IMAGES?upload_url+family.ECM_THUMBNAIL_IMAGES.replace('$$/', ''):back_side_img.indexOf(family.ECM_ECI_CODE) < 0 ? upload_url + family.ECM_IMAGE_PATH.replace('$$/', '') : upload_url + family.ECM_BACK_SIDE_TEXTURE_IMG_PATH.replace('$$/', '')}}" title="{{family.ITEM_ID}}" alt="{{family.ECI_SEO_TAG?family.ECI_SEO_TAG:'Material Title'}}" ng-click="material_offerPrice(material,key)" >
                                             </li>
-                                            
                                         </ul>
-                                        
-                                    </div>
+                                    </div> -->
                     
                                     <div class="col-md-12 col-sm-12 col-xs-12 nopadding mb-5 bordTop">
                                         <!-- <div class="col-md-6 col-xs-12 nopadding text-left">
@@ -177,58 +172,6 @@
                 </div>
         </div> 
 
-      <!--  <div class="productTile product-men" ng-repeat="(mat_key, material) in familyGroup"  data-prodid="{{material.IF_CODE}}">
-            <div class="shop">
-                <div class="men-pro-item">
-                    <div class="men-thumb-item mb-5">
-                        <div class="productImageWrap hasRollover">
-                            <div class="prodImgContain">
-                                <p class="image-caption" style="background: #060606b0;width: 70px;position: absolute;color: #fff !important;">
-                                    <strong>
-                                        <span id="offer_{{material.ECM_CODE}}" class="label"  ng-if="material.PRICE_OFFER_PCT > 0 && material.ECI_ALLOW_ADD_TO_CART_YN == 'C'" translate="off_price" translate-values="{price:{{material.PRICE_OFFER_PCT}}}">{{material.PRICE_OFFER_PCT}}% OFF</span>
-                                    </strong>
-                                </p>
-                                <div class="item active act{{material.ECM_CODE}}" ng-class="{active_icon: material.ECM_CODE == color_selected}">
-                                    <img class="thumb_swatch" id="applyFamImg{{material.ECM_CODE}}" data-num="{{mat_key}}" ng-src="{{material.ECM_THUMBNAIL_IMAGES?upload_url+material.ECM_THUMBNAIL_IMAGES.replace('$$/', ''):back_side_img.indexOf(material.ECM_ECI_CODE) < 0 ? upload_url + material.ECM_IMAGE_PATH.replace('$$/', '')  : upload_url + material.ECM_BACK_SIDE_TEXTURE_IMG_PATH.replace('$$/', '')}}" title="{{material.ECM_TOOL_TIP}}" alt="{{material.ECI_SEO_TAG?material.ECI_SEO_TAG:'Material Title'}}" ng-click="colorSection(material, step, 'direct', material.ECM_CODE)">
-                                </div> 
-                            </div>
-                        </div>
-                    </div>		
-            
-            
-                    <div class="prodTileContent item-info-product">
-                        <div class="info-product-price">
-            
-                            <div class="col-md-12 col-sm-12 col-xs-12 nopadding mb-5 bordTop">
-                                <div class="familyDesc">
-                                    <span id="familyItemCode{{material.ECM_CODE}}">{{material.ITEM_ID}}</span> 
-                                    <span  ng-click="matrialPopup(material)">
-                                        <i class="fal fa-info-circle" style="font-size: 16px;"></i>
-                                    </span>
-                                </div>  
-                                <div class="col-md-12 col-sm-12 col-xs-12 nopadding mb-5 text-right was_total bordBot" ng-if="shopping == true">
-                                    <div class="col-md-12 col-sm-12 col-xs-12 nopadding" ng-if="material.PRICE > 0">
-                                        <del id="priceWas_{{material.ECM_CODE}}" ng-if="material.PRICE_OFFER_PCT > 0 && material.ECI_ALLOW_ADD_TO_CART_YN == 'C'">{{total_ccy_code}}  {{material.PRICE_WAS_MC| number:ccy_decimal}}</del> 
-                                        <br>
-                                        <div class="col-md-3 free_del"  ng-if="material.FREE_DEL_INST_YN == 'FREE_DEL_INST_Y'">
-                                            <img ng-src="{{asset_img}}Installation-Icon.png" alt="Free Delivery with installation"/>
-                                        </div>
-                                        <strong id="price_{{material.ECM_CODE}}" ng-if="material.ECI_ALLOW_ADD_TO_CART_YN == 'C'"> <span style="letter-spacing: 0;font-size: 11px;font-weight: bold;" ng-if="material.ECI_PRODUCT_YN == 'Y'"> From </span>  {{total_ccy_code}} {{material.PRICE_MC| number:ccy_decimal}}</strong>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="clearfix"></div>
-                                <div class="col-md-12 col-sm-12 col-xs-12 nopadding"  ng-if="material.FREE_SAMPLE_YN == 'Y' && shopping == true">
-                                    <a id="{{material.ECM_CODE}}" class="col-md-12 col-sm-12 col-xs-12 nopadding input-group {{catalogue_item.indexOf(material.ECM_CODE) < 0 ? 'cust_freeSample':'cust_addSample'}}" ng-click="colorSwatches(material, 'saveIncart', material_code[material.ECM_CODE], material.ECM_CODE)">
-                                        {{catalogue_item.indexOf(material.ECM_CODE) < 0 ? free_sample_text: btnLength[material.ECM_CODE] < 0 ? free_sample_text:added_text}}
-                                    </a>  
-                                </div> 
-                        </div>	
-                        <div class="clearfix"></div>
-                    </div>
-                </div>	
-            </div>
-        </div>-->
 
         <div ng-if="familyGroup.length==0" style="text-align: center;">
             <span translate="material_not_available" style="color: red;">Material not available for your width.Please change the width </span>
