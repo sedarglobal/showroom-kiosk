@@ -21,7 +21,7 @@ controllers.controller('root', ['$scope','$translate','$rootScope','$http', func
 
 
 
-controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBootbox', '$rootScope', 'cartInfo', 'alerts', 'user', '$translate', function ($scope, $location, $http, $ngBootbox, $rootScope, cartInfo, alerts, user, $translate,) {
+controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBootbox', '$rootScope', 'alerts', 'user', '$translate', function ($scope, $location, $http, $ngBootbox, $rootScope, alerts, user, $translate,) {
 
     $scope.input = {};
 
