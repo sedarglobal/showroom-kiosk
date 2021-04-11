@@ -811,7 +811,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
 
         $http({
             method: 'POST',
-            url: service_url + 'ecommerce/login',
+            url: service_url + 'ShowroomApi/login',
             data: $.param({
                 email: $scope.input.email,
                 password: CryptoJS.MD5($scope.input.password).toString()
@@ -819,16 +819,13 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
             $scope.waiting = false;
+            console.log(response.data);
             if (response.data.status == true && response.data.data.user_detail != null) {
-                ///alerts.success($translate.instant('you_may_login'));
-                if (response.data.data.user_detail.USER_B2B_YN == 'Y') {
-                    $scope.$root.b2b_login = true;
-                }
+                
                 $scope.$root.is_login = true;
                 $scope.$root.login_userName = response.data.data.user_detail.USER_FIRST_NAME;
                 $scope.$root.USER_KEY_TYPE = response.data.data.user_detail.USER_KEY_TYPE;
                 store.set('USER_INFO', response.data.data.user_detail);
-                store.set('COMPANY_INFO', response.data.data.company_detail);
                 store.set('user', response.data.data.user_detail.USER_EMAIL_ID);
 
                 $('.ShowroomLogin').modal('hide');
