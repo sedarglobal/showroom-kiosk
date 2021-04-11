@@ -1,7 +1,8 @@
 var controllers = angular.module('acs.controllers', ['ngSilent']);
 
-controllers.controller('root', ['$scope','$translate','$rootScope','$http', function ($scope,$translate,$rootScope,$http) {
+controllers.controller('root', ['$scope','$translate','$rootScope','user', function ($scope,$translate,$rootScope,user) {
     
+    $scope.user = user;
     $scope.temp_path = temp_path;
     $scope.version = version;
     $scope.image_path = image_path;
@@ -16,12 +17,17 @@ controllers.controller('root', ['$scope','$translate','$rootScope','$http', func
 	
     $rootScope.upload_url = image_upload;//'https://www.sedarglobal.com/service/uploads/';
 
+    $rootScope.is_login = store.get('USER_INFO') && store.get('USER_INFO').USER_SYS_ID && store.get('USER_INFO').USER_EMAIL_ID.length > 0?true:false;
+    
+console.log(user);
    
 }]);
 
 
 
 controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBootbox', '$rootScope', 'alerts', 'user', '$translate', function ($scope, $location, $http, $ngBootbox, $rootScope, alerts, user, $translate,) {
+
+   
 
     $scope.input = {};
 
@@ -40,16 +46,16 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
         }).then(function (response) {
             $scope.waiting = false;
             console.log(response.data);
-            if (response.data.status == true && response.data.data.user_detail != null) {
+            if (response.data.status == true && response.data.user_detail != null) {
                 
-                $scope.$root.is_login = true;
-                $scope.$root.login_userName = response.data.data.user_detail.USER_FIRST_NAME;
-                $scope.$root.USER_KEY_TYPE = response.data.data.user_detail.USER_KEY_TYPE;
-                store.set('USER_INFO', response.data.data.user_detail);
-                store.set('user', response.data.data.user_detail.USER_EMAIL_ID);
+                $rootScope.is_login = true;
+                $rootScope.login_userName = response.data.user_detail.USER_FIRST_NAME;
+                $rootScope.USER_KEY_TYPE = response.data.user_detail.USER_KEY_TYPE;
+                store.set('USER_INFO', response.data.user_detail);
+              //  store.set('user', response.data.user_detail.USER_EMAIL_ID);
 
                 $('.ShowroomLogin').modal('hide');
-                if (response.data.data.user_detail.USER_KEY_TYPE == 'Email Verification') {
+                if (response.data.user_detail.USER_KEY_TYPE == 'Email Verification') {
                     // $ngBootbox.alert($translate.instant('email_vaification_message'));
                     var options = {
                         message: $translate.instant('email_vaification_message'),
@@ -90,6 +96,16 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                 alerts.fail($translate.instant('userid_password_invalid'));
             }
         });
+    };
+
+    $scope.showRoomLogout = function () {
+        console.log('here..');
+        $scope.user.clear();
+        store.remove('USER_INFO');
+        $rootScope.is_login = false;
+        
+        $location.path('showroomHome');
+        // window.location.reload();
     };
 
 }]);
@@ -690,7 +706,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
 
         
         $scope.collection_data = response.data.collection_banner;
-        $scope.$root.is_login = response.data.user_sys_id != '' ? true : false;
+      //  $rootScope.is_login = response.data.user_sys_id != '' ? true : false;
 
         if(funcType == 'swatchesCollection'){
             $('.collGroup').show();
@@ -794,7 +810,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
         var ECM_CODE = $scope.favoriteColor == undefined ? material.ECM_CODE : $scope.favoriteColor;
         var IF_CODE = material.ECM_IF_CODE;
         
-        if ($scope.$root.is_login == false) {
+        if ($rootScope.is_login == false) {
 
             $('#loader_div').show();
             var step_options = {
@@ -1001,7 +1017,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
     };
 
     $scope.nonProduct = function (mat_family, ifCode, singleFamily) {
-        if ($scope.$root.is_login == false && $scope.$root.server_name == false) {
+        if ($rootScope.is_login == false && $rootScope.server_name == false) {
 
             $('#loader_div').show();
             var step_options = {
@@ -1619,7 +1635,7 @@ controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$ht
                 store.remove('COMPANY_INFO');
                 store.remove('temp_code');
                 store.remove('CHOOSE_FREE_DEL_CITY');
-                $scope.$root.is_login = false;
+                $rootScope = false;
                 $scope.$root.b2b_login = false;
                 $scope.$root.login_userName = $translate.instant('my_account');
 
@@ -3669,9 +3685,9 @@ var list_lenth=$('.style_curtain').length
                                 store.remove('COMPANY_INFO');
                                 store.remove('temp_code');
                                 store.remove('CHOOSE_FREE_DEL_CITY');
-                                $scope.$root.is_login = false;
-                                $scope.$root.b2b_login = false;
-                                $scope.$root.login_userName = $translate.instant('my_account');
+                                $rootScope = false;
+                                $rootScope = false;
+                                $rootScope.login_userName = $translate.instant('my_account');
 
 
                             }
@@ -5124,7 +5140,7 @@ var list_lenth=$('.style_curtain').length
         }
 
         
-        if ($scope.$root.is_login == false && $scope.$root.server_name == false) {
+        if ($rootScope.is_login == false && $rootScope.server_name == false) {
 
             $('#loader_div').show();
             var step_options = {
