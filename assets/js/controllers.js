@@ -1,13 +1,12 @@
 var controllers = angular.module('acs.controllers', ['ngSilent']);
 
-controllers.controller('root', ['$scope','$translate','$rootScope', function ($scope,$translate,$rootScope) {
+controllers.controller('root', ['$scope','$translate','$rootScope','$http', function ($scope,$translate,$rootScope,$http) {
     
     $scope.temp_path = temp_path;
     $scope.version = version;
     $scope.image_path = image_path;
    // $scope.upload_url = 'https://www.sedarglobal.com/service/uploads/';
     $scope.s3_image_path = 'https://bkt.sedarglobal.com/';
-
 
     var langKey = 'en-US';
     $translate.preferredLanguage(langKey);
@@ -16,11 +15,89 @@ controllers.controller('root', ['$scope','$translate','$rootScope', function ($s
     bootbox.setDefaults({ 'locale': langKey });
 	
     $rootScope.upload_url = image_upload;//'https://www.sedarglobal.com/service/uploads/';
+
    
 }]);
 
-controllers.controller('showroomHome', ['$scope', '$http','$location','$rootScope' ,'$ngBootbox','$translate', function ($scope, $http,$location,$rootScope ,$ngBootbox,$translate) {
+
+
+controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBootbox', '$rootScope', 'cartInfo', 'alerts', 'user', '$translate', function ($scope, $location, $http, $ngBootbox, $rootScope, cartInfo, alerts, user, $translate,) {
+
+    $scope.input = {};
+
+    $scope.login = function () {
+        console.log(11);
+        $scope.waiting = true;
+        $http({
+            method: 'POST',
+            url: service_url + 'ShowroomApi/login',
+            data: $.param({
+                email: $scope.input.email,
+                password: CryptoJS.MD5($scope.input.password).toString()
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function (response) {
+            $scope.waiting = false;
+            console.log(response.data);
+            if (response.data.status == true && response.data.data.user_detail != null) {
+                
+                $scope.$root.is_login = true;
+                $scope.$root.login_userName = response.data.data.user_detail.USER_FIRST_NAME;
+                $scope.$root.USER_KEY_TYPE = response.data.data.user_detail.USER_KEY_TYPE;
+                store.set('USER_INFO', response.data.data.user_detail);
+                store.set('user', response.data.data.user_detail.USER_EMAIL_ID);
+
+                $('.ShowroomLogin').modal('hide');
+                if (response.data.data.user_detail.USER_KEY_TYPE == 'Email Verification') {
+                    // $ngBootbox.alert($translate.instant('email_vaification_message'));
+                    var options = {
+                        message: $translate.instant('email_vaification_message'),
+                        className: 'email_vaification',
+                        buttons: {
+                            warning: {
+                                label: "Resend",
+                                className: "btn-warning pull-left",
+                                callback: function () {
+                                    $http.post(service_url + 'ecommerce/resendAcountActiveEmail', {
+                                        data: response.data.data.user_detail
+                                    }).then(function (response) {
+                                        console.log('mail sent');
+                                    });
+                                }
+
+                            },
+                            success: {
+                                label: "Ok",
+                                className: "btn-success",
+                                // callback: function() { ... }
+                            }
+                        }
+                    };
+                    $ngBootbox.customDialog(options);
+                }
+                var temp_sample = store.get('temp_sample');
+                $('.login_popup').modal('hide');
+                //console.log($location.url().split('/')[1]);
+                if ($location.url().split('/')[1] == 'catalogue') {
+
+                    $scope.material_checkout(temp_sample[0].prcode, temp_sample[0].item_array, temp_sample[0].base64_img, temp_sample[0].type);
+                } else if ($location.url().split('/')[1] == 'order') {
+                    $scope.goToShippingPage();
+                }
+
+            } else {
+                alerts.fail($translate.instant('userid_password_invalid'));
+            }
+        });
+    };
+
+}]);
+
+controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootScope' ,'$ngBootbox','$translate', function ($scope, $http,$controller,$rootScope ,$ngBootbox,$translate) {
     
+    angular.extend(this, $controller('globalFunction', { $scope: $scope }));
+
+
     $http.get('https://www.sedarglobal.com/service/ecommerce/getHomeList',{
         cache : true
     }).then(function (response) {
@@ -805,75 +882,6 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
             }
         }
     };
-
-    $scope.login = function () {
-        $scope.waiting = true;
-
-        $http({
-            method: 'POST',
-            url: service_url + 'ShowroomApi/login',
-            data: $.param({
-                email: $scope.input.email,
-                password: CryptoJS.MD5($scope.input.password).toString()
-            }),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).then(function (response) {
-            $scope.waiting = false;
-            console.log(response.data);
-            if (response.data.status == true && response.data.data.user_detail != null) {
-                
-                $scope.$root.is_login = true;
-                $scope.$root.login_userName = response.data.data.user_detail.USER_FIRST_NAME;
-                $scope.$root.USER_KEY_TYPE = response.data.data.user_detail.USER_KEY_TYPE;
-                store.set('USER_INFO', response.data.data.user_detail);
-                store.set('user', response.data.data.user_detail.USER_EMAIL_ID);
-
-                $('.ShowroomLogin').modal('hide');
-                if (response.data.data.user_detail.USER_KEY_TYPE == 'Email Verification') {
-                    // $ngBootbox.alert($translate.instant('email_vaification_message'));
-                    var options = {
-                        message: $translate.instant('email_vaification_message'),
-                        className: 'email_vaification',
-                        buttons: {
-                            warning: {
-                                label: "Resend",
-                                className: "btn-warning pull-left",
-                                callback: function () {
-                                    $http.post(service_url + 'ecommerce/resendAcountActiveEmail', {
-                                        data: response.data.data.user_detail
-                                    }).then(function (response) {
-                                        console.log('mail sent');
-                                    });
-                                }
-
-                            },
-                            success: {
-                                label: "Ok",
-                                className: "btn-success",
-                                // callback: function() { ... }
-                            }
-                        }
-
-                    };
-
-                    $ngBootbox.customDialog(options);
-                }
-                var temp_sample = store.get('temp_sample');
-                $('.login_popup').modal('hide');
-                //console.log($location.url().split('/')[1]);
-                if ($location.url().split('/')[1] == 'catalogue') {
-
-                    $scope.material_checkout(temp_sample[0].prcode, temp_sample[0].item_array, temp_sample[0].base64_img, temp_sample[0].type);
-                } else if ($location.url().split('/')[1] == 'order') {
-                    $scope.goToShippingPage();
-                }
-
-            } else {
-                alerts.fail($translate.instant('userid_password_invalid'));
-            }
-        });
-    };
-
 
     $scope.filter = function (type, $code) {
         $scope.selectedIndex = type;
