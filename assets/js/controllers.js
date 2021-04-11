@@ -18,6 +18,7 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user', funct
     $rootScope.upload_url = image_upload;//'https://www.sedarglobal.com/service/uploads/';
 
     $rootScope.is_login = store.get('USER_INFO') && store.get('USER_INFO').USER_SYS_ID && store.get('USER_INFO').USER_EMAIL_ID.length > 0?true:false;
+    $rootScope.login_userName=store.get('USER_INFO') && store.get('USER_INFO').USER_FIRST_NAME && store.get('USER_INFO').USER_EMAIL_ID.length > 0?store.get('USER_INFO').USER_FIRST_NAME:false;
     
 console.log(user);
    
