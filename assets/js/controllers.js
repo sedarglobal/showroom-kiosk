@@ -25,6 +25,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
 
     $scope.input = {};
 
+
     $scope.login = function () {
         console.log(11);
         $scope.waiting = true;
@@ -1208,8 +1209,10 @@ controllers.controller('materialFamily', ['$scope', '$http', '$location', '$cont
     $scope.navtab = function (val, pattern) {
         //$scope.selectedtab = val;
         $scope.loader = true;
-        $http.post(service_url + 'ShowroomApi/similarmaterial/' + $scope.ecm_code + '/' + $scope.prod_code + '/' + pattern, {
-            cache: true
+        $http({
+            method: 'GET',
+            url: service_url + 'ShowroomApi/similarmaterial/' + $scope.ecm_code + '/' + $scope.prod_code + '/' + pattern,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
             $scope.detail = response.data.detail;
             $scope.status = response.data.status;

@@ -64,13 +64,11 @@
 </div>
 <div id="material" class="cat_shop  nopadding col-md-12 col-sm-12 col-xs-12 direction">
     <div class="container shop_inner_inf ads-grid_shop">
-        <!-- {{material_info}} -->
         <div class="col-md-6 col-sm-6  col-xs-12 right-side">
             <div ng-if="life_style_info.length==0" id="myresult" class="img-zoom-result" style="display:none;background-image:url('{{material_info.ECM_THUMBNAIL_IMAGES?upload_url + material_info.ECM_THUMBNAIL_IMAGES.replace('$$/', ''):back_side_img.indexOf(material_info.ECM_ECI_CODE) < 0 ? upload_url + material_info.ECM_IMAGE_PATH.replace('$$/', '') : upload_url + material_info.ECM_BACK_SIDE_TEXTURE_IMG_PATH.replace('$$/', '')}}')"></div>
             <div ng-if="life_style_info" id="myresult" class="img-zoom-result" style="display:none;background-image:url('{{upload_url + life_style_info[0].ELI_IMAGE_PATH}}')"></div>
             <div id="gallery" class="col-md-12 col-sm-12 col-xs-12 nopadding">
                 <div class="clearfix"></div> 
-
 
                 <div class="col-md-2 col-sm-2 col-xs-2 product-slider right-side" id="thumbs">
                     <ul class="disable-scrollbars product_slider">
@@ -120,10 +118,6 @@
                 <img class="brand_icon lazyload" ng-src="{{material_info.BRAND_LOGO}}" ng-class="{widthauto: material_info.ECM_BR_CODE == 04 }" />
             </div>
             
-            <div class="col-md-3" ng-if="material_info.FREE_DEL_INST_YN == 'FREE_DEL_INST_Y'" style="padding: 0px 0px 8px 0px;">                                                       
-                <img ng-src="{{asset_img}}Installation-Icon.png" alt="Free Delivery with installation" title="Free Delivery with installation" style="height: auto;width: 76px;"/>
-            </div>
-
             <div class="col-md-4 col-sm-6 col-xs-6 padding_left0  right-side mb-15" ng-if="shopping == true">
                 <div class="col-md-12 col-sm-12 col-xs-12 nopadding">
                     <a class="buyNow col-md-12 col-sm-12 col-xs-12 buy_{{material.ECM_IF_CODE}} mb-10" href="customizing/{{cat_code}}/{{material_info.ECM_ECI_CODE}}/{{material_info.ECM_CODE}}" ng-if="material_info.ECI_PRODUCT_YN == 'Y' && material_info.ECI_ALLOW_ADD_TO_CART_YN != 'I'">
@@ -134,9 +128,10 @@
             <div class="col-md-12 col-sm-12 col-xs-12 nopadding feature_and_benefit mb-20" ng-bind-html="material_info.ECI_MORE | htmlSafe">
 
             </div>
+            </div>
         </div>
-        <div class="clearfix"></div>
 
+        <div class="clearfix"></div>
 
         <hr class="pb-10" />
         <div class="col-md-6 col-sm-6 col-xs-12 nopadding right-side ">

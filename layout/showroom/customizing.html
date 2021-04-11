@@ -524,17 +524,15 @@ input[type=checkbox], input[type=radio] {
         </div>
         <div class="footerHide col-sm-12 col-md-12 col-xs-12"  style="width: 100%;height:39px;position: fixed;background: #f8f8f84d;bottom:0;border-top: 1px solid #ffffff80; z-index: 1;" >
             <!-- <div class="container"> -->
-                <div class="nopadding foot_back" ng-if="server_name == false">
+                <div class="nopadding foot_back">
                     <a href="productInfo/{{category_code}}" id="back_btn" class="btn btn-Mydefault addMore" style="float: left;" >Back</a>
                 </div>
                 <div class="nopadding foot_back-- col-sm-5 col-md-7 col-xs-12" style="text-align: center;padding-top: 0.4em;color: #000;font-weight: 600;font-size: 16px;">
                         {{item_pro_name}}
                 </div>
-                <div class="foot_price foot_price_comming col-sm-6 col-md-5 col-xs-12" ng-if="shopping == false">
-                    <div class="col-sm-12 padding_left0" ng-if="server_name == true"> 
-                        <center><button class="btn btn-Mydefault addMore" translate="SOON_YOU_WILL_SHOP_ONLINE">SOON YOU WILL SHOP ONLINE</button></center> 
-                    </div>  
-                    <div class="col-sm-12 col-md-12 col-xs-5" ng-if="server_name == false">
+                <div class="foot_price foot_price_comming col-sm-6 col-md-5 col-xs-12">
+                   
+                    <div class="col-sm-12 col-md-12 col-xs-5">
                         <span class="pull-left">If you liked this product, share it with family and friends</span>
                         <span class="share_icon pull-left" data-href="https://www.sedarglobal.com/customizing/{{category_code}}/{{cont_step[0].EIS_ECI_CODE}}" data-layout="button" data-size="small">
                             <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.sedarglobal.com/customizing/{{category_code}}/{{cont_step[0].EIS_ECI_CODE}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">
@@ -546,92 +544,20 @@ input[type=checkbox], input[type=radio] {
                         </span>
                     </div> 
                 </div>     
-                <div class="foot_price col-sm-6 col-md-5 col-xs-12 nopadding" ng-if="shopping == true">    
+                <div class="foot_price col-sm-6 col-md-5 col-xs-12 nopadding">    
                     <div class="col-sm-12 col-md-12 col-xs-12 nopadding">    
-                        <div class="nopadding col-sm-6 col-md-6 col-xs-7">
-                            <div ng-click="toggle()" class="price_panel_menu"  ng-if="server_name == true">
-                                <div class="panel_desc">
-                                    <!-- {{pro_info.ECP_DESC}} -->
-                                    <!-- <b class="product_total" style="padding-left: 15px;">${{item_price * qty.value| number:2}}</b> -->
-                                    <b class="product_total" style="font-size: 15px;">{{total_ccy_code}} {{total_price| number:ccy_decimal}} <del ng-if="wasPrice > 0"> {{total_ccy_code}} {{wasPrice | number:ccy_decimal}}  </del></b>
-                                </div>
-                                <div class="panel_desc_arrow"><i class="fa fa-angle-down" ng-hide="cart_id"  ng-class="{
-                                        Open: panel_arrow, Close: !panel_arrow}"></i></div> 
-                            </div>
-                            <div class="price_panel col-sm-12"  ng-show="state" style="border-radius: 4px;">
-                                <div class="product_price_list">
-                                    <div class="col-sm-12 nopadding">
-                                        <div class="col-sm-8 padding_left0"><b translate="product">Product </b></div> 
-                                        <div class="col-sm-4 uk-text-right padding_right0"><b translate="Price">Price</b><b> ({{total_ccy_code}})</b></div> 
-                                    </div>
-                                    <hr style="margin: 0.5em 0; border-top: 1px solid #bfbcbc; float:left;width: 100%">
-                                    <!-- <div class="col-sm-12 nopadding" ng-repeat="item in orderList">
-                                        <div class="col-sm-8 padding_left0">{{item.step_item_list[11].ECI_DESC}}</div> 
-                                        <div class="col-sm-4 uk-text-right padding_right0">{{item.price * item.formula_qty| number:ccy_decimal}}</div> 
-                                    </div>  -->
-                                    <div class="prd">
-                                        <div class="col-sm-12 nopadding">
-                                            <div class="col-sm-8 padding_left0">
-                                                <span>{{item_pro_name}}</span>
-                                                <ul style="margin: 0;font-size: 12px;list-style: inherit;" ng-if="step_array[109]">
-                                                    <li >{{step_array[109].option_desc}}</li>
-                                                </ul>
-                                            </div> 
-                                            <div class="col-sm-4 uk-text-right padding_right0">{{total_price | number:ccy_decimal}} </div> 
-                                        </div>		
-                                    </div>  
-                                </div>	
-                                <div class="col-md-12 col-sm-12 col-xs-12 nopadding">
-                                    <hr style="margin: 1em 0; border-top: 1px solid #bfbcbc;float:left;width: 100%">
-                                    <div class="col-sm-8 padding_left0">
-                                        <b class="text-uppercase" translate="total">Total</b>
-                                    </div>
-                                    <div class="col-sm-4 uk-text-right padding_right0">
-                                        <b class=" ">{{total_ccy_code}} {{total_price | number:ccy_decimal}} </b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-xs-5" ng-if="server_name == false">
+                        <div class="col-sm-12 col-md-12 col-xs-5">
                             <span class="pull-left">If you liked this product, share it with family and friends</span>
                             <span class="share_icon pull-left" data-href="https://www.sedarglobal.com/customizing/{{category_code}}/{{cont_step[0].EIS_ECI_CODE}}" data-layout="button" data-size="small">
                                 <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.sedarglobal.com/customizing/{{category_code}}/{{cont_step[0].EIS_ECI_CODE}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">
                                     <em class="fas fa-share-alt" style="font-size: 24px;margin-left: 10px;color: #000;"></em>
                                 </a>
                             </span>
-                            <span class="share_icon pull-left">
+                            <!-- <span class="share_icon pull-left">
                                 <img id="play" ng-src="{{image_path}}pdf.png" title="pdf" style="width: 23px;margin-left: 15px;">
-                            </span>
+                            </span> -->
                         </div>
-                        <div class="col-sm-6 col-md-6 col-xs-5" ng-if="server_name == true">
-                            <div class="col-sm-12 col-md-12 col-xs-12 nopadding" ng-hide="next_step" ng-if="advanced_custonize_pro.indexOf(category_code)==-1">
-                                <button id="next_btn" class="btn btn-Mydefault addMore" ng-click="nextstep(current_step, cont_step);" ng-disabled="add_more_item" translate="next">Next</button>
-                            </div>
-
-
-                            <div id="cust_add_cart" ng-hide="cart_id" ng-if="pro_item.ECI_ALLOW_ADD_TO_CART_YN == 'C' && pro_item.ECI_ALLOW_CUSTOMIZATION_YN == 'Y' && customization_yn && advanced_custonize_pro.indexOf(category_code)>=0" >
-                                <button class="btn btn-Mydefault addMore" ng-click="checkout('add_more_product');" ng-disabled="add_more_item" translate="{{ server_name == true ? 'add_to_cart' :'add_to_fav'}}">Add to Cart</button>
-                            </div>
-
-                            <div ng-hide="cart_id" ng-if="(pro_item.ECI_ALLOW_ADD_TO_CART_YN == 'N' || pro_item.ECI_ALLOW_ADD_TO_CART_YN == 'I') && (pro_item.ECI_ALLOW_CUSTOMIZATION_YN == 'Y' && advanced_custonize_pro.indexOf(category_code)>=0) || !customization_yn ">
-                                <button class="btn btn-Mydefault addMore" ng-click="getQuote(pro_item);" ng-disabled="add_more_item"  translate="request_quote"></button>
-                            </div>
-
-
-                            <div ng-show="cart_btn" class="col-sm-12 col-md-12 col-xs-12 nopadding">
-                                <div  id="cust_add_cart" ng-hide="cart_id" ng-if="pro_item.ECI_ALLOW_ADD_TO_CART_YN == 'C' && pro_item.ECI_ALLOW_CUSTOMIZATION_YN == 'Y' && customization_yn" >
-                                    <button class="btn btn-Mydefault addMore" ng-click="checkout('add_more_product');" ng-disabled="add_more_item" translate="{{ server_name == true ? 'add_to_cart' :'add_to_fav'}}">Add to Cart</button>
-                                </div>
-    
-                                <div ng-hide="cart_id" ng-if="(pro_item.ECI_ALLOW_ADD_TO_CART_YN == 'N' || pro_item.ECI_ALLOW_ADD_TO_CART_YN == 'I') && (pro_item.ECI_ALLOW_CUSTOMIZATION_YN == 'Y') || !customization_yn ">
-                                    <button class="btn btn-Mydefault addMore" ng-click="getQuote(pro_item);" ng-disabled="add_more_item"  translate="request_quote"></button>
-                                </div>
-                            
-                                <div ng-show="cart_id" ng-if="cart_id && pro_item.ECI_ALLOW_ADD_TO_CART_YN == 'C' && pro_item.ECI_ALLOW_CUSTOMIZATION_YN == 'Y'">
-                                    <button class="btn btn-Mydefault addMore" ng-click="checkout('checkout')" ng-hide="addMore" ng-disabled="checkout_btn" translate="update_cart">Update cart</button>
-                                </div>
-                            </div> 
-                        </div>
+                       
                        
 
                     </div>
