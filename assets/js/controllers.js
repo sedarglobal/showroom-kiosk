@@ -5,6 +5,9 @@ controllers.controller('root', ['$scope','$translate', function ($scope,$transla
     $scope.temp_path = temp_path;
     $scope.version = version;
     $scope.image_path = 'images/';
+    $scope.upload_url = 'https://www.sedarglobal.com/service/uploads/';
+    $scope.s3_image_path = 'https://bkt.sedarglobal.com/';
+
 
     var langKey = 'en-US';
     $translate.preferredLanguage(langKey);
@@ -389,29 +392,9 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
 
 
 
-controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$rootScope', '$controller', '$ngSilentLocation', '$ngBootbox', '$translate', function ($scope, $http, $location, $route, $rootScope, $controller, $ngSilentLocation, $ngBootbox, $translate) {
+controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$rootScope', '$controller', '$ngSilentLocation', '$ngBootbox', '$translate', 'alerts', function ($scope, $http, $location, $route, $rootScope, $controller, $ngSilentLocation, $ngBootbox, $translate, alerts) {
 
-
-    $scope.upload_url = 'https://www.sedarglobal.com/service/uploads/';
-
-    $scope.user_mobile_register = function (isValid) {
-        if (isValid == false) {
-            $scope.submitted = true;
-        } else {
-            store.remove('user_mobile');
-            $http.post(service_url + 'ShowroomApi/user_mobile_register', {
-                data: $scope.input
-            }).then(function (response) {
-                $scope.waiting = false;
-                if(response.data.error_message == 'Success'){
-                    $('.material_popup').modal("hide");
-                    store.set('user_mobile', $scope.input.USER_MOBILE)
-                }
-                
-            });
-        }
-    };
-
+   
     window.scrollTo(0, 0);
     $('.viewHeight').css('opacity', 0);
 
@@ -481,7 +464,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
     $scope.page = $location.search().page == undefined ? 1 : $location.search().page;
     $scope.saleType = $location.search().sa == 'Sale' ? $translate.instant('all') : $translate.instant('sale');
     $scope.offer_code = $route.current.params.offer_code ? $route.current.params.offer_code : '';
-
+    $scope.like = [];
     
     
     $scope.collectionGroup = {};
@@ -628,7 +611,8 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
 
         
         $scope.collection_data = response.data.collection_banner;
-        
+        $scope.$root.is_login = response.data.user_sys_id != '' ? true : false;
+
         if(funcType == 'swatchesCollection'){
             $('.collGroup').show();
             $('#loader_div').hide();
@@ -722,6 +706,176 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
         }    
 
     };
+
+    $scope.fa_wishList = function (material, $likeCheck) {
+        console.log(material);
+        console.log($likeCheck);
+        $likeCheck = $likeCheck ? $likeCheck : false
+
+        var ECM_CODE = $scope.favoriteColor == undefined ? material.ECM_CODE : $scope.favoriteColor;
+        var IF_CODE = material.ECM_IF_CODE;
+        
+        if ($scope.$root.is_login == false) {
+
+            $('#loader_div').show();
+            var step_options = {
+                templateUrl: $scope.temp_path + 'showroom/login.html?v='+version,
+                scope: $scope,
+                size: 'small',
+                title: 'Login',
+                className: 'login_popup',
+                onEscape: function () {
+                }
+            };
+            $ngBootbox.customDialog(step_options);
+            $('#loader_div').hide();
+            $scope.favorite = 'FAVORITE';
+            $('#' + IF_CODE).removeClass('far');
+        } else {
+            if ($likeCheck == false) {
+                // if ($('.like' + IF_CODE + ECM_CODE).hasClass('fal') == true && material.FAV_YN != 'Y' && $scope.like.indexOf(ECM_CODE) >= 0) {
+                //     $scope.favorite = 'FAVORITE';
+                //     $('#like' + IF_CODE).removeClass('fal');
+                //     $('#like' + IF_CODE).addClass('fas');
+                // } else if (material.FAV_YN != 'Y' && $scope.like.indexOf(ECM_CODE) < 0) {
+                //     if ($('.like' + IF_CODE + ECM_CODE).hasClass('fal') == true) {
+                //         console.log('else IF');
+                //         $scope.like.push(ECM_CODE);
+                //         $scope.favorite = 'FAVORITE';
+                //         $('#like' + IF_CODE).removeClass('fal');
+                //         $('#like' + IF_CODE).addClass('fas');
+                //     }
+                //     else if ($('.like' + IF_CODE + ECM_CODE).hasClass('fas') == true) {
+                //         console.log('else IF UNLIKE');
+                //         $scope.like.splice($scope.like.indexOf(ECM_CODE), 1);
+                //         $scope.favorite = 'UNLIKE';
+                //         $('#like' + IF_CODE).addClass('fal');
+                //         $('#like' + IF_CODE).removeClass('fas');
+                //     }
+                // } else if (material.FAV_YN == 'Y' && $scope.like.indexOf(ECM_CODE) < 0) {
+                //     if ($('.like' + IF_CODE + ECM_CODE).hasClass('fal') == true) {
+                //         console.log('else IF');
+                //         $scope.like.push(ECM_CODE);
+                //         $scope.favorite = 'FAVORITE';
+                //         $('#like' + IF_CODE).removeClass('fal');
+                //         $('#like' + IF_CODE).addClass('fas');
+                //     }
+                //     else if ($('.like' + IF_CODE + ECM_CODE).hasClass('fas') == true) {
+                //         console.log('else IF UNLIKE');
+                //         $scope.like.splice($scope.like.indexOf(ECM_CODE), 1);
+                //         $scope.favorite = 'UNLIKE';
+                //         $('#like' + IF_CODE).addClass('fal');
+                //         $('#like' + IF_CODE).removeClass('fas');
+                //     }
+                // } else {
+                //     console.log('UNLIKE');
+                //     $scope.like.splice($scope.like.indexOf(ECM_CODE), 1);
+                //     $scope.favorite = 'UNLIKE';
+                //     $('#like' + IF_CODE).addClass('fal');
+                //     $('#like' + IF_CODE).removeClass('fas');
+                // }
+
+
+                $scope.favorite = 'FAVORITE';
+                $('#like' + material.ECM_CODE).removeClass('fal');
+                $('#like' + material.ECM_CODE).addClass('fas');
+
+                $http.post(service_url + 'ecommerce/favorite_prod_item/' + material.ECM_ECI_CODE + '/' + ECM_CODE + '/swatches/' + $scope.favorite, {
+                    cache: true
+                }).then(function (response) {
+                });
+            }
+            else {
+                //console.log( $scope.like);
+
+                if (material.FAV_YN == 'Y' && $scope.like[$scope.like.indexOf(ECM_CODE)] == ECM_CODE) {
+                    $('#like' + IF_CODE).removeClass('fal');
+                    $('#like' + IF_CODE).addClass('fas');
+                } else if (material.FAV_YN != 'Y' && $scope.like[$scope.like.indexOf(ECM_CODE)] == ECM_CODE) {
+                    $('#like' + IF_CODE).removeClass('fal');
+                    $('#like' + IF_CODE).addClas0s('fas');
+                } else {
+                    if ($scope.like[$scope.like.indexOf(ECM_CODE)] == ECM_CODE) {
+                        $scope.like.splice($scope.like.indexOf(ECM_CODE), 1);
+                    }
+                    $('#like' + IF_CODE).addClass('fal');
+                    $('#like' + IF_CODE).removeClass('fas');
+                }
+            }
+        }
+    };
+
+    $scope.login = function () {
+        $scope.waiting = true;
+
+        $http({
+            method: 'POST',
+            url: service_url + 'ecommerce/login',
+            data: $.param({
+                email: $scope.input.email,
+                password: CryptoJS.MD5($scope.input.password).toString()
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function (response) {
+            $scope.waiting = false;
+            if (response.data.status == true && response.data.data.user_detail != null) {
+                ///alerts.success($translate.instant('you_may_login'));
+                if (response.data.data.user_detail.USER_B2B_YN == 'Y') {
+                    $scope.$root.b2b_login = true;
+                }
+                $scope.$root.is_login = true;
+                $scope.$root.login_userName = response.data.data.user_detail.USER_FIRST_NAME;
+                $scope.$root.USER_KEY_TYPE = response.data.data.user_detail.USER_KEY_TYPE;
+                store.set('USER_INFO', response.data.data.user_detail);
+                store.set('COMPANY_INFO', response.data.data.company_detail);
+                store.set('user', response.data.data.user_detail.USER_EMAIL_ID);
+
+                $('.ShowroomLogin').modal('hide');
+                if (response.data.data.user_detail.USER_KEY_TYPE == 'Email Verification') {
+                    // $ngBootbox.alert($translate.instant('email_vaification_message'));
+                    var options = {
+                        message: $translate.instant('email_vaification_message'),
+                        className: 'email_vaification',
+                        buttons: {
+                            warning: {
+                                label: "Resend",
+                                className: "btn-warning pull-left",
+                                callback: function () {
+                                    $http.post(service_url + 'ecommerce/resendAcountActiveEmail', {
+                                        data: response.data.data.user_detail
+                                    }).then(function (response) {
+                                        console.log('mail sent');
+                                    });
+                                }
+
+                            },
+                            success: {
+                                label: "Ok",
+                                className: "btn-success",
+                                // callback: function() { ... }
+                            }
+                        }
+
+                    };
+
+                    $ngBootbox.customDialog(options);
+                }
+                var temp_sample = store.get('temp_sample');
+                $('.login_popup').modal('hide');
+                //console.log($location.url().split('/')[1]);
+                if ($location.url().split('/')[1] == 'catalogue') {
+
+                    $scope.material_checkout(temp_sample[0].prcode, temp_sample[0].item_array, temp_sample[0].base64_img, temp_sample[0].type);
+                } else if ($location.url().split('/')[1] == 'order') {
+                    $scope.goToShippingPage();
+                }
+
+            } else {
+                alerts.fail($translate.instant('userid_password_invalid'));
+            }
+        });
+    };
+
 
     $scope.filter = function (type, $code) {
         $scope.selectedIndex = type;
@@ -2362,28 +2516,8 @@ var list_lenth=$('.style_curtain').length
            
             $scope.familyInd[colorid] = ind;
 
-        // $scope.likeClass = e;
-        // $scope.favoriteColor = $scope.singleFamily[e].ECM_CODE;
-        // if ($scope.$root.is_login == true) {
-        // $scope.fa_wishList($scope.singleFamily[e], true);
-        // }
-
-
-
-        if (offer == 0 || offer == '') {
-            $('#offer_' + colorid).html('');
-            //$('#priceWas_' + ifcode).html('');
-
-        } else {
-            
-            $('#offer_' + colorid).html(offer +'% OFF');
-
-            
-        }
-
-
-
-
+       
+           
 
 
 
