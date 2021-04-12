@@ -28,11 +28,14 @@
                                         <img src="https://bkt.sedarglobal.com/{{row.ECI_IMAGE_PATH}}" alt="">
                                         <div class="slideshareicon">
                                             <div class="utilityicons">
-                                                <div class="share_icon"
+                                                <!-- <div class="share_icon"
                                                     data-href="https://www.sedarglobal.com/productInfo?desc=Blinds%20&%20Shades&id=4456&type=S"
                                                     data-layout="button" data-size="small"><a target="_blank"
                                                         href="https://www.facebook.com/sharer/sharer.php?u=https://www.sedarglobal.com/productInfo?desc=Blinds%20&%20Shades&id=4456&type=S&amp;src=sdkpreparse"
                                                         class="fb-xfbml-parse-ignore"><em class="fas fa-share-alt"></em></a>
+                                                </div> -->
+                                                <div class="share_icon" ng-click="socialShare($event)" data-href="swatches?desc={{row.ECI_DESC}}&id={{row.ECI_CODE}}{{row.EIC_ECC_CODES?'&&ecc_code='+row.EIC_ECC_CODES:'' }}">
+                                                    <em class="fas fa-share-alt"></em>
                                                 </div>
                                                 <i class="fa-heart {{item.ECI_CODE}} fas heart_icon" ng-if="item.like_count > 1"></i>
                                                 <i class="fa-heart {{item.ECI_CODE}}  heart_icon"

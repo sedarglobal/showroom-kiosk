@@ -1,4 +1,4 @@
-var myApp = angular.module("acs", ['acs.controllers', 'acs.filters','acs.services', 'ngRoute','ngBootbox','pascalprecht.translate','ngMaterial', 'ui.bootstrap', 'ngAnimate', 'ngMessages'])
+var myApp = angular.module("acs", ['acs.controllers', 'acs.filters','acs.services', 'acs.directives', 'ngRoute','ngBootbox','pascalprecht.translate','ngMaterial', 'ui.bootstrap', 'ngAnimate', 'ngMessages'])
     .config(['$routeProvider', '$locationProvider', '$translateProvider', function ($routeProvider, $locationProvider,$translateProvider) {
         $locationProvider.html5Mode({
             enabled: true,
@@ -54,8 +54,14 @@ var myApp = angular.module("acs", ['acs.controllers', 'acs.filters','acs.service
                     return $translate.onReady();
                     }]
                 }
-            })
-            .otherwise({
-                redirectTo: '/'
+            }).when('/404', {
+                templateUrl: temp_path + 'showroom/page_not_found.html?v='+version,
+                resolve: {
+                translateReady: ['$translate', function ($translate) {
+                    return $translate.onReady();
+                    }]
+                }
+            }).otherwise({
+                redirectTo: window.location.pathname == "/" ? '/' : '/404'
             });
     }]);

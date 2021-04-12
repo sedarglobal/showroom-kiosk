@@ -63,6 +63,10 @@
     </div>
 </div>
 <div id="material" class="cat_shop  nopadding col-md-12 col-sm-12 col-xs-12 direction">
+
+    
+
+
     <div class="container shop_inner_inf ads-grid_shop">
         <div class="col-md-6 col-sm-6  col-xs-12 right-side">
             <div ng-if="life_style_info.length==0" id="myresult" class="img-zoom-result" style="display:none;background-image:url('{{material_info.ECM_THUMBNAIL_IMAGES?upload_url + material_info.ECM_THUMBNAIL_IMAGES.replace('$$/', ''):back_side_img.indexOf(material_info.ECM_ECI_CODE) < 0 ? upload_url + material_info.ECM_IMAGE_PATH.replace('$$/', '') : upload_url + material_info.ECM_BACK_SIDE_TEXTURE_IMG_PATH.replace('$$/', '')}}')"></div>
@@ -108,6 +112,9 @@
             <div class="col-sm-12 mb-20 nopadding">
                 <p class="font_15 font-weight-bold">{{material_info.ECI_DESC}}</p>
                 <p  >{{material_info.ITEM_ID}}</p>
+                <span class="share_icon pull-right" ng-click="socialShare($event)" data-href="material?item={{material_info.ITEM_ID}}&product={{material_info.ECI_DESC}}&id={{material_info.ECM_CODE}}&prod_id={{material_info.ECM_ECI_CODE}}&if={{material_info.ECM_IF_CODE}}">
+                    <em class="fas fa-share-alt" style="font-size: 24px;margin-left: 10px;color: #000;"></em>
+                </span>
             </div>
             <div class="col-sm-12 col-xs-12 mb-20 nopadding">
                 <p class="font_15 font-weight-bold" translate="collection">collection</p>
@@ -255,7 +262,8 @@
 </div>
 
 <script>
-     
+
+    
     mouseovershowhide("img-zoom-container", "myimage", "myresult"); 
     
         $(document).ready(function () {  

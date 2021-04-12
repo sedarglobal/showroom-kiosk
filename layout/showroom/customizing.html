@@ -530,28 +530,13 @@ input[type=checkbox], input[type=radio] {
                 <div class="nopadding foot_back-- col-sm-5 col-md-7 col-xs-12" style="text-align: center;padding-top: 0.4em;color: #000;font-weight: 600;font-size: 16px;">
                         {{item_pro_name}}
                 </div>
-                <div class="foot_price foot_price_comming col-sm-6 col-md-5 col-xs-12">
-                   
-                    <div class="col-sm-12 col-md-12 col-xs-5">
-                        <span class="pull-left">If you liked this product, share it with family and friends</span>
-                        <span class="share_icon pull-left" data-href="https://www.sedarglobal.com/customizing/{{category_code}}/{{cont_step[0].EIS_ECI_CODE}}" data-layout="button" data-size="small">
-                            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.sedarglobal.com/customizing/{{category_code}}/{{cont_step[0].EIS_ECI_CODE}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">
-                                <em class="fas fa-share-alt" style="font-size: 24px;margin-left: 10px;color: #000;"></em>
-                            </a>
-                        </span>
-                        <span class="share_icon pull-left">
-                            <img id="play" ng-src="{{image_path}}pdf.png" title="pdf" style="width: 23px;margin-left: 15px;">
-                        </span>
-                    </div> 
-                </div>     
+                    
                 <div class="foot_price col-sm-6 col-md-5 col-xs-12 nopadding">    
                     <div class="col-sm-12 col-md-12 col-xs-12 nopadding">    
                         <div class="col-sm-12 col-md-12 col-xs-5">
                             <span class="pull-left">If you liked this product, share it with family and friends</span>
-                            <span class="share_icon pull-left" data-href="https://www.sedarglobal.com/customizing/{{category_code}}/{{cont_step[0].EIS_ECI_CODE}}" data-layout="button" data-size="small">
-                                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.sedarglobal.com/customizing/{{category_code}}/{{cont_step[0].EIS_ECI_CODE}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">
-                                    <em class="fas fa-share-alt" style="font-size: 24px;margin-left: 10px;color: #000;"></em>
-                                </a>
+                            <span class="share_icon pull-left" ng-click="socialShare($event)" data-href="customizing/{{category_code}}/{{cont_step[0].EIS_ECI_CODE}}//{{item_pro_name}}">
+                                <em class="fas fa-share-alt" style="font-size: 24px;margin-left: 10px;color: #000;"></em>
                             </span>
                             <!-- <span class="share_icon pull-left">
                                 <img id="play" ng-src="{{image_path}}pdf.png" title="pdf" style="width: 23px;margin-left: 15px;">

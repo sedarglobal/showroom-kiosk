@@ -8,7 +8,7 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user', funct
     $scope.image_path = image_path;
    // $scope.upload_url = 'https://www.sedarglobal.com/service/uploads/';
     $scope.s3_image_path = 'https://bkt.sedarglobal.com/';
-
+    $scope.asset_img = 'https://ast.sedarglobal.com/images/';
     var langKey = 'en-US';
     $translate.preferredLanguage(langKey);
     $translate.use(langKey);
@@ -109,6 +109,34 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
         // window.location.reload();
     };
 
+    
+   $scope.socialShare = function(link){
+   
+        $scope.link = link.currentTarget.getAttribute("data-href");
+        var step_options = {
+            templateUrl: $scope.temp_path + 'showroom/socialShare.html?v='+version,
+            scope: $scope,
+            size: 'small',
+            title:'Share it',
+            className: 'socialShare',
+            onEscape: function () {
+            }
+        };
+        $ngBootbox.customDialog(step_options);  
+    }
+
+    $scope.copyToClipboard = function (name) {
+        alert(name);
+        var copyElement = document.createElement("textarea");
+        copyElement.style.position = 'fixed';
+        copyElement.style.opacity = '0';
+        copyElement.textContent = 'http://example.com?from=' + decodeURI(name);
+        var body = document.getElementsByTagName('body')[0];
+        body.appendChild(copyElement);
+        copyElement.select();
+        document.execCommand('copy');
+        body.removeChild(copyElement);
+    }
 }]);
 
 controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootScope' ,'$ngBootbox','$translate', function ($scope, $http,$controller,$rootScope ,$ngBootbox,$translate) {
@@ -158,6 +186,9 @@ controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootSc
 }]);
 
 controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interval', '$controller', '$rootScope', '$location', '$ngBootbox', '$ngSilentLocation', function ($scope, $route, $http, $interval, $controller, $rootScope, $location, $ngBootbox, $ngSilentLocation) {
+
+    angular.extend(this, $controller('globalFunction', { $scope: $scope }));
+
 
     $scope.ShowroomleftSideMenu = function (type) {       
         if (type) {
@@ -485,12 +516,10 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
 }]);
 
 
-
-
-
 controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$rootScope', '$controller', '$ngSilentLocation', '$ngBootbox', '$translate', 'alerts', function ($scope, $http, $location, $route, $rootScope, $controller, $ngSilentLocation, $ngBootbox, $translate, alerts) {
+    
+    angular.extend(this, $controller('globalFunction', { $scope: $scope }));
 
-   
     window.scrollTo(0, 0);
     $('.viewHeight').css('opacity', 0);
 
@@ -586,7 +615,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
     $('#loader_div').show();
 
     $scope.swatchCollection = function (prod_code, $desc, $count) {
-        setTimeout(function(){
+        //setTimeout(function(){
             window.scrollTo(0, 180);
             $scope.materialSection = true;
             $scope.material = {};
@@ -611,11 +640,9 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
             }
 
             $('.collGroup').hide();
-        },200);
+        //},200);
 
 
-        $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-        // send login data
         $http({
             method: 'POST',
             url: service_url+ 'ShowroomApi/swatchCollection_rows22',
@@ -699,13 +726,11 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
     }
 
     $scope.banner_img = $scope.s3_image_path;
-   // $scope.filter(1, $scope.prodCode);
       
 
 
     $scope.swatchResp = function (response, funcType = false) {
 
-        
         $scope.collection_data = response.data.collection_banner;
       //  $rootScope.is_login = response.data.user_sys_id != '' ? true : false;
 
@@ -748,9 +773,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
                     }
                 });
 
-            setTimeout(function () {
-                $scope.material_grid_view($scope.grid); 
-            },500);    
+           
             $('.viewHeight').css('opacity', '');
         
         }else{
@@ -782,18 +805,6 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
                 $scope.material = response.data.material;
 
                 
-                    // setTimeout(function () {
-                    //     $scope.$apply(function () {
-                    //         // Append data to $scope.collection
-                    //         angular.forEach(response.data.material, function (if_material) {
-                    //             $scope.freesample_addtocart(if_material);
-                    //         });
-                    //     });
-                    // }, 500);
-                    setTimeout(function () {
-                        $scope.material_grid_view($scope.grid); 
-                    },500); 
-
             } else {
                 $scope.materialLoadmore[ecc_code] = false;
                 $('.more' + ecc_code).hide();
@@ -903,9 +914,15 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
 
     $scope.filter = function (type, $code) {
         $scope.selectedIndex = type;
-        $http.post(service_url + 'ShowroomApi/filter',
-            { ECI_CODE: $code }
-        ).then(function (response) {
+        
+        $http({
+            method: 'POST',
+            url: service_url+ 'ecommerce/filter',
+            data: $.param({
+                ECI_CODE: $code
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function (response) {
             $scope.brand_list = response.data.brand_list;
             $scope.color_list = response.data.color_list;
             $scope.material_list = response.data.material_list;
@@ -916,6 +933,8 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
         });
         return true;
     };
+
+    $scope.filter(1, $scope.prodCode);
 
     $scope.clearFilter = function () {
         $scope.filterArray = {};
@@ -928,7 +947,6 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
         $scope.filterArray['sort_by'] = [];
         $scope.filterArray['size'] = [];
         $scope.filterArray['roll_size'] = [];
-        //$scope.filterArray['mostpopular'] = [];
         $scope.filterArray['tag'] = [];
         $scope.filterArray['search'] = '';
     }
@@ -947,12 +965,12 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
             if (index !== -1)
                 $scope.filterArray[type].splice(index, 1);
         } else {
-            if (type == 'price') {
-                $scope.filterArray[type][0] = item_code;
-            } else {
-                $scope.filterArray[type].push(item_code);
-            }
+            
+            $scope.filterArray[type].push(item_code);
+         
         }
+
+        console.log($scope.filterArray)
 
         if (type == 'brand') {
             $http.post(service_url + 'ShowroomApi/getCollectionByBrand/' + $scope.product_id,
@@ -966,27 +984,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
         $scope.filter_search = true;
     };
 
-    $scope.getSampleProduct = function (category_code, $desc, $code) {
-        $('#loader_div').show();
-        $scope.materialSection = false;
-        $scope.category_desc = $desc;
-        $http.post(service_url + 'ShowroomApi/getSampleProduct/' + category_code + '/' + $code,
-            { cache: true }
-        ).then(function (response) {
-            $scope.item = response.data.item;
-            $scope.product_desc = $scope.item[0].ECI_DESC;
-            $scope.prodCode = $scope.item[0].ECI_CODE;
-          
-            $scope.swatchCollection($scope.prodCode, $scope.product_desc, 'direct');
-
-            $('#category' + $code).addClass('act');
-            $('#product' + $scope.prodCode).addClass('act');
-            $scope.clearFilter();
-            $scope.filter(1, $scope.item[0].ECI_CODE);
-            $('#loader_div').hide();
-        });
-    };
-
+  
     
     
     $scope.selectPage = function (page, prod_code) {
@@ -1053,131 +1051,13 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
         }
     };
 
-    var min = 1;
-    var max = 30;
-    var step = 1;
-
-    var setValue = function (val, code) {
-        $scope.qty[code] = { value: parseInt(val) };
-    }
-
-    $scope.minus = function (ifCode, matCode) {
-        //var material = ifCode == undefined ? matCode : ifCode
-        var material = _.isEmpty($scope.singleMaterial) ? matCode : $scope.singleMaterial[matCode.ECM_CODE];
-
-        var code = material.ECM_CODE;
-        var qty = $scope.qty[code].value;
-        if (qty <= 1) {
-            setValue(min);
-            return false;
-        }
-        setValue((qty - step), code);
-        $scope.productCart[code] = $rootScope.noneProductKey[$scope.non_product.indexOf($scope.family_material[code].ECM_CODE)];
-        var data = angular.merge({}, material, $scope.productCart[code]);
-
-        $scope.material_checkout(data, 'NON_PRODUCT');
-    };
-
-    $scope.plus = function (ifCode, matCode, noneProd) {
-        var material = _.isEmpty($scope.singleMaterial) ? matCode : $scope.singleMaterial[matCode.ECM_CODE];
-        var code = material.ECM_CODE;
-        var qty = $scope.qty[code].value;
-        if (max && (qty >= max || qty + step >= max)) {
-            setValue(max);
-            return false;
-        }
-        setValue((qty + step), code);
-        var ind = $('.moreIF' + code).siblings('.colorSwatches').find('.active').data('ind');
-        $scope.productCart[code] = $rootScope.noneProductKey[$scope.non_product.indexOf($scope.family_material[code].ECM_CODE)];
-        var data = angular.merge({}, material, $scope.productCart[code]);
-
-        $scope.material_checkout(data, 'NON_PRODUCT');
-    };
-
-    $scope.changed = function (ifCode, matCode) {
-       var material = _.isEmpty($scope.singleMaterial) ? matCode : $scope.singleMaterial[matCode.ECM_CODE];
-
-        var code = material.ECM_CODE;
-        var qty = $scope.qty[code].value;
-        setValue(qty, code);
-        var ind = $('.moreIF' + code).siblings('.colorSwatches').find('.active').data('ind');
-        $scope.productCart[code] = $rootScope.noneProductKey[$scope.non_product.indexOf($scope.family_material[code].ECM_CODE)];
-        var data = angular.merge({}, material, $scope.productCart[code]);
-        $scope.material_checkout(data, 'NON_PRODUCT');
-    };
-
-    $scope.material_grid_view=function(val){
-        $scope.grid = val;
-        switch(val){
-            case 2:
-                $scope.material_grid_view2 = true;
-                $scope.material_grid_view4 = true;
-                $scope.material_grid_view8 = false;
-
-                $('#allTiles .productTile').removeClass("BrowsCollStyle4");
-                $('#allTiles .productTile').removeClass("BrowsCollStyle8");
-                $('#allTiles .productTile').addClass("BrowsCollStyle2");
-                $('.padding_left0.padding_xs_left0').remove('style');
-                break;
-            case 4:
-                $scope.material_grid_view2 = false;
-                $scope.material_grid_view4 = false;
-                $scope.material_grid_view8 = false;
-
-                $('#allTiles .productTile').removeClass("BrowsCollStyle2");
-                $('#allTiles .productTile').removeClass("BrowsCollStyle8");
-                $('#allTiles .productTile').addClass("BrowsCollStyle4");
-                $('.padding_left0.padding_xs_left0').remove('style');
-                break;
-            case 8:
-                $scope.material_grid_view2 = false;
-                $scope.material_grid_view4 = true;
-                $scope.material_grid_view8 = true;
-
-                $('#allTiles .productTile').removeClass("BrowsCollStyle2");
-                $('#allTiles .productTile').removeClass("BrowsCollStyle4");
-                $('#allTiles .productTile').addClass("BrowsCollStyle8");
-                $('.padding_left0.padding_xs_left0').css('padding-right','5px');
-                break;
-            default:
-                $('.productTile').css('width','19%');
-                $('.men-thumb-item img').css('height','180px');
-                $('.men-thumb-item img').css('max-height','180px');
-                $('.colorSwatches li img').attr('style', 'height: 24px !important');
-                $('.colorSwatches li img').css('width','24px');
-                $('.freeSample, .freeSample a').css('font-size','11px');
-                $('.buyNow, .buyNow a').css('font-size','11px');
-                $('.padding_left0.padding_xs_left0').remove('style');
-                $('.viewDetail a').remove('style');
-        }
-
-    }
-
-
-    $scope.tooltipstertooltip = function (tooltipitem, ifCode) {
-        
-        var html = '';
-        html += '<div style="width: 100%; margin-bottom:10px; color:#000"><strong>SELECT MODEL FOR YOUR CURTAIN</strong></div>';
-        for(var i = 0; i < tooltipitem.length; i++){
-            html += '<div style="width: 100%; margin-bottom:10px"><img src="' + $scope.s3_image_path + tooltipitem[i].ECI_IMAGE_PATH +'" width="50" height="50" style="margin-right:10px"/><a href="customizing/5965/'+tooltipitem[i].ECI_CODE+'/'+tooltipitem[i].ECM_CODE+'"><strong>'+tooltipitem[i].ECI_DESC+'</strong></p></div>';
-        }
-
-        $('.customize_'+ ifCode).tooltipster({     
-            contentAsHTML: true,  
-            interactive:true,
-            maxWidth:350, 
-            contentCloning:true,   
-            arrow:false,  
-            content: $(html)
-        });
-        
-    };
    
 }]);
 
 controllers.controller('materialFamily', ['$scope', '$http', '$location', '$controller', '$rootScope', '$ngBootbox', '$translate', function ($scope, $http, $location, $controller, $rootScope, $ngBootbox, $translate) {
 
-    
+    angular.extend(this, $controller('globalFunction', { $scope: $scope }));
+
     window.scrollTo(0, 0);
     $('.viewHeight').css('opacity', 0);
     $scope.ecm_code = $location.search().id;
@@ -1197,15 +1077,19 @@ controllers.controller('materialFamily', ['$scope', '$http', '$location', '$cont
             { cache: true }).then(function (response) {
                 $('#loader_div').hide();
                 $('.viewHeight').css('opacity', '');
-                $scope.material_info = response.data.material_info[0];
-                $scope.life_style_info=response.data.life_style_info;
-                $scope.family = response.data.material_info.family;
-                $scope.guideline = response.data.guideline;
-                $scope.pattern = response.data.pattern;
-                $scope.detail = response.data.detail;
-                $scope.product = response.data.product;
-                $scope.status = response.data.status;
 
+                $scope.material_info = response.data.material_info[0];
+                if(_.isEmpty($scope.material_info) == false){
+                    $scope.life_style_info=response.data.life_style_info;
+                    $scope.family = response.data.material_info.family;
+                    $scope.guideline = response.data.guideline;
+                    $scope.pattern = response.data.pattern;
+                    $scope.detail = response.data.detail;
+                    $scope.product = response.data.product;
+                    $scope.status = response.data.status;
+                }else{
+                    $location.path('404');
+                }
                 
 
                 $scope.imageZoomLoad = function () {
@@ -1216,7 +1100,7 @@ controllers.controller('materialFamily', ['$scope', '$http', '$location', '$cont
                     $scope.imageZoomLoad();
                     $('.feature_and_benefit').find('img').remove();
                     $('.how_to').remove();
-                    $('.feature_and_benefit p')[1].remove();
+                   // $('.feature_and_benefit p')[1].remove();
                 }, 500);
             });
     };
@@ -1273,7 +1157,8 @@ controllers.controller('materialFamily', ['$scope', '$http', '$location', '$cont
 
 controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$http', '$route', '$ngBootbox', '$controller', '$translate', 'threeJS',function ($scope, $rootScope, $location, $http, $route, $ngBootbox, $controller, $translate,threeJS) {
 
-    
+    angular.extend(this, $controller('globalFunction', { $scope: $scope }));
+
 
     $scope.tooltipstertooltip = function (tooltipitem) {
         var html = '';
@@ -1364,6 +1249,7 @@ controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$ht
     $scope.product_id = $route.current.params.product_id;
     var ECI_CODE = $route.current.params.product_id;
     var matrial_id = $route.current.params.matrial_id;
+    $scope.matrial_id = $route.current.params.matrial_id;
     $scope.category_code = $route.current.params.category ? $route.current.params.category : '';
 
     $scope.curtain_selected=ECI_CODE;
@@ -2687,7 +2573,7 @@ var list_lenth=$('.style_curtain').length
 
             $http({
                 method: 'POST',
-                url:service_url + 'ShowroomApi/filter',
+                url:service_url + 'ecommerce/filter',
                 data:$.param( { ECI_CODE: ECI_CODE, ECI_ECP_CODE: $scope.itemProduct_array[0],ECC_CODE:$location.search().ecc_code ? $location.search().ecc_code.split(',') : '', cache: true }),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (response) {
