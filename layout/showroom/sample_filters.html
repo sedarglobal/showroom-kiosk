@@ -1,0 +1,315 @@
+<style>
+    .navbar.filter_menu_tab {
+        width: 80%;
+        float: right;
+    }
+  
+    
+    .filter_menu_tab .dropdown {
+        
+        position: initial;
+    }
+    
+    .filter_menu_tab .dropdown .dropbtn {
+        font-size: 13px;
+        border: none;
+        outline: none;
+        color: #000;
+        padding: 5px 8px;
+        background-color: #fff;
+        width: 100%;
+        margin: 0;
+    }
+    
+    .navbar.filter_menu_tab a:hover,
+    .filter_menu_tab .dropdown:hover .dropbtn {
+        background-color: #ddd;
+    }
+    
+    .filter_menu_tab .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        width: 100%;
+        left:70px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        padding: 5px;
+    }
+    
+    .filter_menu_tab .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    
+    .filter_menu_tab .column {
+        float: left;
+        width: 100%;
+        padding: 0px;
+        height: auto;
+        overflow: auto;
+        text-align: left;
+    }
+    
+    .filter_menu_tab .column a {
+        float: none;
+        color: black;
+        padding: 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+    
+    .filter_menu_tab .column a:hover {
+        background-color: #ddd;
+    }
+    /* Clear floats after the columns */
+    
+    .filter_menu_tab .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    
+    .price_section {
+        padding: 5px 0;
+        cursor: pointer;
+    }
+    
+    .price_section span {
+        padding: 0;
+    }
+    
+    .select_filter1 {
+        padding: 5px 5px 0 5px;
+    }
+    
+    .select_filter {
+        padding: 10px;
+        background-color: #f0efef;
+    }
+    
+    .select_filter:hover,
+    .price_filter:hover {
+        background-color: #ddd;
+    }
+    
+    .active_icon {
+        background-color: #ddd;
+    }
+    
+    .active_icon::before {
+        top: -2px;
+        right: 0;
+    }
+    .grid_view li {
+	float: left;
+	padding: 0 5px;
+}
+
+.festivalSale_btnss{
+    width: 68px;
+    height: 32px;
+    font-weight: bold !important;
+    font-size: 13px !important;
+    text-transform: none;
+    color: #fff;
+    letter-spacing: 0;
+    line-height: 1;
+}
+.free_delivery_with_inst{
+ float: left;
+ padding: 5px;
+ cursor: pointer;
+ background:#fff;
+ width: 78px;
+}
+
+
+.filter_menu_tab label:before {
+    content: url("https://cdn1.iconfinder.com/data/icons/windows8_icons_iconpharm/26/unchecked_checkbox.png");
+    position: absolute;
+    z-index: 100;
+  }
+  .filter_menu_tab :checked+label:before {
+    content: url("https://cdn1.iconfinder.com/data/icons/windows8_icons_iconpharm/26/checked_checkbox.png");
+  }
+  .filter_menu_tab input[type=checkbox] {
+    display: none;
+  }
+  
+  
+
+</style>
+
+    <div class="navbar filter_menu_tab text_right">
+
+        <div style="float: right;">
+ 
+            <div class="dropdown" ng-if="filter_tag.length > 0">
+                <button class="dropbtn" translate="sort_by">
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <div class="col-md-4 col-sm-4 select_filter" ng-class="{ active_icon: filterArray['tag'].indexOf(tag.EPF_FILTER_TAG) >= 0 }" ng-repeat="tag in filter_tag" ng-click="filterSection(tag.EPF_FILTER_TAG, 'tag'); searchFilter(product_id, product_desc)" ng-if="['All Collections', 'Sale'].indexOf(tag.EPF_FILTER_TAG) < 0">
+                        {{tag.EPF_FILTER_EN}}
+                    </div>
+                </div>        
+            </div>        
+
+            <div class="dropdown" ng-if="['1143108','1152446','1152440','1152443','1152442','1152438','1143181','1143189','1143221','1143173','1216599', '68282'].indexOf(prodCode)==-1">
+                <button class="dropbtn" translate="size">Size
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <div class="col-md-12 col-sm-12 column nopadding text_right">
+                        <!-- <div class="col-md-12 col-sm-12"> -->
+                        <div class="col-md-12 col-sm-12 price_section price_filter" ng-click="filterSection('1', 'size')">
+                            <input class="col-md-1 col-sm-1 right-side" type="radio" name="size" ng-model="filterArray['size'][0]" value="1">
+                            <span class="col-md-11 col-sm-11" translate="sizeBelow50"></span>
+                        </div>
+                        <div class="col-md-12 col-sm-12 price_section price_filter" ng-click="filterSection('2', 'size')">
+                            <input class="col-md-1 col-sm-1  right-side" type="radio" name="size" ng-model="filterArray['size'][0]" value="2">
+                            <span class="col-md-11 col-sm-11" translate="sizefromto" translate-values="{ from: 50, to: 100 }"></span>
+                        </div>
+                        <div class="col-md-12 col-sm-12 price_section price_filter" ng-click="filterSection('3', 'size')">
+                            <input class="col-md-1 col-sm-1  right-side" type="radio" name="size" ng-model="filterArray['size'][0]" value="3">
+                            <span class="col-md-11 col-sm-11" translate="sizefromto" translate-values="{ from: 100, to: 150 }"></span>
+                        </div>
+                        <div class="col-md-12 col-sm-12 price_section price_filter"  ng-click="filterSection('4', 'size')">
+                            <input class="col-md-1 col-sm-1 right-side" type="radio" name="size" ng-model="filterArray['size'][0]" value="4">
+                            <span class="col-md-11 col-sm-11" translate="sizefromto" translate-values="{ from: 150, to: 200 }"></span>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 price_section price_filter"  ng-click="filterSection('5', 'size')">
+                            <input class="col-md-1 col-sm-1 right-side" type="radio" name="size" ng-model="filterArray['size'][0]" value="5">
+                            <span class="col-md-11 col-sm-11" translate="sizefromto" translate-values="{ from: 200, to: 250 }"></span>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 price_section price_filter"  ng-click="filterSection('6', 'size')">
+                            <input class="col-md-1 col-sm-1 right-side" type="radio" name="size" ng-model="filterArray['size'][0]" value="6">
+                            <span class="col-md-11 col-sm-11" translate="size250Above" translate-values="{ total_item: 250 }"></span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="dropdown" ng-if="['1143108','1152446','1152440','1152443','1152442','1152438','1143181','1143189','1143221','1143173','1216599', '68282'].indexOf(prodCode)>=0">
+                <button class="dropbtn" translate="roll_size">Roll Size
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <div class="col-md-12 col-sm-12 column nopadding text_right">
+                        <div class="col-md-12 col-sm-12 price_section price_filter" ng-click="filterSection('53', 'roll_size')">
+                            <input class="col-md-1 col-sm-1 right-side" type="radio" name="size" ng-model="filterArray['roll_size'][0]" value="53">
+                            <span class="col-md-11 col-sm-11" translate="size53"></span>
+                        </div>
+                        <div class="col-md-12 col-sm-12 price_section price_filter" ng-click="filterSection('70', 'roll_size')">
+                            <input class="col-md-1 col-sm-1  right-side" type="radio" name="size" ng-model="filterArray['roll_size'][0]" value="70">
+                            <span class="col-md-11 col-sm-11" translate="size70"></span>
+                        </div>
+                        <div class="col-md-12 col-sm-12 price_section price_filter" ng-click="filterSection('90', 'roll_size')">
+                            <input class="col-md-1 col-sm-1  right-side" type="radio" name="size" ng-model="filterArray['roll_size'][0]" value="90">
+                            <span class="col-md-11 col-sm-11" translate="size90"></span>
+                        </div>
+                        <div class="col-md-12 col-sm-12 price_section price_filter"  ng-click="filterSection('106', 'roll_size')">
+                            <input class="col-md-1 col-sm-1 right-side" type="radio" name="size" ng-model="filterArray['roll_size'][0]" value="106">
+                            <span class="col-md-11 col-sm-11" translate="size106"></span>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 price_section price_filter"  ng-click="filterSection('Mural', 'roll_size')">
+                            <input class="col-md-1 col-sm-1 right-side" type="radio" name="size" ng-model="filterArray['roll_size'][0]" value="Mural">
+                            <span class="col-md-11 col-sm-11" translate="sizeMural"></span>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 price_section price_filter"  ng-click="filterSection('Border', 'roll_size')">
+                            <input class="col-md-1 col-sm-1 right-side" type="radio" name="size" ng-model="filterArray['roll_size'][0]" value="Border">
+                            <span class="col-md-11 col-sm-11" translate="sizeBorder"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dropdown colormenu">
+                <button class="dropbtn" translate="color">Color
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <div class="col-md-12 col-sm-12 nopadding">
+                        <div class="col-md-6 col-sm-6 col-xs-12 color_list select_filter1" ng-repeat="item in color_list" ng-if="item.CL_CODE != '00'">
+                            <div class="col-md-12 col-sm-12 col-xs-12  text-left select_filter" ng-click="filterSection(item.CL_CODE, 'color')" ng-class="{ active_icon: filterArray['color'].indexOf(item.CL_CODE) >= 0 }" data-toggle="tooltip" title="{{item.CL_DESC}} ">
+                                <div class="color_image col-md-3 col-sm-2 col-xs-4 nopadding">
+                                    <img ng-src="{{item.CL_IMAGE_PATH}}" title="{{item.CL_DESC}}">
+                                </div>
+                                <div class="text col-md-9 col-sm-10 col-xs-8 nopadding" style="padding: 6px;">
+                                    <span class="text-center">{{item.CL_DESC}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn" translate="design">Design
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <div class="col-md-4 col-sm-6 text-center select_filter1" ng-repeat="item in pattern_list">
+                        <div class="col-md-12 col-sm-12 nopadding only_text select_filter" ng-click="filterSection(item.IT_CODE, 'pattern')" ng-class="{active_icon: filterArray['pattern'].indexOf(item.IT_CODE) >= 0}" data-toggle="tooltip" title="{{item.IT_DESC}}">
+                            <span class="">{{item.IT_DESC}} </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn" translate="brand">Brand
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+
+                    <div class="col-md-4 col-sm-6 col-xs-12  text-center select_filter1" ng-repeat="item in brand_list" ng-if="item.BR_CODE != '00'">
+                        <div class="col-md-12 col-sm-12 nopadding  only_text select_filter" ng-click="filterSection(item.BR_CODE, 'brand')" ng-class="{active_icon: filterArray['brand'].indexOf(item.BR_CODE) >= 0}" data-toggle="tooltip" title="{{item.BR_DESC}}">
+                            <span class="">{{item.BR_DESC}}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn" translate="collection">Collection
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <div class="col-md-4 col-sm-6 col-xs-12 select_filter1" ng-repeat="item in collection_list">
+                        <div class="col-md-12 col-sm-12 text-center nopadding select_filter " ng-click="filterSection(item.ECC_CODE, 'collection')" ng-class="{ active_icon: filterArray['collection'].indexOf(item.ECC_CODE) >= 0 }" data-toggle="tooltip" title="{{item.ECC_DESC}}">
+                            <span class="">{{item.ECC_DESC}}</span>
+                        </div>
+                    </div>
+                    <div ng-if="collection_list.length <= 0" class="text-center">
+                        <span style="color: #CE5454; font-size: 14px;" translate="Please_select_the_brand">Please select the brand.</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn" translate="material">Material
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <div class="col-md-4 col-sm-6 col-xs-12 text-left select_filter1" ng-repeat="item in material_list" ng-if="item.MT_CODE != '00'">
+                        <div class="col-md-12 col-sm-12 text-center nopadding only_text select_filter" ng-click="filterSection(item.MT_CODE, 'material')" ng-class="{ active_icon: filterArray['material'].indexOf(item.MT_CODE) >= 0 }" data-toggle="tooltip" title="{{item.MT_DESC}}">
+                            <span class="">{{item.MT_DESC}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dropdown">
+                <button class="btn btn-new-dark" ng-click="searchFilter(product_id, product_desc)" title="{{filter_search?'Search Filter':'Please select the filter'}}" style="padding: 7px 15px;font-weight: bold;margin: 0px;"><span translate="apply">Apply</span></span></button>
+                <button class="btn freeSample" ng-click="rangeFilter('clear')" title="Clear" style="padding: 7px 15px;font-weight: bold;margin: 0px;border-radius: 5px;"><span translate="clear">Clear</span></button>
+            </div>
+
+       </div>
+
+    </div>
