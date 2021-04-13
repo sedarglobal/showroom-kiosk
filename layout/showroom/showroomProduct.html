@@ -37,13 +37,13 @@
                                                 <div class="share_icon" ng-click="socialShare($event)" data-href="swatches?desc={{row.ECI_DESC}}&id={{row.ECI_CODE}}{{row.EIC_ECC_CODES?'&&ecc_code='+row.EIC_ECC_CODES:'' }}">
                                                     <em class="fas fa-share-alt"></em>
                                                 </div>
-                                                <i class="fa-heart {{item.ECI_CODE}} fas heart_icon" ng-if="item.like_count > 1"></i>
-                                                <i class="fa-heart {{item.ECI_CODE}}  heart_icon"
-                                                    ng-class="{'fas': item.like[0].ECBL_ITEM_PR_CODE == item.ECI_CODE, 'far': item.like[0].ECBL_ITEM_PR_CODE != item.ECI_CODE}"
-                                                    data-ecpcode="{{ecp_code}}" data-code="{{item.ECI_CODE}}"
+                                                <i class="fa-heart {{row.ECI_CODE}} fas heart_icon" ng-if="row.like_count > 1"></i>
+                                                <i class="fa-heart {{row.ECI_CODE}}  heart_icon"
+                                                    ng-class="{'fas': row.like[0].ECBL_ITEM_PR_CODE == row.ECI_CODE, 'far': row.like[0].ECBL_ITEM_PR_CODE != row.ECI_CODE}"
+                                                    data-ecpcode="{{ecp_code}}" data-code="{{row.ECI_CODE}}"
                                                     data-catid="{{product_cat_id}}"
-                                                    ng-click="fa_wishList(ecp_code, item.ECI_CODE, product_cat_id, 'productInfo', '');" 
-                                                    ng-if="item.like_count < 2"></i>
+                                                    ng-click="fa_wishList(ecp_code, row.ECI_CODE, product_cat_id, 'productInfo', '');" 
+                                                    ng-if="row.like_count < 2"></i>
                                             </div>
                                         </div>
                                     </div>
