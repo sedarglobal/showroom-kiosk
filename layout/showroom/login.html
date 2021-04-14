@@ -4,7 +4,7 @@
     }
 
     .modal-body{
-        height: 480px;
+       min-height: 480px;
     }
    
     .close, .close:hover {
@@ -22,16 +22,16 @@
         text-shadow: none;
     }
 </style>
-<div  class="col-md-12 nopadding direction">
+<div  class="col-md-12  col-sm-12  col-xs-12 nopadding direction">
     <form ng-submit="login()">
-        <div class="col-md-9" style="position: absolute;z-index: 1;right: 0;" ng-include="temp_path + 'alert.html?v='+version"></div>
+        <div class="col-md-9 col-sm-9 col-xs-9" style="position: absolute;z-index: 1;right: 0;" ng-include="temp_path + 'alert.html?v='+version"></div>
 
-        <div class=" col-sm-12 panel panel-default panel_background brand-name">
+        <div class="col-md-12  col-sm-12  col-xs-12 panel panel-default panel_background brand-name">
                 <h3>
                     <strong class="DroidKufi_Bold" translate="sign_in"></strong>
                 </h3>
 
-                <div class="col-md-12 login_user nopadding">
+                <div class="col-md-12  col-sm-12  col-xs-12 login_user nopadding">
                     <div class="form-group">
                         <label translate="email"></label>
                         <input class="useremailId form-control" type="text" name="email" placeholder="{{'email@example.com' | translate}}" class="placeholder_class" autofocus ng-model="input.email" required="true">

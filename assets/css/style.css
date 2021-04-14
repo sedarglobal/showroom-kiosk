@@ -23,7 +23,7 @@ section {
 
 .btn:hover,
 .btn:focus {
-  color: inherit;
+  color: ;
 }
 
 .btn.btn-new-dark {
@@ -45,6 +45,7 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 #ShowroomleftSideMenu {
   position: fixed;
@@ -139,7 +140,6 @@ section {
   color: #85878b !important;
 }
 .productheading p span {
- 
   color: #000 !important;
 }
 
@@ -449,10 +449,11 @@ section {
   opacity: 0.52;
 }
 /* filter slider images */
-.modal-open .modal {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
+.modal-open .modal .modal-dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
 }
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
