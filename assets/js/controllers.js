@@ -27,7 +27,7 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user', funct
     //$rootScope.is_login = store.get('USER_INFO') && store.get('USER_INFO').USER_SYS_ID && store.get('USER_INFO').USER_EMAIL_ID.length > 0?true:false;
     //$rootScope.login_userName=store.get('USER_INFO') && store.get('USER_INFO').USER_FIRST_NAME && store.get('USER_INFO').USER_EMAIL_ID.length > 0?store.get('USER_INFO').USER_FIRST_NAME:false;
     
-console.log(user.getSysId());
+    console.log(user.getSysId());
    
 }]);
 
@@ -251,9 +251,6 @@ controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootSc
 controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interval', '$controller', '$rootScope', '$location', '$ngBootbox', '$ngSilentLocation', function ($scope, $route, $http, $interval, $controller, $rootScope, $location, $ngBootbox, $ngSilentLocation) {
 
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
-
-
-    
 
     $scope.current_slide = 0;
     $scope.product_cat = [];
@@ -543,20 +540,112 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
    
     };
 
-    $scope.Productgallery = function () { 
-        var step_options = {
-            templateUrl: $scope.temp_path + 'showroom/thumbSlider.html?v='+version,
-            scope: $scope,
-            size: 'large',
-            // backdrop: false,
-            // title:' $translate.instant('sign_up')',
-            title:null,
-            className: 'thumbSlider',
-            onEscape: function () {
-            }
-        };
+    $scope.Productgallery = function (item) { 
+
+        $http({
+            method: 'POST',
+            url: service_url+ 'ShowroomApi/productGallery',
+            data: $.param({
+                id: item.ECI_CODE,
+                user_sys_id : $scope.user_sys_id
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function (response) {
+
+            $scope.render = response.data.render;
+            $scope.theme = response.data.theme;
+
+            var step_options = {
+                templateUrl: $scope.temp_path + 'showroom/thumbSlider.html?v='+version,
+                scope: $scope,
+                size: 'large',
+                // backdrop: false,
+                // title:' $translate.instant('sign_up')',
+                title:null,
+                className: 'thumbSlider',
+                onEscape: function () {
+                }
+            };
+            
+            $ngBootbox.customDialog(step_options);
+
+
+            setTimeout(function(){
+
+                var sync1 = $("#sync1");
+                var sync2 = $("#sync2");
+                var slidesPerPage = 4; //globaly define number of elements per page
+                var owl = sync1.owlCarousel({
         
-        $ngBootbox.customDialog(step_options);
+                    items: 1,
+                    slideSpeed: 2000,
+                    nav: true,
+                    autoplay: false,
+                    dots: false,
+                    loop: true,
+                    responsiveRefreshRate: 200,
+                    navText: ['<svg width="100%" height="100%" viewBox="0 0 11 20"><path style="fill:none;stroke-width: 1px;stroke: #000;" d="M9.554,1.001l-8.607,8.607l8.607,8.606"/></svg>', '<svg width="100%" height="100%" viewBox="0 0 11 20" version="1.1"><path style="fill:none;stroke-width: 1px;stroke: #000;" d="M1.054,18.214l8.606,-8.606l-8.606,-8.607"/></svg>'],
+                });
+                sync2.owlCarousel({
+                    items: slidesPerPage,
+                    dots: false,
+                    nav: false,
+                    margin: 20,
+                    smartSpeed: 200,
+                    slideSpeed: 500,
+                    slideBy: slidesPerPage, //alternatively you can slide by 1, this way the active slide will stick to the first item in the second carousel
+                    responsiveRefreshRate: 100,
+                    responsive: {
+        
+                        0: {
+                            items: 3,
+                            margin: 10,
+        
+        
+                        },
+        
+                        480: {
+                            items: 4,
+                            margin: 10,
+        
+        
+                        },
+        
+                        768: {
+                            items: 5,
+                            margin: 15,
+                        },
+                        1400: {
+                            items: 6
+                        }
+                    }
+                });
+              
+                $('#sync2').on('click', '.item', function () {
+        
+                    var $item = $(this);
+                    var filter = $item.data('owl-filter')
+        
+                    owl.owlcarousel2_filter(filter);
+        
+                })
+            }, 500);
+
+        });
+
+        // var step_options = {
+        //     templateUrl: $scope.temp_path + 'showroom/thumbSlider.html?v='+version,
+        //     scope: $scope,
+        //     size: 'large',
+        //     // backdrop: false,
+        //     // title:' $translate.instant('sign_up')',
+        //     title:null,
+        //     className: 'thumbSlider',
+        //     onEscape: function () {
+        //     }
+        // };
+        
+        // $ngBootbox.customDialog(step_options);
        
         
     };
