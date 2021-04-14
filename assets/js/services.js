@@ -1851,7 +1851,7 @@ angular.module('acs.services', []).
         };  
   
         return authInterceptor;  
-    }]);;
+    }]);
 
 function splitString(str) {
     return str.length > 0 ? str.split(',') : [];

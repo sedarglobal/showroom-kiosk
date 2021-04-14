@@ -29,7 +29,7 @@ console.log(user);
 controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBootbox', '$rootScope', 'alerts', 'user', '$translate', function ($scope, $location, $http, $ngBootbox, $rootScope, alerts, user, $translate,) {
 
     $scope.usersInfo = store.get('USER_INFO') != undefined ? store.get('USER_INFO') : '';
-
+    $scope.user_sys_id = $scope.usersInfo.USER_SYS_ID != undefined ? $scope.usersInfo.USER_SYS_ID : '';
 
     $scope.input = {};
 
@@ -131,7 +131,6 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
         $likeCheck = $likeCheck ? $likeCheck : false
 
         var ECM_CODE = $scope.favoriteColor == undefined ? material.ECM_CODE : $scope.favoriteColor;
-        var IF_CODE = material.ECM_IF_CODE;
         
         if ($rootScope.is_login == false) {
 
@@ -148,10 +147,10 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
             $ngBootbox.customDialog(step_options);
             $('#loader_div').hide();
             $scope.favorite = 'FAVORITE';
-            $('#' + IF_CODE).removeClass('far');
+            $('#' + material.ECM_CODE).removeClass('far');
         } else {
             if ($likeCheck == false) {
-                if ($('.like' + IF_CODE + ECM_CODE).hasClass('fal') == true && material.FAV_YN != 'Y') {
+                if ($('#like' + material.ECM_CODE).hasClass('fal') == true && material.FAV_YN != 'Y') {
                     $scope.favorite = 'FAVORITE';
                     $('#like' + material.ECM_CODE).removeClass('fal');
                     $('#like' + material.ECM_CODE).addClass('fas');
@@ -167,7 +166,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                 $http({
                     method: 'GET',
                     url:
-                    service_url + 'ShowroomApi/favorite_prod_item/' + material.ECM_ECI_CODE + '/' + ECM_CODE + '/swatches/' + $scope.favorite + '/'+ $scope.usersInfo.USER_SYS_ID,
+                    service_url + 'ShowroomApi/favorite_prod_item/' + material.ECM_ECI_CODE + '/' + ECM_CODE + '/swatches/' + $scope.favorite + '/'+ $scope.user_sys_id,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 
                 }).then(function (response) {
@@ -177,17 +176,17 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                 //console.log( $scope.like);
 
                 if (material.FAV_YN == 'Y' && $scope.like[$scope.like.indexOf(ECM_CODE)] == ECM_CODE) {
-                    $('#like' + IF_CODE).removeClass('fal');
-                    $('#like' + IF_CODE).addClass('fas');
+                    $('#like' + material.ECM_CODE).removeClass('fal');
+                    $('#like' + material.ECM_CODE).addClass('fas');
                 } else if (material.FAV_YN != 'Y' && $scope.like[$scope.like.indexOf(ECM_CODE)] == ECM_CODE) {
-                    $('#like' + IF_CODE).removeClass('fal');
-                    $('#like' + IF_CODE).addClas0s('fas');
+                    $('#like' + material.ECM_CODE).removeClass('fal');
+                    $('#like' + material.ECM_CODE).addClas0s('fas');
                 } else {
                     if ($scope.like[$scope.like.indexOf(ECM_CODE)] == ECM_CODE) {
                         $scope.like.splice($scope.like.indexOf(ECM_CODE), 1);
                     }
-                    $('#like' + IF_CODE).addClass('fal');
-                    $('#like' + IF_CODE).removeClass('fas');
+                    $('#like' + material.ECM_CODE).addClass('fal');
+                    $('#like' + material.ECM_CODE).removeClass('fas');
                 }
             }
         }
@@ -199,10 +198,10 @@ controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootSc
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
 
 
-    $http.get('https://www.sedarglobal.com/service/ecommerce/getHomeList',{
-        cache : true
-    }).then(function (response) {
-    });
+    // $http.get('https://www.sedarglobal.com/service/ecommerce/getHomeList',{
+    //     cache : true
+    // }).then(function (response) {
+    // });
     $scope.loginMenu = function () {
             
         var step_options = {
@@ -263,6 +262,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
     $scope.product_cat = [];
     $scope.brand_list = [];
     $scope.likeCheck = [];
+    $scope.like = [];
     $scope.styleType = ['Fabric', 'Liner'];
     $scope.categoryRecord = store.get('categoryRecord');
    // $scope.$root.enquiry_form.ECE_ENQUIRY_TYPE = 'D';
@@ -292,7 +292,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
     
             $http({
                 method: 'GET',
-                url: service_url + 'ShowroomApi/' + $scope.url + '/' + $scope.usersInfo.USER_SYS_ID,
+                url: service_url + 'ShowroomApi/' + $scope.url + '/' + $scope.user_sys_id,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (response) {
                 $scope.shopping = response.data.shopping;
@@ -707,7 +707,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
                 per_page: $scope.rowperpage,
                 filterArray: $scope.filterArray,
                 id: $location.search().id,
-                user_sys_id : $scope.usersInfo.USER_SYS_ID
+                user_sys_id : $scope.user_sys_id
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(response) {
@@ -756,7 +756,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
                 per_page: $scope.rowperpage,
                 filterArray: $scope.filterArray,
                 offerType:$scope.offer_code,
-                user_sys_id : $scope.usersInfo.USER_SYS_ID
+                user_sys_id : $scope.user_sys_id
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(response) {
@@ -1069,7 +1069,7 @@ controllers.controller('materialFamily', ['$scope', '$http', '$location', '$cont
         $scope.loader = true;
         $http({
             method: 'GET',
-            url: service_url + 'ShowroomApi/similarmaterial/' + $scope.ecm_code + '/' + $scope.prod_code + '/' + pattern + '/' + $scope.usersInfo.USER_SYS_ID,
+            url: service_url + 'ShowroomApi/similarmaterial/' + $scope.ecm_code + '/' + $scope.prod_code + '/' + pattern + '/' + $scope.user_sys_id,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
             $scope.detail = response.data.detail;
@@ -1854,7 +1854,7 @@ var list_lenth=$('.style_curtain').length
                     matrial_id: matrial_id, 
                     material_code: $scope.BorderFamily_selected, 
                     step_option_Code: step_option, 
-                    user_sys_id : $scope.usersInfo.USER_SYS_ID}),
+                    user_sys_id : $scope.user_sys_id}),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (response) {
                 $scope.dataResponse = response.data.data;
@@ -2166,7 +2166,7 @@ var list_lenth=$('.style_curtain').length
             data:$.param({
                 data: $postData, 
                 filterArray: $scope.filterArray,
-                user_sys_id : $scope.usersInfo.USER_SYS_ID 
+                user_sys_id : $scope.user_sys_id 
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
@@ -4635,7 +4635,7 @@ var list_lenth=$('.style_curtain').length
 
         $http({
             method: 'GET',
-            url:service_url + 'ShowroomApi/getFamilyMatrialImg/' + ECM_IF_CODE + '/' + ECM_ECI_CODE,
+            url:service_url + 'ShowroomApi/getFamilyMatrialImg/' + ECM_IF_CODE + '/' + ECM_ECI_CODE +'/'+ $scope.user_sys_id,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
             $scope.family_img = dataGroup(response.data.family_img, 6);
@@ -5085,14 +5085,11 @@ var list_lenth=$('.style_curtain').length
     //Edit functionality....
 
     $scope.CartEdit = function () {
-
         if ($scope.edit_cart_info.hasOwnProperty('rowid') && cart_id.length > 1 && $scope.edit_cart_info.rowid == cart_id) {
             console.log($scope.edit_cart_info.step_item_list);
-            //console.log($scope.edit_cart_info.options.item_list[96]);
             $scope.cart_btn = true;
             $scope.next_step = true;
             angular.forEach($scope.edit_cart_info.step_item_list, function (val, key) {
-               // console.log(key);
                 switch (parseInt(key)) {
                     case 11:					//product item**
                         val ? $scope.itemSection(val) : '';
@@ -5110,7 +5107,6 @@ var list_lenth=$('.style_curtain').length
                         val ? $scope.mountOption(val.tech, val) : '';
                         break;
                     case 107:					//Measurement
-                        //console.log(val);
                         $scope.measurement_width = { value: $scope.edit_cart_info.options.step_array.hasOwnProperty(107) ? parseFloat($scope.edit_cart_info.options.step_array[107].width) : '' };
                         $scope.measurement_height = { value: $scope.edit_cart_info.options.step_array.hasOwnProperty(107) ? parseFloat($scope.edit_cart_info.options.step_array[107].height) : '' };
                         val ? $scope.measurementFunc(val) : '';
@@ -5122,7 +5118,6 @@ var list_lenth=$('.style_curtain').length
                                 $('.desc107').text($scope.qty.value + ' Set(s)');
                             } else {
                                 $('.desc107').text($scope.qty.value + $translate.instant('Roll'));
-                                //$("#roll_radio").prop("checked", true);
                             }
                         }
                         break;
@@ -5186,7 +5181,6 @@ var list_lenth=$('.style_curtain').length
                     case 4068:					//Type of motor
                         $scope.motorType = val;
                         val ? $scope.typeOfMotor(val.tech, val, 'direct') : '';
-                        //$scope.step_array[val.tech.EIS_ECS_CODE] = $scope.step_array_obj(val.tech, val);
                         break;
                     case 3283:					//Position of Motor
                         val ? $scope.motorPosition(val.tech, val) : '';
@@ -5205,7 +5199,6 @@ var list_lenth=$('.style_curtain').length
                         val ? $scope.installationFunction(val.tech, val) : '';
                         break;
                     case 5747:					//Lenght of Wire
-                        //$scope.lengthOfWire = $scope.edit_cart_info.options.step_array.hasOwnProperty(5747) ? parseFloat($scope.edit_cart_info.options.step_array[5747].item_value) : '';
                         var wireValue = $scope.edit_cart_info.options.step_array.hasOwnProperty(5747) ? parseFloat($scope.edit_cart_info.options.step_array[5747].item_value) : '';
                         $scope.lengthOfWire = { id: wireValue, label: wireValue.toFixed(2) + " LMT" };
                         val ? $scope.lengthOfWireFun($scope.lengthOfWire, val) : '';
@@ -5225,8 +5218,6 @@ var list_lenth=$('.style_curtain').length
                         break;
                     case 251975:					//Charger
                         $scope.chargerUom = val.tech.EIS_UOM;
-                        // console.log(val.tech);
-                        // console.log($scope.chargerUom);
                         val ? $scope.charger(val.tech, val) : '';
                         break;    
                     default:
@@ -5235,16 +5226,11 @@ var list_lenth=$('.style_curtain').length
 
 
             });
-            //$scope.length_of_wire = $scope.edit_cart_info.options.step_array[96];
-            //$scope.edit_cart_info.options.step_array[96] ? $scope.lengthOfWireFun($scope.edit_cart_info.options.step_array[96]) : '';
-
             $scope.roomTypeValue = $scope.edit_cart_info.options.step_array.hasOwnProperty(113) ? $scope.edit_cart_info.options.step_array[113].option_desc : '';
             $scope.roomTypeCode = $scope.edit_cart_info.options.step_array.hasOwnProperty(113) ? $scope.edit_cart_info.options.step_array[113].option_code : '';
             $scope.roomDescription = $scope.edit_cart_info.options.step_array.hasOwnProperty(113) ? $scope.edit_cart_info.options.step_array[113].remarks : '';
             $scope.itemProduct_array[113] = [$scope.roomDescription, $scope.roomTypeValue];
-            //val ? $scope.itemLabel(val) : '';
-            //console.log($scope.step_array);
-
+           
             var step_obj2 = {
                 'remarks': $scope.roomDescription,
                 'option_desc': $scope.roomTypeValue,
@@ -5264,8 +5250,6 @@ var list_lenth=$('.style_curtain').length
 
 
     $scope.type_of_material = function(item, parent_step){
-        //$('#4068').find('.rediochecker').prop('checked', false);
-
         $scope.type_of_material_selected = item.EIS_CODE;
         $scope.typeOfMaterialCode = {
             name: item.EIS_CODE
@@ -5285,7 +5269,6 @@ var list_lenth=$('.style_curtain').length
         var step_options = {
             templateUrl: $scope.temp_path + 'popup/steps_info.html?v='+version,
             scope: $scope,
-            // backdrop: false,
             title: item.EIS_DESC,
             className: 'step_info_popup',
             onEscape: function () {
@@ -5293,9 +5276,8 @@ var list_lenth=$('.style_curtain').length
         };
         $ngBootbox.customDialog(step_options);
         $('#loader_div').hide();
-        // });
-    }
-        ;
+    };
+
     $scope.backUrl = $location.search().ref + '&item=' + $location.search().item + '&syschild=' + $location.search().syschild;
     
     
@@ -5305,12 +5287,6 @@ var list_lenth=$('.style_curtain').length
         var stepHeight = window.innerHeight -parseInt(headerheight);      
         $('.navigation.step_tool').attr('style', 'height :' + stepHeight + 'px');
        
-        // if (window.innerWidth > 1200) {
-          
-        // } else {
-           
-        // }
-
     }
     
     setInterval(function(){
@@ -5324,3 +5300,24 @@ var list_lenth=$('.style_curtain').length
 
 ]);
 
+function dataGroup(data, group) {
+    var group_data = [];
+    var group_val = [];
+    var j = 0;
+    var k = 0;
+    var len = data.length;
+    for (var i = 0; i < len; i++) {
+        group_val[k] = data[i];
+        k++;
+        if (k >= group) {
+            k = 0;
+            j++;
+            group_data.push(group_val);
+            group_val = [];
+        }
+    }
+    if (group_val.length > 0) {
+        group_data.push(group_val);
+    }
+    return group_data;
+}

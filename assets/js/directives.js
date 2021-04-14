@@ -86,30 +86,6 @@ angular.module('acs.directives', [])
                 }
             };
         }])
-    .directive('ladda', ['$translate', function ($translate) {
-            return {
-                restrict: 'A',
-                priority: -1,
-                link: function (scope, element, attrs) {
-                    if (!_.isEmpty(attrs.translateLadda)) {
-                        element.html($translate.instant(attrs.translateLadda));
-                    }
-                    var ladda = Ladda.create(element[0]);
-                    element.addClass('ladda-button');
-                    element.attr('data-style', 'expand-right');
-                    element.attr('data-size', 1);
-                    scope.$watch(function () {
-                        return scope.$eval(attrs.ladda);
-                    }, function (newValue) {
-                        if (newValue) {
-                            ladda.start();
-                        } else {
-                            ladda.stop();
-                        }
-                    });
-                }
-            };
-        }])
     .directive('confirm', ['$translate', function ($translate) {
             return {
                 restrict: 'A',

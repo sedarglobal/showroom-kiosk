@@ -98,9 +98,6 @@
                                        
                                         <div class="item active act{{material.ECM_CODE}}" ng-class="{active_icon: group[mat_key].ECM_CODE == color_selected}">
                                             <img class="thumb_swatch" id="applyFamImg{{material.ECM_CODE}}" data-num="{{mat_key}}" ng-src="{{group[mat_key].ECM_THUMBNAIL_IMAGES?upload_url+group[mat_key].ECM_THUMBNAIL_IMAGES.replace('$$/', ''):back_side_img.indexOf(group[mat_key].ECM_ECI_CODE) < 0 ? upload_url + group[mat_key].ECM_IMAGE_PATH.replace('$$/', '')  : upload_url + group[mat_key].ECM_BACK_SIDE_TEXTURE_IMG_PATH.replace('$$/', '')}}" title="{{group[mat_key].ECM_TOOL_TIP}}" alt="{{group[mat_key].ECI_SEO_TAG?group[mat_key].ECI_SEO_TAG:'Material Title'}}" ng-click="colorSection(group[mat_key], step, 'direct', group[mat_key].ECM_CODE)">
-                                            <a class="floatLeft customize_{{material.ECM_CODE}}" href="customizing/{{cat_code}}/{{material.ECM_ECI_CODE}}/{{material.ECM_CODE}}"  ng-if="material.ECI_ALLOW_ADD_TO_CART_YN == 'C'">
-                                                <img class="threeD" ng-src="{{image_path + 'threeD.png'}}">
-                                            </a> 
                                         </div> 
                                     </div>
                                 </div>
