@@ -6,41 +6,13 @@ angular.module('acs.services', []).
             clear: function () {
                 store.set('user', {});
             },
-            permissions: function (resource) {
-                var deferred = $q.defer();
+            getSysId: function () {
                 var user = _.isUndefined(store.get('user')) ? {} : store.get('user');
-                $http.post('api/user/permissions', {
-                    token: user.token,
-                    resource: resource
-                }).success(function (data) {
-                    if (data.status) {
-                        deferred.resolve(data.permissions);
-                        return;
-                    }
-                    deferred.reject();
-                });
-                return deferred.promise;
+                return user.sysId;
             },
-            loggedIn: function () {
+            setSysId: function (sysId) {
                 var user = _.isUndefined(store.get('user')) ? {} : store.get('user');
-                return !_.isEmpty(user) && !_.isEmpty(user.token) && !_.isUndefined(user.token);
-            },
-            getEmail: function () {
-                var user = _.isUndefined(store.get('user')) ? {} : store.get('user');
-                return user.email;
-            },
-            getToken: function () {
-                var user = _.isUndefined(store.get('user')) ? {} : store.get('user');
-                return user.token;
-            },
-            setEmail: function (email) {
-                var user = _.isUndefined(store.get('user')) ? {} : store.get('user');
-                user.email = email;
-                store.set('user', user);
-            },
-            setToken: function (token) {
-                var user = _.isUndefined(store.get('user')) ? {} : store.get('user');
-                user.token = token;
+                user.sysId = sysId;
                 store.set('user', user);
             }
         };

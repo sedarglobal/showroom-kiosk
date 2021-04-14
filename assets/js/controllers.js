@@ -1,7 +1,6 @@
 var controllers = angular.module('acs.controllers', ['ngSilent']);
 
 controllers.controller('root', ['$scope','$translate','$rootScope','user', function ($scope,$translate,$rootScope,user) {
-    
     $scope.user = user;
     $scope.temp_path = temp_path;
     $scope.version = version;
@@ -16,11 +15,19 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user', funct
     bootbox.setDefaults({ 'locale': langKey });
 	
     $rootScope.upload_url = image_upload;//'https://www.sedarglobal.com/service/uploads/';
-
-    $rootScope.is_login = store.get('USER_INFO') && store.get('USER_INFO').USER_SYS_ID && store.get('USER_INFO').USER_EMAIL_ID.length > 0?true:false;
-    $rootScope.login_userName=store.get('USER_INFO') && store.get('USER_INFO').USER_FIRST_NAME && store.get('USER_INFO').USER_EMAIL_ID.length > 0?store.get('USER_INFO').USER_FIRST_NAME:false;
     
-console.log(user);
+    $scope.$root.is_login = user.getSysId() ? true : false;
+
+    if (user.getSysId()) {
+        $scope.usersInfo = store.get('USER_INFO');
+        $scope.user_sys_id = $scope.usersInfo.USER_SYS_ID != undefined ? $scope.usersInfo.USER_SYS_ID : '';
+        $rootScope.login_userName = $scope.usersInfo.USER_FIRST_NAME != undefined ? $scope.usersInfo.USER_FIRST_NAME : '';
+    }
+
+    //$rootScope.is_login = store.get('USER_INFO') && store.get('USER_INFO').USER_SYS_ID && store.get('USER_INFO').USER_EMAIL_ID.length > 0?true:false;
+    //$rootScope.login_userName=store.get('USER_INFO') && store.get('USER_INFO').USER_FIRST_NAME && store.get('USER_INFO').USER_EMAIL_ID.length > 0?store.get('USER_INFO').USER_FIRST_NAME:false;
+    
+console.log(user.getSysId());
    
 }]);
 
@@ -35,7 +42,6 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
 
 
     $scope.login = function () {
-        console.log(11);
         $scope.waiting = true;
         $http({
             method: 'POST',
@@ -54,11 +60,10 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                 $rootScope.login_userName = response.data.user_detail.USER_FIRST_NAME;
                 $rootScope.USER_KEY_TYPE = response.data.user_detail.USER_KEY_TYPE;
                 store.set('USER_INFO', response.data.user_detail);
-              //  store.set('user', response.data.user_detail.USER_EMAIL_ID);
+                user.setSysId(response.data.user_detail.USER_SYS_ID);
 
                 $('.ShowroomLogin').modal('hide');
                 if (response.data.user_detail.USER_KEY_TYPE == 'Email Verification') {
-                    // $ngBootbox.alert($translate.instant('email_vaification_message'));
                     var options = {
                         message: $translate.instant('email_vaification_message'),
                         className: 'email_vaification',
@@ -68,7 +73,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                                 className: "btn-warning pull-left",
                                 callback: function () {
                                     $http.post(service_url + 'ecommerce/resendAcountActiveEmail', {
-                                        data: response.data.data.user_detail
+                                        data: response.data.user_detail
                                     }).then(function (response) {
                                         console.log('mail sent');
                                     });
@@ -78,22 +83,12 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                             success: {
                                 label: "Ok",
                                 className: "btn-success",
-                                // callback: function() { ... }
                             }
                         }
                     };
                     $ngBootbox.customDialog(options);
                 }
-                var temp_sample = store.get('temp_sample');
                 $('.login_popup').modal('hide');
-                //console.log($location.url().split('/')[1]);
-                if ($location.url().split('/')[1] == 'catalogue') {
-
-                    $scope.material_checkout(temp_sample[0].prcode, temp_sample[0].item_array, temp_sample[0].base64_img, temp_sample[0].type);
-                } else if ($location.url().split('/')[1] == 'order') {
-                    $scope.goToShippingPage();
-                }
-
             } else {
                 alerts.fail($translate.instant('userid_password_invalid'));
             }
@@ -191,6 +186,20 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
             }
         }
     };
+
+    $scope.ShowroomleftSideMenu = function (type) {       
+        if (type) {
+            $('#left_side_loader_div').show();
+        } else {
+            $('#left_side_loader_div').hide();
+            
+        }
+        $scope.ShowroomleftSide = type;
+        $('#ShowroomleftSideMenu').animate({
+            width: 'toggle'
+        });
+    };
+
 }]);
 
 controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootScope' ,'$ngBootbox','$translate', function ($scope, $http,$controller,$rootScope ,$ngBootbox,$translate) {
@@ -244,19 +253,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
 
 
-    $scope.ShowroomleftSideMenu = function (type) {       
-        if (type) {
-            $('#left_side_loader_div').show();
-        } else {
-            $('#left_side_loader_div').hide();
-            
-        }
-        $scope.ShowroomleftSide = type;
-        $('#ShowroomleftSideMenu').animate({
-            width: 'toggle'
-        });
-    };
-
+    
 
     $scope.current_slide = 0;
     $scope.product_cat = [];
@@ -1176,7 +1173,6 @@ controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$ht
    
     $scope.free_sample_text = $translate.instant('free_sample');
     $scope.added_text = $translate.instant('added');
-    //PageTitle.setTitle('3D Customizing');
     $scope.priceRangeBtn = true;
     $scope.$root.footer = false;
     $scope.catalog = false;
@@ -5298,6 +5294,76 @@ var list_lenth=$('.style_curtain').length
 }
 
 
+]);
+
+controllers.controller('login', ['$scope', '$rootScope', '$location', '$http', 'alerts', 'user', '$controller', '$translate', '$ngBootbox', function ($scope, $rootScope, $location, $http, alerts, user, $controller, $translate, $ngBootbox) {
+   
+    angular.extend(this, $controller('globalFunction', { $scope: $scope }));
+
+
+}]);
+
+controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controller', '$ngBootbox', function ($scope, $rootScope, $http, $controller, $ngBootbox) {
+
+    angular.extend(this, $controller('globalFunction', { $scope: $scope }));
+    $scope.account_step = 'wishList';
+    $scope.input = {};
+    $scope.catalog = true;
+    $scope.catalog_family = true;
+    $('#loader_div').show();
+    $http.get(service_url + 'ecommerce/likeProduct_item', {
+        cache: true
+    }).then(function (response) {
+        $scope.likeProduct_item = response.data.product;
+        $scope.likematerial = response.data.material;
+        $scope.full_img_cover = [0];
+        $scope.zig_zagImg = [0];
+        for (var i = 0; i < response.data.product.length; i++) {
+            if (response.data.product[i].ECI_MATERIAL_ROWS <= 2 && $scope.full_img_cover.indexOf(response.data.product[i].ECI_CODE) < 0) {
+                $scope.full_img_cover.push(response.data.product[i].ECI_CODE);
+            }
+            if (response.data.product[i].ECI_MATERIAL_EDGE == 'Z' && $scope.full_img_cover.indexOf(response.data.product[i].ECI_CODE) < 0) {
+                $scope.zig_zagImg.push(response.data.product[i].ECI_CODE);
+            }
+        }
+
+       
+        $('#loader_div').hide();
+    });
+
+    $scope.deleteProduct = function ($head_sys_id, $line_sys_id) {
+        var rowid = $line_sys_id;
+
+        $('#' + $line_sys_id).remove();
+
+        $http.post(service_url + 'ecommerce/deleteProduct', {
+            head_sys_id: $head_sys_id,
+            line_sys_id: $line_sys_id
+        }).then(function (response) {
+            console.log(response);
+        });
+    }
+
+    $scope.productdetail = function($sys_id){
+        $('#loader_div').show();
+        $http.post(service_url + 'ecommerce/productdetail/' + $sys_id, {
+            cache: true
+        }).then(function (response) {
+            $scope.productView = response.data; 
+            var options = {
+                templateUrl: $scope.temp_path + 'popup/productView_popup.html?v='+version,
+                scope: $scope,
+                title: 'Product Detail',
+                className: 'material_popup',
+                onEscape: function () {
+                }
+            };
+            $ngBootbox.customDialog(options);
+            $('#loader_div').hide();
+        });
+    }
+
+}
 ]);
 
 function dataGroup(data, group) {

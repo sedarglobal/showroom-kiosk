@@ -61,6 +61,22 @@ var myApp = angular.module("acs", ['acs.controllers', 'acs.filters','acs.service
                     return $translate.onReady();
                     }]
                 }
+            }).when('/login', {
+                controller: 'login',
+                templateUrl: temp_path + 'login.html?v='+version,
+                resolve: {
+                translateReady: ['$translate', function ($translate) {
+                    return $translate.onReady();
+                    }]
+                }
+            }).when('/wishList', {
+                controller: 'wishList',
+                templateUrl: temp_path + 'showroom/wish_list.html?v='+version,
+                resolve: {
+                translateReady: ['$translate', function ($translate) {
+                    return $translate.onReady();
+                    }]
+                }
             }).otherwise({
                 redirectTo: window.location.pathname == "/" ? '/' : '/404'
             });
