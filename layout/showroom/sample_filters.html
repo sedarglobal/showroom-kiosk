@@ -255,7 +255,7 @@
                 </button>
                 <div class="dropdown-content">
                     <div class="col-md-4 col-sm-6 text-center select_filter1" ng-repeat="item in pattern_list">
-                        <div class="col-md-12 col-sm-12 nopadding only_text select_filter" ng-click="filterSection(item.IT_CODE, 'pattern')" ng-class="{active_icon: filterArray['pattern'].indexOf(item.IT_CODE) >= 0}" data-toggle="tooltip" title="{{item.IT_DESC}}">
+                        <div class="col-md-12 col-sm-12 only_text select_filter" ng-click="filterSection(item.IT_CODE, 'pattern')" ng-class="{active_icon: filterArray['pattern'].indexOf(item.IT_CODE) >= 0}" data-toggle="tooltip" title="{{item.IT_DESC}}">
                             <span class="">{{item.IT_DESC}} </span>
                         </div>
                     </div>
@@ -269,7 +269,7 @@
                 <div class="dropdown-content">
 
                     <div class="col-md-4 col-sm-6 col-xs-12  text-center select_filter1" ng-repeat="item in brand_list" ng-if="item.BR_CODE != '00'">
-                        <div class="col-md-12 col-sm-12 nopadding  only_text select_filter" ng-click="filterSection(item.BR_CODE, 'brand')" ng-class="{active_icon: filterArray['brand'].indexOf(item.BR_CODE) >= 0}" data-toggle="tooltip" title="{{item.BR_DESC}}">
+                        <div class="col-md-12 col-sm-12  only_text select_filter" ng-click="filterSection(item.BR_CODE, 'brand')" ng-class="{active_icon: filterArray['brand'].indexOf(item.BR_CODE) >= 0}" data-toggle="tooltip" title="{{item.BR_DESC}}">
                             <span class="">{{item.BR_DESC}}</span>
                         </div>
                     </div>
@@ -282,7 +282,7 @@
                 </button>
                 <div class="dropdown-content">
                     <div class="col-md-4 col-sm-6 col-xs-12 select_filter1" ng-repeat="item in collection_list">
-                        <div class="col-md-12 col-sm-12 text-center nopadding select_filter " ng-click="filterSection(item.ECC_CODE, 'collection')" ng-class="{ active_icon: filterArray['collection'].indexOf(item.ECC_CODE) >= 0 }" data-toggle="tooltip" title="{{item.ECC_DESC}}">
+                        <div class="col-md-12 col-sm-12 text-center select_filter " ng-click="filterSection(item.ECC_CODE, 'collection')" ng-class="{ active_icon: filterArray['collection'].indexOf(item.ECC_CODE) >= 0 }" data-toggle="tooltip" title="{{item.ECC_DESC}}">
                             <span class="">{{item.ECC_DESC}}</span>
                         </div>
                     </div>
@@ -298,7 +298,7 @@
                 </button>
                 <div class="dropdown-content">
                     <div class="col-md-4 col-sm-6 col-xs-12 text-left select_filter1" ng-repeat="item in material_list" ng-if="item.MT_CODE != '00'">
-                        <div class="col-md-12 col-sm-12 text-center nopadding only_text select_filter" ng-click="filterSection(item.MT_CODE, 'material')" ng-class="{ active_icon: filterArray['material'].indexOf(item.MT_CODE) >= 0 }" data-toggle="tooltip" title="{{item.MT_DESC}}">
+                        <div class="col-md-12 col-sm-12 text-center only_text select_filter" ng-click="filterSection(item.MT_CODE, 'material')" ng-class="{ active_icon: filterArray['material'].indexOf(item.MT_CODE) >= 0 }" data-toggle="tooltip" title="{{item.MT_DESC}}">
                             <span class="">{{item.MT_DESC}}</span>
                         </div>
                     </div>

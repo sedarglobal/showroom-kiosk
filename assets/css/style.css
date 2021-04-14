@@ -449,7 +449,11 @@ section {
   opacity: 0.52;
 }
 /* filter slider images */
-
+.modal-open .modal {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 }
