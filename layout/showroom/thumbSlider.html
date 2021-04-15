@@ -6,8 +6,8 @@
         <div class="col-md-12 nopadding">
             <!-- slider -->
             <div id="sync1" class="owl-carousel owl-theme sliderone">
-                <div ng-class="item {{row.ERH_THEME}}" ng-repeat="(key, row) in render">
-                    <img src="https://upld.sedarglobal.com/material/collection1125108/1010427/ST100-4_DIFFUSE.jpg">
+                <div class="item {{row.ERH_THEME}}" ng-repeat="(key, row) in render">
+                    <img src="{{row.ERH_IMAGE_PATH}}">
                 </div>
             </div>
             <div class="col-md-12 nopadding thumbsection">
@@ -30,11 +30,10 @@
                                     <div class="centered"> All</div>
                                 </div>
 
-                                <div class="item" data-owl-filter="{{line.ERH_THEME}}" ng-repeat="(key, line) in theme">
-                                    <img src="https://upld.sedarglobal.com/material/collection1125108/1010427/ST100-4_DIFFUSE.jpg" alt="">
+                                <div class="item" data-owl-filter=".{{line.ERH_THEME}}" ng-repeat="(key, line) in theme">
+                                    <img src="{{line.ECRT_IMAGE_PATH}}" alt="">
                                     <div id="overlay"></div>
-                                    <div class="centered"> {{line.ERH_THEME}}</div>
-
+                                    <div class="centered"> {{line.ECRT_DESC}}</div>
                                 </div>
                                 
                             </div>

@@ -541,12 +541,8 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
     $scope.Productgallery = function (item) { 
 
         $http({
-            method: 'POST',
-            url: service_url+ 'ShowroomApi/productGallery',
-            data: $.param({
-                id: item.ECI_CODE,
-                user_sys_id : $scope.user_sys_id
-            }),
+            method: 'GET',
+            url: service_url+ 'ShowroomApi/productGallery/'+ item.ECI_CODE +'/'+ $scope.user_sys_id,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
 
@@ -618,14 +614,13 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
                         }
                     }
                 });
-              
+
                 $('#sync2').on('click', '.item', function () {
         
                     var $item = $(this);
                     var filter = $item.data('owl-filter')
-        
                     owl.owlcarousel2_filter(filter);
-        
+                    
                 })
             }, 500);
 
