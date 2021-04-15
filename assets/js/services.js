@@ -342,6 +342,7 @@ angular.module('acs.services', []).
 
 
                 arrow_line = true;
+                if(globalObject){
                 globalObject.traverse(function (child) {
                     if (child instanceof THREE.Mesh) {
                         if (child.name.search("Arrow_Aluminum_First_Hide") >= 0) {
@@ -349,7 +350,7 @@ angular.module('acs.services', []).
                         }
                     }
                 });
-
+            }
                 //console.log(measuremen_text.getObjectByName('vertical_text'));
 
 
@@ -1408,12 +1409,10 @@ angular.module('acs.services', []).
                 serviceInstance.updateTextureImg(all_texture_url);
             },
             controlType: function (type) {
-                console.log(type);
-                console.log(globalObject);
-                //   var type_list = ['PO01', 'PO02'];
-                /*    if (!louvo_valance) {
-                louvo_valance = type == 'PO02' ? true : false;
-                }*/
+                if(globalObject==undefined){
+                    return false;
+                }
+
                 var vertical_text_p = scene.getObjectByName('measuremen_text').getObjectByName('vertical_text').position.z;
                 var scale_z = globalObject.scale.z;
                 var rotation_y = globalObject.rotation.y;
@@ -1499,6 +1498,10 @@ angular.module('acs.services', []).
                 });
             },
             manualControl: function (type) {
+                if(globalObject==undefined){
+                    return false;
+                }
+
                 bracket_right = type == 'OS01' ? true : false;
                 var control_position = globalObject.obj_data_info.OBJ_CONTROL_POSITION ? splitString(globalObject.obj_data_info.OBJ_CONTROL_POSITION) : [0, 0, 0];
                 globalObject.traverse(function (child) {
@@ -1568,11 +1571,17 @@ angular.module('acs.services', []).
                 }
             },
             rollType11: function (type) {
-                console.log(globalObject);
+                if(globalObject==undefined){
+                    return false;
+                }
                 roll_type = type;
                 serviceInstance.controlType('er');
             },
             bottomBar: function ($type) {
+                if(globalObject==undefined){
+                    return false;
+                }
+
                 //bottom_Aluminum
                 bottom_bar_type = $type;
                 globalObject.traverse(function (child) {
@@ -1588,6 +1597,9 @@ angular.module('acs.services', []).
                 });
             },
             valance: function (val) {
+                if(globalObject==undefined){
+                    return false;
+                }
                 var valance_show = ["VAL01", "VAL03", "VAL04"];
                 louvo_valance = val == 'VAL03' ? true : false
 
@@ -1680,6 +1692,11 @@ angular.module('acs.services', []).
                 serviceInstance.render();
             },
             mounting: function (mountType) {
+                
+                if(globalObject==undefined){
+                    return false;
+                }
+
                 var measuremen_text = scene.getObjectByName('measuremen_text');
                 var vert_text_pos_z = measuremen_text.getObjectByName('vertical_text').position.z;
                 //var hori_text_pos_z = measuremen_text.getObjectByName('horizontal_text').position.z;

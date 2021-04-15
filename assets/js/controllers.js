@@ -26,8 +26,6 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user', funct
 
     //$rootScope.is_login = store.get('USER_INFO') && store.get('USER_INFO').USER_SYS_ID && store.get('USER_INFO').USER_EMAIL_ID.length > 0?true:false;
     //$rootScope.login_userName=store.get('USER_INFO') && store.get('USER_INFO').USER_FIRST_NAME && store.get('USER_INFO').USER_EMAIL_ID.length > 0?store.get('USER_INFO').USER_FIRST_NAME:false;
-    
-    console.log(user.getSysId());
    
 }]);
 
@@ -285,7 +283,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
         $('#loader_div').show();
     
             $http({
-                method: 'GET',
+                method: 'POST',
                 url: service_url + 'ShowroomApi/' + $scope.url + '/' + $scope.user_sys_id,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (response) {
@@ -1201,6 +1199,14 @@ controllers.controller('materialFamily', ['$scope', '$http', '$location', '$cont
 controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$http', '$route', '$ngBootbox', '$controller', '$translate', 'threeJS',function ($scope, $rootScope, $location, $http, $route, $ngBootbox, $controller, $translate,threeJS) {
 
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
+
+    $http.get(service_url + 'ecommerce/getroomType', {
+        cache: true
+    }).then(function (response) {
+        if (response.data) {
+            $scope.roomType = response.data;
+        }
+    });
 
 
     $scope.tooltipstertooltip = function (tooltipitem) {
@@ -3329,74 +3335,23 @@ var list_lenth=$('.style_curtain').length
     }
 
     $scope.StepOptionPrice = function (step_code, $item_product, $component_type, $type, $width, $height, $params1, $params2, $params3, $params4, $qty, $ref_option, $params5, $materialType, $reserve_stock) {
+
+        console.log(step_code, $item_product, $component_type, $type, $width, $height, $params1, $params2, $params3, $params4, $qty, $ref_option, $params5, $materialType, $reserve_stock);
+
         $materialType = $materialType ? $materialType : '';
         $ref_option = $ref_option ? $ref_option : '';
         $params5 = $params5 ? $params5 : '';
 
         if(($width>1 && $height>1) || $qty>0){
-        //console.log(step_code + ',' + $item_product + ',' + $component_type + ',' + $type + ',' + $width + ',' + $height + ',' + $params1 + ',' + $params2 + ',' + $params3 + ',' + $params4 + ',' + $params5 + ',' + $qty + ',' + $ref_option + ',' + $materialType);
-        
-        $http({
-            method: 'POST',
-            url:service_url + 'ShowroomApi/getmotor_bracket',
-            data:$.param({
-                item_product: $item_product, 
-                component_type: $component_type, 
-                p_type: $type, 
-                width: $width, 
-                height: $height, 
-                params1: $params1, 
-                params2: $params2, 
-                params3: $params3, 
-                params4: $params4, 
-                params5: $params5, 
-                qty: $qty, 
-                ref_option: $ref_option, 
-                materialType: $materialType, 
-                reserve_stock: $reserve_stock
-            }),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).then(function (response) {
-            $scope.stockYN = response.data.price.STOCK;
-            if ($scope.stockYN == 'No') {
-                $scope.add_more_item = false;
-                var options = {
-                    closeButton: false,
-                    backdrop: true,
-                    title: $translate.instant('attention'),
-                    message: $translate.instant('stock_empty'),//'There is no enough stock. Please choose another color.',
-                    className: 'addToCart_pupup',
-                    buttons: $scope.customCancelButtons
-                };
-                $ngBootbox.customDialog(options);
-                $scope.stepPriceCalculate(step_code, $item_product, $type, $params2, $params3, $qty, response.data);
-
-            } else if ($scope.stockYN == 'Yes' && step_code == 'checkout' || step_code == 'add_more_product') {
-                $scope.add_more_item = false;
+            
                 $('.desc111').find('i').remove();
                 if ($('.fa-exclamation').hasClass('hide') == true) {
                     $('.fa-exclamation').removeClass('hide');
                 } else if ($('.navigation  .fa-exclamation').length == 0) {
-                    if ($scope.wallprod.indexOf($scope.itemProduct_array[1]) >= 0) {
-                        $scope.qty = { value: $scope.formula_qty };
-                    }
-                    if ($scope.step_array[107].price == '' && $scope.$root.server_name == true) {
-                            $scope.add_more_item = false;
-                            var options = {
-                                closeButton: false,
-                                backdrop: true,
-                                title: $translate.instant('attention'),
-                                message: $translate.instant('measurement_reconfirm'),//'There is no enough stock. Please choose another color.',
-                                className: 'addToCart_pupup',
-                                buttons: $scope.customCancelButtons
-                            };
-                            $ngBootbox.customDialog(options);
-                        
-                    } else {
-                        
                         var base64_img = threeJS.canvasImg();
                         $('#loader_div').show();
-                       
+                        $scope.waiting = true;
+                        $scope.add_more_item = true;
                         $http({
                             method: 'POST',
                             url:service_url + 'ShowroomApi/checkout',
@@ -3414,6 +3369,8 @@ var list_lenth=$('.style_curtain').length
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                         }).then(function (response) {
                             $scope.add_more_item = false;
+                            $scope.waiting = false;
+                            if(response.data.status){
                             $rootScope.orderList = response.data.cart_info.order_list;
                             $rootScope.total_price = response.data.cart_info.total_price;
                             //$rootScope.total_amount = response.data.cart_info.total_amount;
@@ -3425,10 +3382,7 @@ var list_lenth=$('.style_curtain').length
                             $rootScope.service_amount = $scope.totalamountArray != undefined && $scope.totalamountArray[1].EOH_GROSS_VALUE > 0 ? $scope.totalamountArray[1].EOH_GROSS_VALUE : 0;
                             $rootScope.coupon_amount = $scope.totalamountArray != undefined && $scope.totalamountArray[2].EOH_GROSS_VALUE > 0 ? $scope.totalamountArray[2].EOH_GROSS_VALUE : 0;
                             $rootScope.total_amount_precentage = $scope.totalamountArray != undefined && $scope.totalamountArray[0].PERCENTAGE > 0 ? $scope.totalamountArray[0].PERCENTAGE : 0; 
-                
-                            //$rootScope.total_cart_item = response.data.cart_info.order_head != '' ? response.data.cart_info.order_head.EOH_NO_OF_ITEMS : 0; //response.total_qty;
-
-                            //$rootScope.total_cart_item = response.data.cart_info.total_qty;
+                                        
                             $rootScope.total_ccy_code = response.data.cart_info.total_ccy_code;
                             $rootScope.total_taxP = response.data.cart_info.total_taxP;
                             $rootScope.total_tax_value = response.data.cart_info.total_tax_value;
@@ -3448,8 +3402,6 @@ var list_lenth=$('.style_curtain').length
                                 $rootScope = false;
                                 $rootScope = false;
                                 $rootScope.login_userName = $translate.instant('my_account');
-
-
                             }
                             $('#loader_div').hide();
                             if (step_code == 'checkout') {
@@ -3465,14 +3417,12 @@ var list_lenth=$('.style_curtain').length
                                 };
                                 $ngBootbox.customDialog(options);
                             }
+                        }else{
+                            console.log('error...');
+                        }
                             //  console.log($scope.midd);
                         });
-                    }
-                }
-            } else {
-                $scope.stepPriceCalculate(step_code, $item_product, $type, $params2, $params3, $qty, response.data);
-            }
-        });
+        }
     }
     };
 
@@ -4946,7 +4896,7 @@ var list_lenth=$('.style_curtain').length
             };
             $ngBootbox.customDialog(customizing_error_options);
         }else{
-            $scope.add_more_item =true;
+            //$scope.add_more_item =true;
             if (['5965'].indexOf($scope.category_code) > -1) {//sandeep
                 $scope.StepOptionPrice(type, $scope.itemProduct_array[1], $scope.color_selected, '', $scope.measurement_width.value, $scope.measurement_height.value, '', '', '', '', $scope.qty.value, $scope.base_desc, '', 'material', $scope.reserve_stock);
             } else {
