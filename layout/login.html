@@ -1,0 +1,64 @@
+<style> 
+    .login_condition{
+        font-size: 10px; margin-bottom: 1.5em;color: #716f6f;
+    }
+    .sign_in{
+        height: 100%;
+    }
+</style>
+
+
+<div class="sign_in">
+    <div class="container">
+        <div class="col-md-12 col-sm-12 col-xs-12 login_page heighlight">          
+            <div class="col-sm-6 col-md-4  col-xs-9 login_Form" style="float: none;margin: 0 auto;">
+                <form ng-submit="login()">
+                    <div class="col-md-12 col-sm-12 col-xs-12 panel panel-default panel_background brand-name direction"   style="padding:15px">
+                        <h3>
+                            <strong  class="DroidKufi_Bold" translate="sign_in"></strong>
+                        </h3>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12" ng-include="temp_path + 'alert.html?v='+version"></div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 login_user nopadding">
+                            <div class="form-group">
+                                <label translate="email"></label>
+                                <input class="useremailId" type="text" name="email" placeholder="{{'email@example.com'| translate}}" class="placeholder_class" autofocus ng-model="input.email" required="true">
+                            </div>
+                            <div class="form-group">
+                                <label translate="password"></label>
+                                <input type="password" name="password" placeholder="{{'********'| translate}}" class="placeholder_class" ng-model="input.password" required="true">
+                            </div>
+
+                            <!-- <div class="col-md-12 col-sm-12 col-xs-12 login_condition padding">
+                                <br>
+                                <a translate="agree_to_our_conditiions"></a>
+                            </div> -->
+
+                            <div class="col-md-12 col-sm-12 col-xs-12 padding">
+                                <div class="col-sm-4 col-md-4 col-xs-6 col-lg-4  padding right-side">
+                                    <button name="login" class="btn btn-new-dark col-md-12 col-sm-12 col-xs-12" ladda="waiting" translate="login"></button>
+                                </div>
+                                <div class="col-sm-8 col-md-8 col-lg-8 col-xs-6 padding forgot_pass">
+                                    <a href="forgotPwd" ng-class="" name="forgot_password" class="btn-login" translate="forgot_password"></a>
+                                </div>
+                            </div>
+
+                            <br>
+                            <br>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 padding">
+                            <div class="a-divider a-divider-break mt-15"><h5 translate="New_customer"></h5></div>
+                            <div> 
+                                <a href="register" ng-class="{ active: active('/login')}" name="sign_up" translate="sign_up" class="btn btn-new-dark col-sm-12 col-md-12 col-lg-12" ></a>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>                       
+        </div>
+    </div>
+</div>
+
+ 
