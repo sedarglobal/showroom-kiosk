@@ -1,0 +1,21 @@
+
+    <div  class="container" style="width: 100%; padding: 0;">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th translate="step"></th>
+                    <th translate="option"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="{{row.EOL_SYS_ID}}" ng-repeat="row in productView" class="trhover">
+
+                    
+                    <td>{{row.EOI_STEP_DESC}}</td>
+                    <td ng-if="row.EOI_STEP_OPTION == 'Measurement'">{{row.EOI_WIDTH}} x {{row.EOI_HEIGHT}} {{row.EOI_UOM_CODE}}</td>
+                    <td ng-if="row.EOI_STEP_OPTION != 'Measurement'">{{row.EOI_STEP_OPTION}}</td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
