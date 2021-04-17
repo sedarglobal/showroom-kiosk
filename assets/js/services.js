@@ -1684,8 +1684,8 @@ angular.module('acs.services', []).
                 $('.nav-tabs').attr('style', 'display : block');
 
 
-                var resizeWidth = window.innerWidth < 480 ? $('#threeDImage').width() : $('#threeDImage').width(); //$('#threeDImage').width(); // canvasWidth;
-                var resizeHeight = canvasHeight;
+                var resizeWidth =  screen.orientation.type == 'landscape-primary' ?  $('#threeDImage').width() : window.innerWidth; //window.innerWidth < 480 ? $('#threeDImage').width() : $('#threeDImage').width(); //$('#threeDImage').width(); // canvasWidth;
+                var resizeHeight = screen.orientation.type == 'landscape-primary' ? window.innerHeight : window.innerHeight - 720;
                 camera.aspect = resizeWidth / resizeHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(resizeWidth, resizeHeight);

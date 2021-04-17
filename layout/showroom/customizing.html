@@ -463,35 +463,35 @@ input[type=checkbox], input[type=radio] {
         <div class="burgermenu">
             <a href="#"><em class="fas fa-bars" ng-click="ShowroomleftSideMenu(true)" style="font-size: 25px;color: #f5b05f;position: absolute;z-index: 1;padding: 15px;"></em></a>
         </div>
-        <div class="col-md-7 col-sm-6 col-xs-12 nopadding  costomizepage_image">
+        <div class="nopadding  costomizepage_image" ng-class="orientation == 'portrait-primary' ? 'col-md-12 col-sm-12 col-xs-12 ' : 'col-md-9 col-sm-6 col-xs-12 '">
             <div id="threeDImage" style="text-align: left;"></div>
         </div>
-        <div class="col-md-5 col-sm-6 col-xs-12 nopadding direction" >
-                    <div class="navigation step_tool" ng-show="navigation" id="product_cat_id{{category_code}}">
-                        <accordion close-others="oneAtATime">
-                            <div class="col-md-12 col-sm-12 col-xs-12 nopadding res_top" ng-if="advanced_custonize_pro.indexOf(category_code)==-1"  ng-include="temp_path + 'tool/filters.html?v='+version"></div>
-                            <accordion-group class="all_steps default_step_cat custom_step{{step.ECS_CODE}}" id="{{step.ECS_CODE}}" is-open="step.EIS_PAGE_ID==1?true:false" ng-repeat="step in cont_step" ng-if="step.ECS_CODE != '3247'">
-                                <accordion-heading>
-                                    <div class="step_title_name" ng-click="controlSection(step);">
-                                        <div style="width:6%; float:left;" class="right-side">
-                                            <b>{{$index}}</b>
-                                        </div>
-                                        <span id="{{step.ECS_CODE}}_title"> {{step.EIS_DESC?step.EIS_DESC:ECS_DESC}}</span>
-                                        <span style="color: blue;font-size: 12px;padding-left:100px;" ng-click="colorSectionPopup()" ng-if="step.ECS_CODE==102">{{select_material}}</span>
-                                        <b class="pull-right fa right_side_icon left-dir" ng-class="{'fa-angle-down': step.isOpen, 'fa-angle-right': !step.isOpen}" ng-if="advanced_custonize_pro.indexOf(category_code)==-1"></b>
-                                        <b>&nbsp;&nbsp;<span class=" cust_step_title pull-right left-dir desc{{step.ECS_CODE}}" style="font-size: 13px;">
-                                                <i class="fas fa-exclamation hide" ng-if="step.ECS_CODE!='134191'" style="font-size: 10px !important;color: red;" title="{{'step_error_mgs' | translate :{step_name: step.EIS_DESC?step.EIS_DESC:ECS_DESC } }}" step_sys_id="{{step.EIS_ECS_CODE}}"></i> 
-                                            </span></b>
-                                    </div>
-                                </accordion-heading>
-                                <div class="col-md-12 col-sm-12 col-xs-12 nopadding slide-animate middletemplate" ng-include="temp_path + 'tool/' + step.ECS_HTML_TEMPLATE_PATH+'?v='+version"></div>
-                            </accordion-group>
-                        </accordion>
+        <div class="nopadding direction" ng-class="orientation == 'portrait-primary' ? 'col-md-12 col-sm-12 col-xs-12 ' : 'col-md-3 col-sm-6 col-xs-12 '">
+            <div class="navigation step_tool" ng-show="navigation" id="product_cat_id{{category_code}}">
+                <accordion close-others="oneAtATime">
+                    <div class="col-md-12 col-sm-12 col-xs-12 nopadding res_top" ng-if="advanced_custonize_pro.indexOf(category_code)==-1"  ng-include="temp_path + 'tool/filters.html?v='+version"></div>
+                    <accordion-group class="all_steps default_step_cat custom_step{{step.ECS_CODE}}" id="{{step.ECS_CODE}}" is-open="step.EIS_PAGE_ID==1?true:false" ng-repeat="step in cont_step" ng-if="step.ECS_CODE != '3247'">
+                        <accordion-heading>
+                            <div class="step_title_name" ng-click="controlSection(step);">
+                                <div style="width:6%; float:left;" class="right-side">
+                                    <b>{{$index}}</b>
+                                </div>
+                                <span id="{{step.ECS_CODE}}_title"> {{step.EIS_DESC?step.EIS_DESC:ECS_DESC}}</span>
+                                <span style="color: blue;font-size: 12px;padding-left:100px;" ng-click="colorSectionPopup()" ng-if="step.ECS_CODE==102">{{select_material}}</span>
+                                <b class="pull-right fa right_side_icon left-dir" ng-class="{'fa-angle-down': step.isOpen, 'fa-angle-right': !step.isOpen}" ng-if="advanced_custonize_pro.indexOf(category_code)==-1"></b>
+                                <b>&nbsp;&nbsp;<span class=" cust_step_title pull-right left-dir desc{{step.ECS_CODE}}" style="font-size: 13px;">
+                                        <i class="fas fa-exclamation hide" ng-if="step.ECS_CODE!='134191'" style="font-size: 10px !important;color: red;" title="{{'step_error_mgs' | translate :{step_name: step.EIS_DESC?step.EIS_DESC:ECS_DESC } }}" step_sys_id="{{step.EIS_ECS_CODE}}"></i> 
+                                    </span></b>
+                            </div>
+                        </accordion-heading>
+                        <div class="col-md-12 col-sm-12 col-xs-12 nopadding slide-animate middletemplate" ng-include="temp_path + 'tool/' + step.ECS_HTML_TEMPLATE_PATH+'?v='+version"></div>
+                    </accordion-group>
+                </accordion>
 
-                        <div class="col-md-12 col-sm-12 col-xs-12 advance_step" ng-if="default_main_step.length>0">
-                           <div ng-click="showDiv = !showDiv; advanceStep()"><span class="title" translate="advanced_customization">customization</span></div> 
-                        <div ng-show="showDiv" style="margin-top: 10px;">
-                           <accordion close-others="true">
+                <div class="col-md-12 col-sm-12 col-xs-12 advance_step" ng-if="default_main_step.length>0">
+                    <div ng-click="showDiv = !showDiv; advanceStep()"><span class="title" translate="advanced_customization">customization</span></div> 
+                    <div ng-show="showDiv" style="margin-top: 10px;">
+                    <accordion close-others="true">
                             <accordion-group class="all_steps without_default_step{{category_code}}" id="{{step.ECS_CODE}}" is-open="{{step.isOpen}}" ng-repeat="step in default_main_step" ng-if="step.ECS_CODE != '3247'">
                                 <accordion-heading>
                                     <div class="step_title_name" ng-click="controlSection(step);">
@@ -509,8 +509,8 @@ input[type=checkbox], input[type=radio] {
                             </accordion-group>
                         </accordion>
                     </div>
-                        </div>
-                    </div>
+                </div>
+            </div>
                     
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12 footerHide custmize_btn" >

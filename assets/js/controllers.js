@@ -24,6 +24,8 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user', funct
         $rootScope.login_userName = $scope.usersInfo.USER_FIRST_NAME != undefined ? $scope.usersInfo.USER_FIRST_NAME : '';
     }
 
+    $scope.orientation = screen.orientation.type;
+
     //$rootScope.is_login = store.get('USER_INFO') && store.get('USER_INFO').USER_SYS_ID && store.get('USER_INFO').USER_EMAIL_ID.length > 0?true:false;
     //$rootScope.login_userName=store.get('USER_INFO') && store.get('USER_INFO').USER_FIRST_NAME && store.get('USER_INFO').USER_EMAIL_ID.length > 0?store.get('USER_INFO').USER_FIRST_NAME:false;
     
@@ -561,7 +563,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
 
         $http({
             method: 'GET',
-            url: service_url+ 'ShowroomApi/productGallery/'+ item.ECI_CODE +'/'+ $scope.user_sys_id,
+            url: service_url+ 'ShowroomApi/productGallery/'+ item.ECI_CODE +'/'+ screen.orientation.type +'/'+ $scope.user_sys_id,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
 
@@ -1406,10 +1408,10 @@ controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$ht
     // var canvasWidth = window.innerWidth;
     // var canvasHeight = window.innerHeight;
 
-    var canvasWidth = window.innerWidth < 480 ? $('#threeDImage').width() : $('#threeDImage').width(); //window.innerWidth;
+    var canvasWidth = screen.orientation.type == 'landscape-primary' ?  $('#threeDImage').width()-480 : window.innerWidth; //window.innerWidth < 480 ? $('#threeDImage').width() : $('#threeDImage').width(); //window.innerWidth;
         $('.top_navigation').hide();
         $('#footer').hide();
-        var canvasHeight = window.innerWidth < 480 ? window.innerHeight - 350 : window.innerHeight;
+        var canvasHeight =  screen.orientation.type == 'landscape-primary' ? window.innerHeight : window.innerHeight - 720; //window.innerWidth < 480 ? window.innerHeight - 350 : window.innerHeight;
         $('.costomizepage_image').css('top','0px');
         
 
