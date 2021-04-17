@@ -55,6 +55,9 @@
     }
 </style>
 <br>
+<div class="burgermenu">
+    <a href="#"><em class="fas fa-bars" ng-click="ShowroomleftSideMenu(true)" style="font-size: 25px;color: #f5b05f;position: absolute;z-index: 1;padding: 0 15px;"></em></a>
+</div>
 <div id="mtopFullImage" class="mtop_overlay" onclick="fullscreenBoxClose('mtopFullImage')">
     <div class="mtopclosebtn fal fa-times" onclick="fullscreenBoxClose('mtopFullImage')" title="close"></div>
     <div class="mtop_overlay_content direction">
@@ -109,9 +112,11 @@
         </div>
 
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="col-sm-12 mb-20 nopadding">
+            <div class="col-sm-11 mb-20 nopadding">
                 <p class="font_15 font-weight-bold">{{material_info.ECI_DESC}}</p>
                 <p  >{{material_info.ITEM_ID}}</p>
+            </div>
+            <div class="col-sm-1 nopadding">
                 <span class="share_icon pull-right" ng-click="socialShare($event)" data-href="material?item={{material_info.ITEM_ID}}&product={{material_info.ECI_DESC}}&id={{material_info.ECM_CODE}}&prod_id={{material_info.ECM_ECI_CODE}}&if={{material_info.ECM_IF_CODE}}">
                     <em class="fas fa-share-alt" style="font-size: 24px;margin-left: 10px;color: #000;"></em>
                 </span>
@@ -260,6 +265,9 @@
         </div>
     </div>
 </div>
+
+<div class="direction" ng-include="temp_path + 'showroom/ShowroomleftSideMenu.html?v='+version"></div>
+
 
 <script>
 
