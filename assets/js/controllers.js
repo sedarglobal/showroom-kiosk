@@ -5291,7 +5291,8 @@ controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controlle
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 
     }).then(function (response) {
-        $scope.likeProduct_item = response.data.product;
+        $scope.likeProduct = response.data.product;
+        $scope.likeitem = response.data.item;
              
         $('#loader_div').hide();
     });
@@ -5300,10 +5301,15 @@ controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controlle
         var rowid = $line_sys_id;
 
         $('#' + $line_sys_id).remove();
-
-        $http.post(service_url + 'ecommerce/deleteProduct', {
-            head_sys_id: $head_sys_id,
-            line_sys_id: $line_sys_id
+        $http({
+            method: 'POST',
+            url: service_url + 'ShowroomApi/deleteProduct',
+            data: $.param({
+                head_sys_id: $head_sys_id,
+                line_sys_id: $line_sys_id,
+                user_sys_id: $scope.user_sys_id
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
             console.log(response);
         });
@@ -5311,8 +5317,11 @@ controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controlle
 
     $scope.productdetail = function($sys_id){
         $('#loader_div').show();
-        $http.post(service_url + 'ecommerce/productdetail/' + $sys_id, {
-            cache: true
+
+        $http({
+            method: 'GET',
+            url: service_url + 'ecommerce/productdetail/'  + $sys_id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
             $scope.productView = response.data; 
             var options = {
@@ -5357,8 +5366,7 @@ controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controlle
 
          $http({
             method: 'GET',
-            url:
-            service_url + 'ShowroomApi//favorite_prod_item/' + $pr_code + '/' + $code + '/' + $url + '/' + $scope.favorite +'/'+ $scope.user_sys_id,
+            url: service_url + 'ShowroomApi//favorite_prod_item/' + $pr_code + '/' + $code + '/' + $url + '/' + $scope.favorite +'/'+ $scope.user_sys_id,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 
         }).then(function (response) {
