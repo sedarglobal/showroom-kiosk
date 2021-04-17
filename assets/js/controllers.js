@@ -129,7 +129,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
 
             $('#loader_div').show();
             var step_options = {
-                templateUrl: $scope.temp_path + 'showroom/login.html?v='+version,
+                templateUrl: $scope.temp_path + 'popup/login.html?v='+version,
                 scope: $scope,
                 size: 'small',
                 title: 'Login',
@@ -212,7 +212,7 @@ controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootSc
     $scope.loginMenu = function () {
             
         var step_options = {
-            templateUrl: $scope.temp_path + 'showroom/login.html?v='+version,
+            templateUrl: $scope.temp_path + 'popup/login.html?v='+version,
             scope: $scope,
             size: 'small',
             // backdrop: false,
@@ -1052,7 +1052,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
     };
 
     $scope.nonProduct = function (mat_family, ifCode, singleFamily) {
-        if ($rootScope.is_login == false && $rootScope.server_name == false) {
+        if ($rootScope.is_login == false) {
 
             $('#loader_div').show();
             var step_options = {
@@ -1067,17 +1067,6 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
             $ngBootbox.customDialog(step_options);
             $('#loader_div').hide();
 
-        }else if(store.get('user_mobile') == undefined && $scope.$root.server_name == false){
-            var customizing_error_options = {
-                templateUrl: $scope.temp_path + 'popup/user_mobile.html?v='+version,
-                scope: $scope,
-                // backdrop: false,
-                title: $translate.instant('create_favourite_account'),
-                className: 'material_popup',
-                onEscape: function () {
-                }
-            };
-            $ngBootbox.customDialog(customizing_error_options);
         }else{
             var data = _.isEmpty($scope.singleMaterial) ? mat_family : $scope.singleMaterial[mat_family.ECM_CODE];
             $('#nonDirect' + singleFamily.ECM_CODE).removeClass('hide');
@@ -1203,47 +1192,6 @@ controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$ht
         }
     });
 
-
-    $scope.tooltipstertooltip = function (tooltipitem) {
-        var html = '';
-
-        html += '<div style="width: 100%; margin-bottom:10px; color:#000">';
-        html += '<strong>Filter Color</strong>';
-        html += '<hr>';
-        
-       var colorCode = {};
-        for(var i = 0; i < tooltipitem.length; i++){
-            var color = "'"+tooltipitem[i].CL_CODE + "', 'color'";
-            angular.element('#'+tooltipitem[i].CL_CODE).removeClass('active_icon');
-                colorCode[i] = $scope.filterArray['color'][0] == tooltipitem[i].CL_CODE ?  angular.element('#'+tooltipitem[i].CL_CODE).addClass('active_icon') : '';
-            
-            html += '<div style="width: 100%; margin-bottom:10px" onclick="filterSection('+color+')" class="'+colorCode[i]+'" id="'+tooltipitem[i].CL_CODE+'">';
-            html += '<img src="' + tooltipitem[i].CL_IMAGE_PATH +'" width="50" height="50" style="margin-right:10px"/><span>'+tooltipitem[i].CL_DESC+'</span>';
-            html += '</div>';
-        }
-
-        html += '</div>';
-        //console.log(colorCode);
-        $('.filterByColor').tooltipster({ 
-            interactive:true,
-            maxWidth:450, 
-            contentCloning:true,   
-            arrow:false,  
-            animation: 'grow',
-            trigger: 'click',
-            content: $(html),
-            autoClose: false,
-            contentAsHTML: true, 
-
-        });
-
-        $('.filterByColor').tooltipster('show');
-
-        $(window).keypress(function() {
-            $('#example').tooltipster('hide');
-         });
-
-    };
 
 
 
@@ -3331,7 +3279,8 @@ var list_lenth=$('.style_curtain').length
 
     $scope.StepOptionPrice = function (step_code, $item_product, $component_type, $type, $width, $height, $params1, $params2, $params3, $params4, $qty, $ref_option, $params5, $materialType, $reserve_stock) {
 
-        console.log(step_code, $item_product, $component_type, $type, $width, $height, $params1, $params2, $params3, $params4, $qty, $ref_option, $params5, $materialType, $reserve_stock);
+        //console.log(step_code, $item_product, $component_type, $type, $width, $height, $params1, $params2, $params3, $params4, $qty, $ref_option, $params5, $materialType, $reserve_stock);
+        $scope.usersInfo = store.get('USER_INFO') != undefined ? store.get('USER_INFO') : '';
 
         $materialType = $materialType ? $materialType : '';
         $ref_option = $ref_option ? $ref_option : '';
@@ -3359,7 +3308,8 @@ var list_lenth=$('.style_curtain').length
                                 base64_img: base64_img, 
                                 formula_qty: $scope.formula_qty, 
                                 total_price: $scope.total_price, 
-                                product_yn: $scope.productYN 
+                                product_yn: $scope.productYN,
+                                user_data : $scope.usersInfo 
                             }),
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                         }).then(function (response) {
@@ -4864,7 +4814,7 @@ var list_lenth=$('.style_curtain').length
         }
 
         
-        if ($rootScope.is_login == false && $rootScope.server_name == false) {
+        if ($rootScope.is_login == false) {
 
             $('#loader_div').show();
             var step_options = {
@@ -4879,17 +4829,6 @@ var list_lenth=$('.style_curtain').length
             $ngBootbox.customDialog(step_options);
             $('#loader_div').hide();
 
-        }else if(store.get('user_mobile') == undefined  && $scope.$root.server_name == false){
-            var customizing_error_options = {
-                templateUrl: $scope.temp_path + 'popup/user_mobile.html?v='+version,
-                scope: $scope,
-                // backdrop: false,
-                title: $translate.instant('create_favourite_account'),
-                className: 'material_popup',
-                onEscape: function () {
-                }
-            };
-            $ngBootbox.customDialog(customizing_error_options);
         }else{
             //$scope.add_more_item =true;
             if (['5965'].indexOf($scope.category_code) > -1) {//sandeep
@@ -5345,23 +5284,15 @@ controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controlle
     $scope.catalog = true;
     $scope.catalog_family = true;
     $('#loader_div').show();
-    $http.get(service_url + 'ecommerce/likeProduct_item', {
-        cache: true
+   
+    $http({
+        method: 'GET',
+        url: service_url + 'ShowroomApi/likeProduct_item/' + $scope.user_sys_id,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+
     }).then(function (response) {
         $scope.likeProduct_item = response.data.product;
-        $scope.likematerial = response.data.material;
-        $scope.full_img_cover = [0];
-        $scope.zig_zagImg = [0];
-        for (var i = 0; i < response.data.product.length; i++) {
-            if (response.data.product[i].ECI_MATERIAL_ROWS <= 2 && $scope.full_img_cover.indexOf(response.data.product[i].ECI_CODE) < 0) {
-                $scope.full_img_cover.push(response.data.product[i].ECI_CODE);
-            }
-            if (response.data.product[i].ECI_MATERIAL_EDGE == 'Z' && $scope.full_img_cover.indexOf(response.data.product[i].ECI_CODE) < 0) {
-                $scope.zig_zagImg.push(response.data.product[i].ECI_CODE);
-            }
-        }
-
-       
+             
         $('#loader_div').hide();
     });
 
@@ -5396,6 +5327,45 @@ controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controlle
             $('#loader_div').hide();
         });
     }
+
+    $scope.remove_wishList = function ($pr_code, $code, $cat_code, $url, $login) {
+        // console.log('here..1223');
+         console.log($pr_code, $code, $cat_code, $url, $login)
+         $login = $login ? $login : 'no_login';
+         if ($url == "wishList") {
+             $('.' + $code + '_m').remove();
+         }
+ 
+         if ($('.' + $code).hasClass('far') == true) {
+             if ($scope.$root && $scope.$root.is_login == false) {
+                 store.set('temp_code', [{ 'url': $url, 'category': $cat_code, 'product': $pr_code, 'item': $code }]);
+                 $location.url('login?ref=' + $url + '/' + $cat_code + '/' + $pr_code);
+                 return;
+             }
+             $scope.favorite = 'FAVORITE';
+             $('.' + $code).removeClass('far');
+             $('.' + $code).addClass('fas');
+         } else {
+             if ($login == 'with_login') {
+                 $scope.favorite = 'FAVORITE';
+             } else {
+                 $scope.favorite = 'UNLIKE';
+                 $('.' + $code).addClass('far');
+                 $('.' + $code).removeClass('fas');
+             }
+         }
+
+         $http({
+            method: 'GET',
+            url:
+            service_url + 'ShowroomApi//favorite_prod_item/' + $pr_code + '/' + $code + '/' + $url + '/' + $scope.favorite +'/'+ $scope.user_sys_id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+
+        }).then(function (response) {
+             store.set('likeRecord', response.data.data);
+             store.remove('temp_code');
+         });
+     };
 
 }
 ]);
