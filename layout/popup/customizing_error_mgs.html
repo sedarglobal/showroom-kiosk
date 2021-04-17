@@ -1,0 +1,17 @@
+
+<style>
+    .customize_error_mgs {
+	list-style: disc;
+}
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12 nopadding mb-10">
+            <ul class="customize_error_mgs">
+                <li ng-repeat="(i,val) in error_mgs" ng-if="val.length>2"> {{val}}</li>
+            </ul>
+            
+        </div>
+    </div>
+</div>
+
