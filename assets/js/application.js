@@ -77,6 +77,13 @@ var myApp = angular.module("acs", ['acs.controllers', 'acs.filters','acs.service
                     return $translate.onReady();
                     }]
                 }
+            }).when('/logout', {
+                templateUrl: temp_path + 'showroom/logout.html?v='+version,
+                resolve: {
+                translateReady: ['$translate', function ($translate) {
+                    return $translate.onReady();
+                    }]
+                }
             }).otherwise({
                 redirectTo: window.location.pathname == "/" ? '/' : '/404'
             });

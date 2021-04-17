@@ -17,7 +17,7 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user', funct
     $rootScope.upload_url = image_upload;//'https://www.sedarglobal.com/service/uploads/';
     
     $scope.$root.is_login = user.getSysId() ? true : false;
-
+    console.log($scope.$root.is_login);
     if (user.getSysId()) {
         $scope.usersInfo = store.get('USER_INFO');
         $scope.user_sys_id = $scope.usersInfo.USER_SYS_ID != undefined ? $scope.usersInfo.USER_SYS_ID : '';
@@ -26,7 +26,7 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user', funct
 
     //$rootScope.is_login = store.get('USER_INFO') && store.get('USER_INFO').USER_SYS_ID && store.get('USER_INFO').USER_EMAIL_ID.length > 0?true:false;
     //$rootScope.login_userName=store.get('USER_INFO') && store.get('USER_INFO').USER_FIRST_NAME && store.get('USER_INFO').USER_EMAIL_ID.length > 0?store.get('USER_INFO').USER_FIRST_NAME:false;
-   
+    
 }]);
 
 
@@ -38,6 +38,13 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
 
     $scope.input = {};
 
+    if($location.$$url == '/login' && $scope.$root.is_login == true){
+        
+        $location.path('wishList');
+
+    }
+
+   
 
     $scope.login = function () {
         $scope.waiting = true;
@@ -59,6 +66,10 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                 $rootScope.USER_KEY_TYPE = response.data.user_detail.USER_KEY_TYPE;
                 store.set('USER_INFO', response.data.user_detail);
                 user.setSysId(response.data.user_detail.USER_SYS_ID);
+
+                if($location.$$url == '/login' && $scope.$root.is_login == true){
+                    $location.path('wishList');
+                }
 
                 $('.ShowroomLogin').modal('hide');
                 if (response.data.user_detail.USER_KEY_TYPE == 'Email Verification') {
@@ -197,6 +208,14 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
             width: 'toggle'
         });
     };
+
+    $scope.logOut = function () {
+        $scope.$root.is_login = false;
+        store.remove('USER_INFO');
+        $scope.user.clear();
+        $location.path('login');
+    };
+   
 
 }]);
 
@@ -5273,10 +5292,9 @@ controllers.controller('login', ['$scope', '$rootScope', '$location', '$http', '
    
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
 
-
 }]);
 
-controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controller', '$ngBootbox', function ($scope, $rootScope, $http, $controller, $ngBootbox) {
+controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controller', '$ngBootbox', '$location', function ($scope, $rootScope, $http, $controller, $ngBootbox, $location) {
 
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
     $scope.account_step = 'wishList';
@@ -5284,7 +5302,12 @@ controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controlle
     $scope.catalog = true;
     $scope.catalog_family = true;
     $('#loader_div').show();
-   
+    
+
+    if($scope.$root.is_login == false){
+        $location.path('login');
+    }
+
     $http({
         method: 'GET',
         url: service_url + 'ShowroomApi/likeProduct_item/' + $scope.user_sys_id,
