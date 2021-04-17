@@ -1,0 +1,85 @@
+<div id="wish_list">
+    <div class="container direction" >
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  margin_top ">
+            <div ng-class="col-md-12" class="col-sm-11 col-xs-12 right_section nopadding">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12   account_right_sidebar form-margin">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopadding">
+
+                        <md-tabs md-dynamic-height md-border-bottom md-no-pagination="true" md-selected="tabIndex">
+                            <md-tab label="{{'products'| translate}}">
+                              
+                                <table class="table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th translate="product"></th>
+                                            <th translate="measurement"></th>
+                                            <th translate="Qty"></th>
+                                            <th translate="date"></th>
+                                            <th translate="image"></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="{{row.EOL_SYS_ID}}" ng-repeat="row in likeProduct_item" class="trhover">
+
+                                           
+                                            <td class="no_hover" ng-click="productdetail(row.EOL_SYS_ID)"><p>{{row.EOL_CART_INFO}}</p></td>
+                                            <td>{{row.EOL_WIDTH}} x {{row.EOL_HEIGHT}}</td>
+                                            <td>{{row.EOL_QTY}}</td>
+                                            <td>{{row.EOL_CR_DT}}</td>
+
+                                            <td><img src="{{service_url}}{{row.EOL_IMAGE_PATH}}" width="100"></td>
+                                            <td>
+                                                <a class="btn btn-new-dark fa fa-trash" ng-bootbox-confirm="{{'Are_you_sure_you_want_to_delete' | translate}}" ng-bootbox-confirm-action="deleteProduct(row.EOL_EOH_SYS_ID,row.EOL_SYS_ID)" locale="{{langCode}}"></a>
+                                                <a class="btn btn-new-dark fa fa-eye" ng-click="productdetail(row.EOL_SYS_ID)"></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+
+                            </md-tab>
+                            <md-tab label="{{'Color'| translate}}">
+                               
+                                <div class="col-md-12 col-sm-12 col-xs-12  mb-25 pt-15">
+                                    
+                                        <div class="color_section">
+
+
+                                            <div ng-repeat="row in likeProduct_item">
+                                                <div class="col-md-2 col-xs-4  mb-10 material" ng-repeat="item in row.material"> 
+                                                   
+                                                    <div class="col-md-12 col-xs-12 nopadding" ng-class="zig_zagImg.indexOf(item.ECI_CODE) > 0 ? 'margin_top120' : ''" >
+                                                        <i class="fas fa-times-circle {{item.ECM_CODE}}  heart_icon" ng-click="remove_wishList(item.ECI_CODE, item.ECM_CODE, '', 'wishList', '');" style="z-index: 2;"></i>
+                                                        <img ng-src="{{item.ECM_THUMBNAIL_IMAGES?image_upload+item.ECM_THUMBNAIL_IMAGES:back_side_img.indexOf(item.ECI_CODE) < 0 ? image_upload + item.ECM_IMAGE_PATH : image_upload + item.ECM_BACK_SIDE_TEXTURE_IMG_PATH}}" title="{{item.ECM_TOOL_TIP}}" ng-class="full_img_cover.indexOf(item.ECI_CODE) < 0 ? 'no_full_img' : 'full_img'" check-image>
+                                                    </div>
+                                                    <div class="overlay" ng-click="matrialPopup(item)">
+                                                        <div class="text">
+                                                            <div class="">
+                                                                <a href="" id="btn-search">
+                                                                    <img ng-src="{{asset_img}}menu/search.png" class="globe-lang mb-10">
+                                                                </a>
+                                                            </div>
+                                                            {{item.ECM_ITEM_ID}} 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    
+                                </div>
+                            </md-tab>
+                            <md-tab label="{{user_mobile_view}}">
+                               
+                            </md-tab>
+                        </md-tabs>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
