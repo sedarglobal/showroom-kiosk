@@ -218,7 +218,7 @@ section {
 }
 
 .productdetail ul li {
-  font-size: 10px;
+  font-size: 13px;
   list-style: disc;
 }
 
@@ -279,21 +279,28 @@ section {
 }
 .slidebutton .one {
  
- 
+  font-size: 14px !important;
+
   color: #000;background: #fac775; border: none;
 }
 .slidebutton .two {
+  font-size: 14px !important;
+
+
   color: #fff;
   background-color: #4a419f;
 }
 
 
 .browsebutton {
+
   padding: 0;
 }
 .browsebutton a {
   background-color: #803fb7;
   font-weight: bold;
+ font-size: 14px !important;
+
 }
 
 /* filter slider images */

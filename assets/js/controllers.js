@@ -320,7 +320,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
                         responsiveClass: true,
                         dots:false,
                         nav: true,
-                        navText : ["<img src='../assets/images/image488.gif' />","<img src='../assets/images/image487.gif' />"],
+                        navText : ["<img  class='slidericonImg' src='../assets/images/leftarrow.png' />","<img class='slidericonImg'  src='../assets/images/rightarrow.png' />"],
                         responsive: {
                             0: {
                                 items: 1,
