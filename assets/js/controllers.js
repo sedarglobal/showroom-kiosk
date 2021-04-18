@@ -1408,7 +1408,7 @@ controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$ht
     // var canvasWidth = window.innerWidth;
     // var canvasHeight = window.innerHeight;
 
-    var canvasWidth = screen.orientation.type == 'landscape-primary' ?  $('#threeDImage').width()-480 : window.innerWidth; //window.innerWidth < 480 ? $('#threeDImage').width() : $('#threeDImage').width(); //window.innerWidth;
+    var canvasWidth = screen.orientation.type == 'landscape-primary' ?  $('#threeDImage').width()-450 : window.innerWidth; //window.innerWidth < 480 ? $('#threeDImage').width() : $('#threeDImage').width(); //window.innerWidth;
         $('.top_navigation').hide();
         $('#footer').hide();
         var canvasHeight =  screen.orientation.type == 'landscape-primary' ? window.innerHeight : window.innerHeight - 720; //window.innerWidth < 480 ? window.innerHeight - 350 : window.innerHeight;
