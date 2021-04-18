@@ -1,0 +1,64 @@
+<style>
+    #shwrm_pg_product{
+        background: url('./assets/images/yourspace.png');
+        background-repeat: no-repeat;
+        background-size: 80% auto;
+        
+        background-position-y: top;
+    }
+    .slidebutton a:hover, .slidebutton button:hover{
+        background-color:#ec971f;
+    }
+</style>
+<div class="shwrm_pg_product">
+    <section id="shwrm_pg_product">
+        <div class="burgermenu">
+            <a href="#"><em class="fas fa-bars" ng-click="ShowroomleftSideMenu(true)"></em></a>
+        </div>
+        <div class="productheading">
+           
+           <h1 ng-if="id == 1"> <span class="PorterBold"> How to Measure</span></h1>   
+           <h1 ng-if="id == 2"> <span class="PorterBold"> How to Install</span></h1>   
+        </div>
+        <div class="Singleproductslider">
+            
+            <div class="container">
+                <div class="col-md-12">
+
+                    <div class="owl-carousel owl-theme" id="productslidershow">
+                        
+                        <div class="item" ng-repeat="(key, row) in measureInstall">
+                            <div class="productslide">
+                                <div class="slideroom">
+                                    <div class="slideheading">
+                                        <h3>{{row.SPT_DESC}}</h3>
+                                    </div>
+                                    <div class="slideimage">
+                                        <center>
+                                            <a ng-href="https://bkt.sedarglobal.com/{{row.childline[0].SPT_BANNER_PATH}}" target="_blank" ng-if="row.childline[0].SPT_BANNER_PATH">
+                                                <i class="far fa-file-pdf" style="font-size: 70px;text-align: center;"></i>
+                                            </a>
+
+                                            <a style="font-size: 20px;color: #000;padding: 2px;" ng-click="videoBtn('https://bkt.sedarglobal.com/'+ row.childline[0].SPT_IMAGE_PATH)" ng-if="row.childline[0].SPT_IMAGE_PATH">
+                                                <i class="far fa-play-circle"></i>
+                                            </a>
+                                        </center>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+<div class="direction" ng-include="temp_path + 'showroom/ShowroomleftSideMenu.html?v='+version"></div>

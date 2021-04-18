@@ -89,7 +89,7 @@
 
                             </accordion-group>
 
-                            <a href="{{base_url}}login" style="color: #000;" ng-click="ShowroomleftSideMenu(false)" ng-if="is_login == false">
+                            <a ng-click="loginMenu();ShowroomleftSideMenu(false);" style="color: #000;" ng-click="ShowroomleftSideMenu(false)" ng-if="is_login == false">
                                 <div class="category_line" style="text-transform: uppercase; cursor:pointer;padding: 10px 16px;">
                                     <h4 class="panel-title" translate="log_in"></h4>
                                 </div>

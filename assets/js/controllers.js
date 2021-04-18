@@ -219,17 +219,6 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
     };
    
 
-}]);
-
-controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootScope' ,'$ngBootbox','$translate', function ($scope, $http,$controller,$rootScope ,$ngBootbox,$translate) {
-    
-    angular.extend(this, $controller('globalFunction', { $scope: $scope }));
-
-
-    // $http.get('https://www.sedarglobal.com/service/ecommerce/getHomeList',{
-    //     cache : true
-    // }).then(function (response) {
-    // });
     $scope.loginMenu = function () {
             
         var step_options = {
@@ -263,6 +252,19 @@ controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootSc
         $('.ShowroomLogin').modal('hide');
    
 };
+
+}]);
+
+controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootScope' ,'$ngBootbox','$translate', function ($scope, $http,$controller,$rootScope ,$ngBootbox,$translate) {
+    
+    angular.extend(this, $controller('globalFunction', { $scope: $scope }));
+
+
+    // $http.get('https://www.sedarglobal.com/service/ecommerce/getHomeList',{
+    //     cache : true
+    // }).then(function (response) {
+    // });
+
 
     
 }]);
@@ -300,6 +302,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
 
     
     $scope.productItem = function () {
+        $('#productslidershow').owlCarousel('destroy');
         $scope.itemLoadMore = true;
         $('#loader_div').show();
     
@@ -560,7 +563,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
     };
 
     $scope.Productgallery = function (item) { 
-
+        $('#productslidershow').owlCarousel('destroy');
         $http({
             method: 'GET',
             url: service_url+ 'ShowroomApi/productGallery/'+ item.ECI_CODE +'/'+ screen.orientation.type +'/'+ $scope.user_sys_id,
@@ -695,7 +698,7 @@ controllers.controller('measureInstall', ['$scope', '$route', '$http', '$interva
    $('#loader_div').show();
     $scope.id =  $route.current.params.id ? $route.current.params.id : 1;
 
-   
+    $('#productslidershow').owlCarousel('destroy');
             $http({
                 method: 'GET',
                 url: service_url + 'ShowroomApi/getTreeLevelData/' + $scope.id,

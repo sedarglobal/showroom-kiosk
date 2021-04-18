@@ -1,0 +1,57 @@
+<style>
+.colorSection_popup .color_popup .panel-heading{
+    padding: 0;
+
+}
+.colorSection_popup .color_popup #filters{
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.colorSection_popup .bootbox-close-button.close{
+    color: #ffffff;
+    opacity: 1;
+    
+}
+.colorSection_popup .modal-content{
+    border-radius: 0;
+    
+}
+
+.colorSection_popup .modal-header{
+    background-color: #000000c2;
+    cursor: all-scroll;
+    
+}
+.qtip-light{
+    z-index: 1112 !important;
+}
+.colorSection_popup + .modal-backdrop{
+    background:transparent;
+
+}
+.colorSection_popup .productTile{
+        width: 23.5%; 
+}
+
+
+</style>
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12" >
+        <div class="col-sm-12 col-md-12 col-xs-12 videoinstruct">
+            <video id="myVideo" controls ng-hide="videoHide" style="width: 100%;">
+                <source id='mp4Source' type="video/mp4">
+            </video> 
+            
+        </div>
+    </div>
+</div>
+
+<script>
+    var path = angular.element('.scroll-container').scope().videopath;
+    $('#mp4Source').attr('src', path);
+    var video = document.querySelector("#myVideo");
+    video.load();
+    video.play();
+</script>
