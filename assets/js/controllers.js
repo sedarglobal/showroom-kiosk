@@ -186,7 +186,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                     $('#like' + material.ECM_CODE).addClass('fas');
                 } else if (material.FAV_YN != 'Y' && $scope.like[$scope.like.indexOf(ECM_CODE)] == ECM_CODE) {
                     $('#like' + material.ECM_CODE).removeClass('fal');
-                    $('#like' + material.ECM_CODE).addClas0s('fas');
+                    $('#like' + material.ECM_CODE).addClass('fas');
                 } else {
                     if ($scope.like[$scope.like.indexOf(ECM_CODE)] == ECM_CODE) {
                         $scope.like.splice($scope.like.indexOf(ECM_CODE), 1);
@@ -1567,10 +1567,10 @@ controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$ht
             $scope.full_img_cover = [response.data.item.ECI_MATERIAL_ROWS <= 2 ? response.data.item.ECI_CODE : 0];
             $scope.zig_zagImg = [response.data.item.ECI_MATERIAL_EDGE == 'Z' ? response.data.item.ECI_CODE : 0];
             setTimeout(function () {
-
+                /*
                 if (store.get('USER_INFO') && store.get('USER_INFO').USER_EMAIL_ID && store.get('USER_INFO').USER_EMAIL_ID.length > 0) {
                     gtmAddproduct($scope.pro_item.ECI_DESC, store.get('USER_INFO').USER_EMAIL_ID,$scope);
-                }
+                }*/
 
                 if ($scope.cont_step.length > 0 && matrial_id) {
                     $scope.controlSection($scope.cont_step[1]);
@@ -5294,6 +5294,12 @@ controllers.controller('login', ['$scope', '$rootScope', '$location', '$http', '
    
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
 
+    $scope.$root.is_login = user.getSysId() ? true : false;
+
+    if($scope.$root.is_login){
+        $location.path('/');
+    }
+    console.log($scope.$root.is_login);
 }]);
 
 controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controller', '$ngBootbox', '$location', function ($scope, $rootScope, $http, $controller, $ngBootbox, $location) {
