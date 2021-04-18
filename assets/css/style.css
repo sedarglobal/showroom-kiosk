@@ -124,20 +124,15 @@ section {
   padding-bottom: 80px;
   overflow-x: hidden;
 }
-
-.productheading h1 {
-  border-left: 5px solid #f5b05f;
-  line-height: 21px;
-  margin: 0;
-  padding-left: 10px;
-  color: #85878b;
-}
 .productheading p h2 span {
-  border-left: 5px solid #f5b05f;
+ 
   line-height: 21px;
   margin: 0;
   padding-left: 10px;
   color: #85878b !important;
+}
+.productheading h2 ,.productheading h3,.productheading h4,.productheading h1{
+  border-left: 5px solid #f5b05f;
 }
 .productheading p span {
   color: #000 !important;
@@ -279,13 +274,15 @@ section {
   font-weight: bold;
 }
 .slidebutton .one {
-  color: #000;
-  background-color: #fdcc5d;
+ 
+ 
+  color: #000;background: #fac775; border: none;
 }
 .slidebutton .two {
   color: #fff;
   background-color: #4a419f;
 }
+
 
 .browsebutton {
   padding: 0;

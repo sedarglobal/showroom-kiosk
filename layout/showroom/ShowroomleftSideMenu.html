@@ -2,18 +2,26 @@
     .product_list_section .panel-group {
         margin-top: 0px !important;
     }
+    .userloginicon{
+        text-align: center;
+    }
+    .userloginicon i{
+        color: #fff;
+        font-size: 32px;
+    }
 </style>
 
 <div id="ShowroomleftSideMenu" ng-show="ShowroomleftSide" class="ShowroomleftSide">
     <div class="group-by" ng-show="ShowroomleftSide">
         <aside class="widget widget_categories">
             <div class="left_side_menu_top col-sm-12 col-xs-12 col-md-12">
-                <div class="col-md-2 col-sm-2 right-side  col-xs-2 nopadding mobhide">
-                    <p class="right_side_menu" aria-hidden="true" style="background-position: -125px;"></p>
+                <div class="col-md-2 col-sm-2 right-side  col-xs-2 nopadding  userloginicon">
+                    <!-- <i class="icon_title_user fas fa-user-circle"></i> -->
+                    <i class="fas fa-user-circle"></i>
 
                 </div>
                 <div class="col-md-8 col-sm-8  col-xs-8  icon_title nav_user_name right-side">
-                    <i class="icon_title_user fas fa-user-circle"></i>
+                   
                     <span translate="Hello"></span><a ng-href="{{is_login?'':base_url+'login'}}">{{login_userName ?login_userName : 'my_account' | translate}}</a>
                 </div>
                 <div class="col-md-2 col-sm-2  col-xs-2 close_leftSide left_side" ng-click="ShowroomleftSideMenu(false)">

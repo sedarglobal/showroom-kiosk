@@ -6,6 +6,9 @@
         
         background-position-y: top;
     }
+    .slidebutton a:hover, .slidebutton button:hover{
+        background-color:#ec971f;
+    }
 </style>
 <div class="shwrm_pg_product">
     <section id="shwrm_pg_product">
@@ -61,7 +64,7 @@
                                     <div class="slidebutton">
                                         <a ng-href="customizing/{{product_cat_id}}/{{row.ECI_CODE}}//{{row.ECI_DESC}}{{parameter_url}}{{row.EIC_ECC_CODES?'?ecc_code='+row.EIC_ECC_CODES:'' }}"
                                                 class="btn btn-warning one" ng-if="row.ECI_ALLOW_CUSTOMIZATION_YN == 'Y'"
-                                                style="color: #000;background: #fac775; border: none;">Start
+                                               >Start
                                                 Customizing</a>
                                         <button type="button" class="btn btn-warning two" ng-click="Productgallery(row);" >More Photos</button>
                                     </div>
