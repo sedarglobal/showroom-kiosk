@@ -237,7 +237,7 @@ controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootSc
             scope: $scope,
             size: 'small',
             // backdrop: false,
-            title:'Login',
+            // title:'Login',
             className: 'ShowroomLogin',
             onEscape: function () {
             }

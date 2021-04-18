@@ -1,78 +1,122 @@
-<style> 
-    .modal-dialog {
-        width: 460px !important;
+<style>
+    .ShowroomLogin .modal-dialog {
+        max-width: 370px !important;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) !important;
     }
 
-    .modal-body{
-        height: 480px;
-    }
-   
-    .close, .close:hover {
+    .close,
+    .close:hover {
         color: #fff;
         opacity: 1;
     }
+
+    .ShowroomLogin .bootbox-body {
+        display: flex;
+    }
+
+    .ShowroomLogin .bootbox-close-button {
+        opacity: 1;
+        position: absolute;
+        top: 0%;
+        right: -10%;
+        box-shadow: none;
+        font-size: 40px;
+        color: #000;
+        text-shadow: none;
+    }
+
+    .ShowroomLogin .form-group input {
+        border: none;
+        border-bottom: 1px solid #000;
+        border-radius: 0;
+        line-height: 1.5 !important;
+    }
+
+    .ShowroomLogin .brand-name {
+        padding: 0 !important;
+    }
+
+    .ShowroomLogin .form-control {
+        box-shadow: none;
+    }
 </style>
-<div  class="col-md-12 nopadding direction">
-    <form ng-submit="login()">
-        <div class="col-md-9" style="position: absolute;z-index: 1;right: 0;" ng-include="temp_path + 'alert.html?v='+version"></div>
+<div class="col-md-12 nopadding direction">
+    <form name="profile_form" ng-submit="login()">
+        <div class="col-md-9" style="position: absolute;z-index: 1;right: 0;"
+            ng-include="temp_path + 'alert.html?v='+version"></div>
 
-        <div class=" col-sm-12 panel panel-default panel_background brand-name">
-                <h3>
-                    <strong class="DroidKufi_Bold" translate="sign_in"></strong>
-                </h3>
+        <div class=" col-sm-12 brand-name">
+            <h3>
+                <strong class="DroidKufi_Bold" translate="sign_in"></strong>
+            </h3>
 
-                <div class="col-md-12 login_user nopadding">
-                    <div class="form-group">
-                        <label translate="email"></label>
-                        <input class="useremailId" type="text" name="email" placeholder="{{'email@example.com' | translate}}" class="placeholder_class" autofocus ng-model="input.email" required="true">
-                    </div>
-                    <div class="form-group">
-                        <label translate="password"></label>
-                             <input type="password" name="password" placeholder="{{'********' | translate}}" class="placeholder_class" ng-model="input.password" required="true">
-                      
-                    </div>
-
-                    <div class="col-sm-12 col-md-12 col-lg-12 padding" style="font-size: 10px; margin-bottom: 1.5em;">
-                        <!-- <i class="fas fa-caret-right"></i> <a style="color: #607df9;font-size: 10.5px;">Need help? </a> -->
-                        <br>
-               
-                        <a style="color: #716f6f;" translate="signing_policy"> By signing in, you agree to our conditions of Use and privacy policy.</a>
-                    </div>
-
-                    <div class="col-sm-12 col-md-12 col-lg-12 padding">
-                     
-                        <div class="col-sm-4 col-md-4 col-lg-4  padding right-side">
-                            <button name="login" class="btn btn-new-dark col-sm-12 col-md-12 col-lg-12" ladda="waiting" translate="login"></button>
-                        </div>
-                        <div class="col-sm-8 col-md-8 col-lg-8 padding">
-                            <a href="forgotPwd" ng-class="" name="forgot_password" class="btn-login" translate="forgot_password"></a>
-                        </div>
-                    </div>
-
-                    <br>
-                    <br>
+            <div class="col-md-12 login_user nopadding">
+                <div class="form-group">
+                    <label translate="email"></label>
+                    <input class="useremailId" type="text" name="email"
+                        placeholder="{{'email@example.com' | translate}}" class="placeholder_class" autofocus
+                        ng-model="input.email" required="true">
                 </div>
+                <div class="form-group">
+                    <label translate="password"></label>
+                    <input type="password" name="password" placeholder="{{'********' | translate}}"
+                        class="placeholder_class" ng-model="input.password" required="true">
+
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-lg-12 padding" style="font-size: 10px; margin-bottom: 1.5em;">
+                    <!-- <i class="fas fa-caret-right"></i> <a style="color: #607df9;font-size: 10.5px;">Need help? </a> -->
+                    <br>
+
+                    <a style="color: #716f6f;" translate="signing_policy"> By signing in, you agree to our conditions of
+                        Use and privacy policy.</a>
+                </div>
+
                 <div class="col-sm-12 col-md-12 col-lg-12 padding">
-                    
-                    <div class="a-divider a-divider-break mt-15"><h5 translate="New_customer"></h5></div>
-                    <div ng-if="!showroom_yn"> 
-                        <a href="register" ng-class="{ active: active('/login')}" name="sign_up" translate="sign_up" class="btn btn-new-dark col-sm-12 col-md-12 col-lg-12" ></a>
-                    </div>
 
-                    <div ng-if="showroom_yn"> 
-                        <button type="button" ng-class="{ active: active('/login')}" ng-click="SignUpModal()" name="sign_up" translate="sign_up" class="btn btn-new-dark col-sm-12 col-md-12 col-lg-12" ></button>
+                    <div class="col-sm-4 col-md-4 col-lg-4  padding right-side">
+                        <button name="login" class="btn btn-new-dark col-sm-12 col-md-12 col-lg-12" ladda="waiting"
+                            translate="login"></button>
                     </div>
-                   
+                    <div class="col-sm-8 col-md-8 col-lg-8 text-right">
+                        <a href="forgotPwd" ng-class="" name="forgot_password" class="btn-login"
+                            translate="forgot_password"></a>
+                    </div>
                 </div>
+
+                <br>
+                <br>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 padding">
+
+                <div class="a-divider a-divider-break mt-15">
+                    <h5 translate="New_customer"></h5>
+                </div>
+                <div ng-if="!showroom_yn">
+                    <button type="button" ng-class="{ active: active('/login')}" ng-click="SignUpModal()" name="sign_up"
+                    translate="sign_up" class="btn btn-new-dark col-sm-12 col-md-12 col-lg-12"></button>
+                </div>
+
+                <div ng-if="showroom_yn">
+                    <button type="button" ng-class="{ active: active('/login')}" ng-click="SignUpModal()" name="sign_up"
+                        translate="sign_up" class="btn btn-new-dark col-sm-12 col-md-12 col-lg-12"></button>
+                </div>
+
+            </div>
+
         </div>
     </form>
 </div>
 
 <script>
-$(document).ready(function(){
+    $(document).ready(function () {
 
-    $(".useremailId").on('change keyup paste',function(){      
-                $(this).val($(this).val().toLowerCase());
-    });
-})
+        $(".useremailId").on('change keyup paste', function () {
+            $(this).val($(this).val().toLowerCase());
+        });
+    })
 </script>
