@@ -34,7 +34,7 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user', funct
 
 
 controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBootbox', '$rootScope', 'alerts', 'user', '$translate', function ($scope, $location, $http, $ngBootbox, $rootScope, alerts, user, $translate,) {
-    $ngBootbox.hideAll();
+    $ngBootbox.hideAll();    
     $scope.usersInfo = store.get('USER_INFO') != undefined ? store.get('USER_INFO') : '';
     $scope.user_sys_id = $scope.usersInfo.USER_SYS_ID != undefined ? $scope.usersInfo.USER_SYS_ID : '';
 
@@ -222,7 +222,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
 }]);
 
 controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootScope' ,'$ngBootbox','$translate', function ($scope, $http,$controller,$rootScope ,$ngBootbox,$translate) {
-    $ngBootbox.hideAll();
+    
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
 
 
@@ -268,7 +268,7 @@ controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootSc
 }]);
 
 controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interval', '$controller', '$rootScope', '$location', '$ngBootbox', '$ngSilentLocation', function ($scope, $route, $http, $interval, $controller, $rootScope, $location, $ngBootbox, $ngSilentLocation) {
-    $ngBootbox.hideAll();
+
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
 
     $scope.current_slide = 0;
@@ -672,7 +672,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
 
 
 controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$rootScope', '$controller', '$ngSilentLocation', '$ngBootbox', '$translate', 'alerts', function ($scope, $http, $location, $route, $rootScope, $controller, $ngSilentLocation, $ngBootbox, $translate, alerts) {
-    $ngBootbox.hideAll();
+    
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
 
     window.scrollTo(0, 0);
@@ -1101,7 +1101,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
 }]);
 
 controllers.controller('materialFamily', ['$scope', '$http', '$location', '$controller', '$rootScope', '$ngBootbox', '$translate', function ($scope, $http, $location, $controller, $rootScope, $ngBootbox, $translate) {
-    $ngBootbox.hideAll();
+
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
 
     window.scrollTo(0, 0);
@@ -1202,7 +1202,7 @@ controllers.controller('materialFamily', ['$scope', '$http', '$location', '$cont
 }]);
 
 controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$http', '$route', '$ngBootbox', '$controller', '$translate', 'threeJS',function ($scope, $rootScope, $location, $http, $route, $ngBootbox, $controller, $translate,threeJS) {
-    $ngBootbox.hideAll();
+
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
 
     $http.get(service_url + 'ecommerce/getroomType', {
@@ -5297,7 +5297,7 @@ controllers.controller('login', ['$scope', '$rootScope', '$location', '$http', '
 }]);
 
 controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controller', '$ngBootbox', '$location', function ($scope, $rootScope, $http, $controller, $ngBootbox, $location) {
-    $ngBootbox.hideAll();
+
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
     $scope.account_step = 'wishList';
     $scope.input = {};
