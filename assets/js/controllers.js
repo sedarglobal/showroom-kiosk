@@ -168,8 +168,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
 
                 $http({
                     method: 'GET',
-                    url:
-                    service_url + 'ShowroomApi/favorite_prod_item/' + material.ECM_ECI_CODE + '/' + ECM_CODE + '/swatches/' + $scope.favorite + '/'+ $scope.user_sys_id,
+                    url: service_url + 'ShowroomApi/favorite_prod_item/' + material.ECM_ECI_CODE + '/' + ECM_CODE + '/swatches/' + $scope.favorite + '/'+ $scope.user_sys_id,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 
                 }).then(function (response) {
@@ -212,7 +211,8 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
         $scope.$root.is_login = false;
         store.remove('USER_INFO');
         $scope.user.clear();
-        $location.path('login');
+        $rootScope.login_userName = '';
+    //    $location.path('login');
     };
    
 
@@ -250,6 +250,68 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
    
     };
 
+
+    $scope.showroomUserRegister = function (isValid) {
+
+        if (isValid == false) {
+            $scope.submitted = true;
+        } else {
+            
+            $scope.waiting = true;
+            if ($scope.input.password != $scope.input.confirmation) {
+                alerts.fail($translate.instant('passwords_not_match'));
+                $scope.waiting = false;
+                return;
+            } else if ($scope.input.$email_valid) {
+                alerts.fail($translate.instant('email_alerady_register'));
+                $scope.waiting = false;
+                return;
+            } else if ($scope.input.$mobile_valid) {
+                alerts.fail($translate.instant('mobile_number_alerady_register'));
+                $scope.waiting = false;
+                return;
+            }
+
+
+            $http({
+                method: 'POST',
+                url: service_url + 'ecommerce/register',
+                data: $.param({
+                    data: $scope.input
+                }),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (response) {
+                $scope.waiting = false;
+
+                console.log(response.data);
+                if (response.data.status == true) {      
+                    $scope.$root.is_login = true;
+                    $scope.$root.login_userName = response.data.data.user_detail.USER_FIRST_NAME;
+                    store.set('USER_INFO', response.data.data.user_detail);
+
+                    user.setSysId(response.data.user_detail.USER_EMAIL_ID);
+
+                    $('.signupshowroom').modal('hide');
+
+                    if ($location.search().ref) {
+                        $location.path($location.search().ref);
+                    } else {
+                        $location.path('showroomProduct');
+                    }
+                    // $('#loader_div').hide();
+                } else {
+                    if (_.isEmpty(data.errors)) {
+                        data.errors = '';
+                    }
+                    _.forEach(data.errors, function (error) {
+                        if (error != null) {
+                            alerts.fail($translate.instant(error.type, error.field));
+                        }
+                    });
+                }
+            });
+        }
+    };
 
     $http({
         method: 'GET',
@@ -402,7 +464,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
  
     };
 
-    if($location.$$url == '/showroomProduct'){
+    if($location.$$url.split('?')[0] == '/showroomProduct'){
         $scope.productCatalog('productInfo', CATEGORY_CODE, ECP_CODE, ECI_CODE, CHILD_LINE);
     }   
 

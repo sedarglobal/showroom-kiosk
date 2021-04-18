@@ -1,4 +1,5 @@
-var myApp = angular.module("acs", ['acs.controllers', 'acs.filters','acs.services', 'acs.directives', 'ngRoute','ngBootbox','pascalprecht.translate','ngMaterial', 'ui.bootstrap', 'ngAnimate', 'ngMessages'])
+angular.module('ngIntlTelInput', []);
+var myApp = angular.module("acs", ['acs.controllers', 'acs.filters','acs.services', 'acs.directives', 'ngRoute','ngBootbox','pascalprecht.translate','ngMaterial', 'ui.bootstrap', 'ngAnimate', 'ngMessages', 'ngIntlTelInput'])
     .config(['$routeProvider', '$locationProvider', '$translateProvider', function ($routeProvider, $locationProvider,$translateProvider) {
         $locationProvider.html5Mode({
             enabled: true,
