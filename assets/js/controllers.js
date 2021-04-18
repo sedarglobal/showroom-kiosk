@@ -26,9 +26,6 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user', funct
 
     $scope.orientation = screen.orientation.type;
 
-    //$rootScope.is_login = store.get('USER_INFO') && store.get('USER_INFO').USER_SYS_ID && store.get('USER_INFO').USER_EMAIL_ID.length > 0?true:false;
-    //$rootScope.login_userName=store.get('USER_INFO') && store.get('USER_INFO').USER_FIRST_NAME && store.get('USER_INFO').USER_EMAIL_ID.length > 0?store.get('USER_INFO').USER_FIRST_NAME:false;
-    
 }]);
 
 
@@ -1616,7 +1613,7 @@ controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$ht
             $rootScope.user_sys_id = response.data.cart_info.user_sys_id;    
 
 
-            if ($rootScope.user_sys_id == '') {
+            /*if ($rootScope.user_sys_id == '') {
 
                 store.remove('USER_INFO');
                 store.remove('user');
@@ -1628,7 +1625,7 @@ controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$ht
                 $scope.$root.b2b_login = false;
                 $scope.$root.login_userName = $translate.instant('my_account');
 
-            }
+            }*/
 
             //$scope.qty = $scope.edit_cart_info ? $scope.edit_cart_info.qty : 1;
 
@@ -3427,41 +3424,21 @@ var list_lenth=$('.style_curtain').length
                             $scope.add_more_item = false;
                             $scope.waiting = false;
                             if(response.data.status){
-                            $rootScope.orderList = response.data.cart_info.order_list;
-                            $rootScope.total_price = response.data.cart_info.total_price;
-                            //$rootScope.total_amount = response.data.cart_info.total_amount;
-                            $rootScope.order_head = response.data.cart_info.order_head;
-
-                            $scope.totalamountArray = response.data.cart_info.totalAmount;
-                            $rootScope.total_amount = $scope.totalamountArray != undefined && $scope.totalamountArray[0].EOH_GROSS_VALUE > 0 ? $scope.totalamountArray[0].EOH_GROSS_VALUE : 0; //response.data.cart_info.order_head.EOH_GROSS_VALUE; //response.data.cart_info.total_amount;
-                            $rootScope.total_old_amount = $scope.totalamountArray != undefined && $scope.totalamountArray[0].EOH_OLD_VALUE > 0 ? $scope.totalamountArray[0].EOH_OLD_VALUE : 0; //response.data.cart_info.order_head.EOH_GROSS_VALUE; //response.data.cart_info.total_amount;
-                            $rootScope.service_amount = $scope.totalamountArray != undefined && $scope.totalamountArray[1].EOH_GROSS_VALUE > 0 ? $scope.totalamountArray[1].EOH_GROSS_VALUE : 0;
-                            $rootScope.coupon_amount = $scope.totalamountArray != undefined && $scope.totalamountArray[2].EOH_GROSS_VALUE > 0 ? $scope.totalamountArray[2].EOH_GROSS_VALUE : 0;
-                            $rootScope.total_amount_precentage = $scope.totalamountArray != undefined && $scope.totalamountArray[0].PERCENTAGE > 0 ? $scope.totalamountArray[0].PERCENTAGE : 0; 
-                                        
-                            $rootScope.total_ccy_code = response.data.cart_info.total_ccy_code;
-                            $rootScope.total_taxP = response.data.cart_info.total_taxP;
-                            $rootScope.total_tax_value = response.data.cart_info.total_tax_value;
-                            $rootScope.total_gross_value = response.data.cart_info.total_gross_value;
-                            $rootScope.total = response.data.cart_info.total;
-
-                            $rootScope.user_sys_id = response.data.cart_info.user_sys_id;
-
-                            if ($rootScope.user_sys_id == '') {
-
-                                store.remove('USER_INFO');
-                                store.remove('user');
-                                store.remove('SHIPPING_ID');
-                                store.remove('COMPANY_INFO');
-                                store.remove('temp_code');
-                                store.remove('CHOOSE_FREE_DEL_CITY');
-                                $rootScope = false;
-                                $rootScope = false;
-                                $rootScope.login_userName = $translate.instant('my_account');
-                            }
+                            
+                                /*if ($rootScope.user_sys_id == '') {
+                                    store.remove('USER_INFO');
+                                    store.remove('user');
+                                    store.remove('SHIPPING_ID');
+                                    store.remove('COMPANY_INFO');
+                                    store.remove('temp_code');
+                                    store.remove('CHOOSE_FREE_DEL_CITY');
+                                    $rootScope = false;
+                                    $rootScope = false;
+                                    $rootScope.login_userName = $translate.instant('my_account');
+                                }*/
                             $('#loader_div').hide();
                             if (step_code == 'checkout') {
-                                $location.path('order');
+                                $location.path('wishList');
                             } else {
                                 //$('#loader_div').show();
                                 var options = {
@@ -4962,7 +4939,7 @@ var list_lenth=$('.style_curtain').length
                 label: $translate.instant('Continue_Shopping'),  // "Continue Shopping",
                 className: "btn-Mydefault pull-left",
                 callback: function () {
-                    $location.path('productInfo');
+                    $location.path('/');
                     $scope.$apply();
                     //$scope.checkout
                     //  console.log('here11111...');
@@ -4986,7 +4963,7 @@ var list_lenth=$('.style_curtain').length
                 label: $translate.instant('ok'),  // "Continue Shopping",
                 className: "btn-Mydefault",
                 callback: function () {
-                    $location.path('productInfo');
+                    $location.path('wishList');
                     $scope.$apply();
                     //$scope.checkout
                     //  console.log('here11111...');
