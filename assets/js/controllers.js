@@ -670,6 +670,93 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
 
 }]);
 
+controllers.controller('measureInstall', ['$scope', '$route', '$http', '$interval', '$controller', '$rootScope', '$location', '$ngBootbox', '$ngSilentLocation', function ($scope, $route, $http, $interval, $controller, $rootScope, $location, $ngBootbox, $ngSilentLocation) {
+
+    angular.extend(this, $controller('globalFunction', { $scope: $scope }));
+
+    $scope.videoBtn = function (path) {
+        //console.log(path);
+        $scope.videopath = path;
+        var step_options = {
+            templateUrl: $scope.temp_path + 'popup/pdfVideo.html?v='+version,
+            scope: $scope,
+            size: 'large',
+            // backdrop: false,
+            title:null,
+            onEscape: function () {
+            }
+        };
+        $ngBootbox.customDialog(step_options);
+       
+
+        // $('#myVideo').load();
+        // $('#myVideo').play();
+    };
+   $('#loader_div').show();
+    $scope.id =  $route.current.params.id ? $route.current.params.id : 1;
+
+   
+            $http({
+                method: 'GET',
+                url: service_url + 'ShowroomApi/getTreeLevelData/' + $scope.id,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (response) {
+                $scope.measureInstall = response.data;
+                setTimeout(function(){
+
+                    $('#productslidershow').owlCarousel({
+                        loop: true,
+                        margin: 40,
+                        responsiveClass: true,
+                        dots:false,
+                        nav: true,
+                        navText : ["<img src='../assets/images/image488.gif' />","<img src='../assets/images/image487.gif' />"],
+                        responsive: {
+                            0: {
+                                items: 1,
+                                nav: false
+                            },
+                            600: {
+                                items: 2,
+                                nav: false
+                            },
+                            1000: {
+                                items: 3,
+                                nav: true,
+                                loop: true
+                            },
+                            1600: {
+                                items: 4,
+                                nav: true,
+                                loop: true
+                            }
+                        }
+                    });
+                },500);
+            });
+
+
+      
+            // $scope.pdfPopup = function (path) {
+            //     $scope.pdfVideopath = path;
+            //     var step_options = {
+            //         templateUrl: $scope.temp_path + 'popup/pdfVideo.html?v='+version,
+            //         scope: $scope,
+            //         size: 'large',
+            //         // backdrop: false,
+            //         title:null,
+            //         onEscape: function () {
+            //         }
+            //     };
+            //     $ngBootbox.customDialog(step_options);
+        
+                   
+              
+           
+            // };
+
+
+}]);
 
 controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$rootScope', '$controller', '$ngSilentLocation', '$ngBootbox', '$translate', 'alerts', function ($scope, $http, $location, $route, $rootScope, $controller, $ngSilentLocation, $ngBootbox, $translate, alerts) {
     
