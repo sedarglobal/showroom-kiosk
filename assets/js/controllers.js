@@ -257,7 +257,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).then(function (response) {
         console.log(response.data);
-       
+        $scope.category = response.data;
     });
 
 }]);
@@ -674,6 +674,11 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
         
     };
    
+}]);
+
+controllers.controller('brand', ['$scope', '$route', '$http', '$interval', '$controller', '$rootScope', '$location', '$ngBootbox', '$ngSilentLocation', function ($scope, $route, $http, $interval, $controller, $rootScope, $location, $ngBootbox, $ngSilentLocation) {
+    angular.extend(this, $controller('showroomProduct', { $scope: $scope }));
+
 }]);
 
 controllers.controller('measureInstall', ['$scope', '$route', '$http', '$interval', '$controller', '$rootScope', '$location', '$ngBootbox', '$ngSilentLocation', function ($scope, $route, $http, $interval, $controller, $rootScope, $location, $ngBootbox, $ngSilentLocation) {

@@ -42,7 +42,7 @@
                             </a>
                             
 
-                            <accordion-group is-open="cat_val.isCustomHeaderOpen" class="product_list_section" heading="{{cat_val.SPT_DESC}}" ng-repeat="cat_val in category| limitTo: 4" ng-if="['4455', '4471'].indexOf(cat_val.SPT_SYS_ID) >= 0">
+                            <accordion-group is-open="" class="product_list_section" heading="{{cat_val.SPT_DESC}}" ng-repeat="cat_val in category">
                                 <accordion-heading>
                                     <div class="side_nav_menu">
                                         {{cat_val.SPT_DESC | translate}}

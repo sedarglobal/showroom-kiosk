@@ -28,7 +28,15 @@ var myApp = angular.module("acs", ['acs.controllers', 'acs.filters','acs.service
                         return $translate.onReady();
                     }]
                 }
-            }) .when("/measureInstall/:id", {
+            }).when('/brand/:id?', {
+                controller: 'brand',
+                templateUrl: temp_path + 'showroom/showroomProduct.html?v='+version,
+                resolve: {
+                translateReady: ['$translate', function ($translate) {
+                    return $translate.onReady();
+                    }]
+                }
+            }).when("/measureInstall/:id", {
                 controller: 'measureInstall', 
                 templateUrl: temp_path + 'showroom/measureInstall.html?v='+version,
                 resolve: {
