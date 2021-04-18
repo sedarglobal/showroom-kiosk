@@ -402,8 +402,9 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
  
     };
 
-    $scope.productCatalog('productInfo', CATEGORY_CODE, ECP_CODE, ECI_CODE, CHILD_LINE);
-
+    if($location.$$url == '/showroomProduct'){
+        $scope.productCatalog('productInfo', CATEGORY_CODE, ECP_CODE, ECI_CODE, CHILD_LINE);
+    }   
 
 
 
@@ -678,7 +679,8 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
 
 controllers.controller('brand', ['$scope', '$route', '$http', '$interval', '$controller', '$rootScope', '$location', '$ngBootbox', '$ngSilentLocation', function ($scope, $route, $http, $interval, $controller, $rootScope, $location, $ngBootbox, $ngSilentLocation) {
     angular.extend(this, $controller('showroomProduct', { $scope: $scope }));
-
+    var id =  $location.search().id ?  $location.search().id : '';
+    $scope.productCatalog('getProductByBrand', id);
 }]);
 
 controllers.controller('measureInstall', ['$scope', '$route', '$http', '$interval', '$controller', '$rootScope', '$location', '$ngBootbox', '$ngSilentLocation', function ($scope, $route, $http, $interval, $controller, $rootScope, $location, $ngBootbox, $ngSilentLocation) {
