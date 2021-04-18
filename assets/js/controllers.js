@@ -231,7 +231,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
         $ngBootbox.customDialog(step_options);        
         $('.signupshowroom').modal('hide');
    
-};
+    };
     $scope.SignUpModal = function () {
         var step_options = {
             templateUrl: $scope.temp_path + 'showroom/signup.html?v='+version,
@@ -248,7 +248,17 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
         $ngBootbox.customDialog(step_options);
         $('.ShowroomLogin').modal('hide');
    
-};
+    };
+
+
+    $http({
+        method: 'GET',
+        url: service_url + 'ShowroomApi/getCategory',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).then(function (response) {
+        console.log(response.data);
+       
+    });
 
 }]);
 
@@ -663,11 +673,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
        
         
     };
-    
-    
-
-
-
+   
 }]);
 
 controllers.controller('measureInstall', ['$scope', '$route', '$http', '$interval', '$controller', '$rootScope', '$location', '$ngBootbox', '$ngSilentLocation', function ($scope, $route, $http, $interval, $controller, $rootScope, $location, $ngBootbox, $ngSilentLocation) {
