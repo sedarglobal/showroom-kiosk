@@ -368,7 +368,11 @@ controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootSc
         })
     }, 1000);
     
-  
+    // setTimeout(() => {
+    //     var sectionIdmove  = $location.$$hash;
+    //     $location.hash(sectionIdmove);
+    //     $anchorScroll(); 
+    // }, 1000);
   
    
     $scope.gotoAnchor = function(sectionId) {
