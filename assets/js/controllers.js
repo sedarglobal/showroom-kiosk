@@ -290,8 +290,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                 if (response.data.status == true) {      
                     $scope.$root.is_login = true;
                     $scope.$root.login_userName = response.data.data.user_detail.USER_FIRST_NAME;
-                    store.set('USER_INFO', response.data.data.user_detail);
-
+                    store.set('USER_INFO', response.data.user_detail);
                     user.setSysId(response.data.user_detail.USER_EMAIL_ID);
 
                     $('.signupshowroom').modal('hide');
