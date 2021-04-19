@@ -170,8 +170,14 @@ angular.module('acs.directives', [])
                     // Validation.
                     ctrl.$validators.ngIntlTelInput = function (value) {
                         // if phone number is deleted / empty do not run phone number validation
+                       // console.log(elm);
+                        //console.log(value);
                         if (value || elm[0].value.length > 0) {
-                            return elm.intlTelInput('isValidNumber');
+                           // console.log('hello..');
+                           // return elm.intlTelInput('isValidNumber');
+                           scope.enquiry_form.$valid;
+
+                            return true;
                         } else {
                             scope.enquiry_form.$valid;
 

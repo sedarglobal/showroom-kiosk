@@ -68,13 +68,13 @@
                     <!-- <input class="userEmail" type="text" name="email" placeholder="Email" class="placeholder_class"
                         autofocus required="true"> -->
                         <input id="useremailId" name="email" type="email" class="placeholder_class form-control useremailId" placeholder="{{'email'| translate}}" autofocus ng-model="input.email" required="" ng-blur="checkEmailMobile('email')" >
-                        <div class="has-error" ng-show="input.$email_valid">{{ email_exists}}</div>
+                        <div class="has-error" ng-show="input.$email_valid" style="color: #a94442;">{{ email_exists}}</div>
                         <p ng-show="profile_form.email.$invalid && (profile_form.email.$dirty || submitted)" class="help-block" translate="enter_email_address"></p>                        
                 </div>
                 <div class="form-group" ng-class="{'has-error': profile_form.USER_MOBILE.$invalid && (profile_form.USER_MOBILE.$dirty || submitted)}">
                     <!-- <input class="userPhoneNumber" type="text" name="phoneNumber" placeholder="Phone Number"
                         class="placeholder_class" autofocus required="true"> -->
-                        <input class="placeholder_class form-control" type="tel" ng-model="input.USER_MOBILE" name="USER_MOBILE" ng-class="{'has-error' : profile_form.USER_MOBILE.$in_valid || profile_form.STAG_MOBILE.$invalid && (profile_form.STAG_MOBILE.$dirty || submitted)}" ng-intl-tel-input required>
+                        <input class="placeholder_class form-control" type="tel" ng-model="input.USER_MOBILE" name="USER_MOBILE" placeholder="{{'mobile'| translate}}" ng-class="{'has-error' : profile_form.USER_MOBILE.$in_valid || profile_form.STAG_MOBILE.$invalid && (profile_form.STAG_MOBILE.$dirty || submitted)}" ng-intl-tel-input>
                                 <p ng-show="profile_form.USER_MOBILE.$invalid && (profile_form.USER_MOBILE.$dirty || submitted)" class="help-block" translate="enter_mobile_number"></p>
                                 <div class="has-error" ng-show="input.$mobile_valid">{{ mobile_exists}}</div>
                 </div>
@@ -95,7 +95,7 @@
 
                 <div class="col-sm-12 col-md-12 col-lg-12 padding">
                     <div>
-                        <button name="sign_up" translate="sign_up"
+                        <button type="submit" name="sign_up" translate="sign_up"
                             class="btn btn-new-dark col-sm-12 col-md-12 col-lg-12" ladda="waiting"></button>
                         <div class="a-divider a-divider-break mt-15">
                             <p>have an account? <a ng-click="loginMenu()" href="#"> Login here. </a> </p>

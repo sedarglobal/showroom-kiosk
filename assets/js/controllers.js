@@ -38,7 +38,8 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
     $scope.user_sys_id = $scope.usersInfo.USER_SYS_ID != undefined ? $scope.usersInfo.USER_SYS_ID : '';
 
     $scope.$root.enquiry_form = {};
-    $scope.input = {};
+    //$scope.input = {};
+    $scope.submitted = false;
 
     if($location.$$url == '/login' && $scope.$root.is_login == true){
         
@@ -255,9 +256,11 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
 
 
     $scope.showroomUserRegister = function (isValid) {
-
+        $scope.waiting = true;
+        console.log(isValid);
         if (isValid == false) {
             $scope.submitted = true;
+            $scope.waiting = false;
         } else {
             
             $scope.waiting = true;
@@ -290,8 +293,8 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                 if (response.data.status == true) {      
                     $scope.$root.is_login = true;
                     $scope.$root.login_userName = response.data.data.user_detail.USER_FIRST_NAME;
-                    store.set('USER_INFO', response.data.user_detail);
-                    user.setSysId(response.data.user_detail.USER_EMAIL_ID);
+                    store.set('USER_INFO', response.data.data.user_detail);
+                    user.setSysId(response.data.data.user_detail.USER_EMAIL_ID);
 
                     $('.signupshowroom').modal('hide');
 
@@ -323,6 +326,44 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
         console.log(response.data);
         $scope.category = response.data;
     });
+
+    $scope.checkEmailMobile = function ($type) {
+        var input_val = $type == 'mobile' ? $scope.input.mobile : $scope.input.email;
+
+
+        $http({
+            method: 'POST',
+            url: service_url + 'ecommerce/checkEmailMobile',
+            data: $.param({
+                val: input_val,
+                type: $type,
+                cache: true
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function (data) {
+            //  console.log(data);
+            if (data.data.status == true) {
+                if ($type == 'email') {
+                    $scope.input.$email_valid = true;
+                    return $scope.email_exists = $translate.instant('email_alerady_register');
+                } else if ($type == 'mobile') {
+                    $scope.input.$mobile_valid = true;
+                    return $scope.mobile_exists = $translate.instant('mobile_number_alerady_register');
+                }
+
+            } else {
+                if ($type == 'email') {
+                    $scope.waiting = false;
+                    $scope.input.$email_valid = false;
+                    return $scope.email_exists = '';
+                } else if ($type == 'mobile') {
+                    $scope.waiting = false;
+                    $scope.input.$mobile_valid = false;
+                    return $scope.mobile_exists = '';
+                }
+            }
+        });
+    }; 
 
 }]);
 
