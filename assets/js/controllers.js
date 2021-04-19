@@ -37,6 +37,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
     $scope.usersInfo = store.get('USER_INFO') != undefined ? store.get('USER_INFO') : '';
     $scope.user_sys_id = $scope.usersInfo.USER_SYS_ID != undefined ? $scope.usersInfo.USER_SYS_ID : '';
 
+    $scope.$root.enquiry_form = {};
     $scope.input = {};
 
     if($location.$$url == '/login' && $scope.$root.is_login == true){
