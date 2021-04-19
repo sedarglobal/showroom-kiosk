@@ -475,12 +475,20 @@ section {
   left: 50%;
   transform: translate(-50%, -50%) !important;
 }
+.showroom_landing_page_banner_img{
+  width: 100%; height: 100%;object-fit: cover;
+}
+
+/* responsive */
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (max-width: 768px) {
+  .showroom_landing_page_banner_img{
+    height: auto; object-fit: fill;
+  }
 }
 @media only screen and (max-width: 992px) {
   #productslider .owl-nav,
