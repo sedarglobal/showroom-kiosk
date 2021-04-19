@@ -257,10 +257,11 @@ section {
   top: 40%;
 }
 
-/* .coming_soon_icon {
+.coming_soon_icon {
   display: none;
 }
 
+/*
 .prev,
 .next {
   padding: 0;
