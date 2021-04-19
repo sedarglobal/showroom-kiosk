@@ -4937,6 +4937,29 @@ var list_lenth=$('.style_curtain').length
     };
     $scope.checkout = function (type) {
     
+        
+
+        
+        if ($rootScope.is_login == false) {
+
+            $('#loader_div').show();
+            var step_options = {
+                templateUrl: $scope.temp_path + 'popup/login.html?v='+version,
+                scope: $scope,
+                size: 'small',
+               // title: $translate.instant('login'),
+                className: 'ShowroomLogin',
+                onEscape: function () {
+                }
+            };
+            $ngBootbox.customDialog(step_options);
+            $('#loader_div').hide();
+
+        }else{
+
+
+        //khush
+
         if($scope.control_tyep_desc &&  $scope.control_tyep_desc.length>5){
             $scope.checkParentValidation(109, 109,  $scope.control_tyep_desc);
         }
@@ -4976,24 +4999,11 @@ var list_lenth=$('.style_curtain').length
             $ngBootbox.customDialog(customizing_error_options);
     
         }
+        //khuush
 
-        
-        if ($rootScope.is_login == false) {
 
-            $('#loader_div').show();
-            var step_options = {
-                templateUrl: $scope.temp_path + 'popup/login.html?v='+version,
-                scope: $scope,
-                size: 'small',
-               // title: $translate.instant('login'),
-                className: 'ShowroomLogin',
-                onEscape: function () {
-                }
-            };
-            $ngBootbox.customDialog(step_options);
-            $('#loader_div').hide();
 
-        }else{
+
             //$scope.add_more_item =true;
             if (['5965'].indexOf($scope.category_code) > -1) {//sandeep
                 $scope.StepOptionPrice(type, $scope.itemProduct_array[1], $scope.color_selected, '', $scope.measurement_width.value, $scope.measurement_height.value, '', '', '', '', $scope.qty.value, $scope.base_desc, '', 'material', $scope.reserve_stock);
