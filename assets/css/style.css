@@ -258,7 +258,7 @@ section {
 }
 
 .coming_soon_icon {
-  display: none;
+  display: none !important;
 }
 
 /*
