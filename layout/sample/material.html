@@ -53,6 +53,11 @@
     .promocode{
         width: 220px;
     }
+
+    .material_pdf span {
+        font-size: 12px;
+        color: #000;
+    }
 </style>
 <br>
 <div class="burgermenu">
@@ -130,139 +135,62 @@
                 <img class="brand_icon lazyload" ng-src="{{material_info.BRAND_LOGO}}" ng-class="{widthauto: material_info.ECM_BR_CODE == 04 }" />
             </div>
             
-            <div class="col-md-4 col-sm-6 col-xs-6 padding_left0  right-side mb-15" ng-if="shopping == true">
-                <div class="col-md-12 col-sm-12 col-xs-12 nopadding">
-                    <a class="buyNow col-md-12 col-sm-12 col-xs-12 buy_{{material.ECM_IF_CODE}} mb-10" href="customizing/{{cat_code}}/{{material_info.ECM_ECI_CODE}}/{{material_info.ECM_CODE}}" ng-if="material_info.ECI_PRODUCT_YN == 'Y' && material_info.ECI_ALLOW_ADD_TO_CART_YN != 'I'">
-                        <span translate="BUY_NOW">BUY NOW</span> 
-                    </a>
+            
+            <div class="col-md-12 col-sm-12 col-xs-12 nopadding right-side">
+                <div class="col-md-12 col-sm-12 col-xs-12 nopadding material_pdf mb-10">
+    
+                    <div class="col-md-12 col-sm-12 col-xs-12 nopadding product_detail mb-20">
+                        <table  class="product_table">
+                            <h6 translate="details"><b>DETAILS</b></h6>
+                            <tbody>
+                                <tr ng-if="material_info.COLOR_DESC != ''">
+                                    <td translate="color">Color:</td>
+                                    <td>{{material_info.COLOR_DESC}}</td>
+                                </tr>
+                                <tr ng-if="material_info.PATTERN_DESC != ''">
+                                    <td translate="Design" >Design:</td>
+                                    <td translate="{{material_info.PATTERN_DESC}}">{{material_info.PATTERN_DESC}}</td>
+                                </tr>
+                                <tr ng-if="material_info.REPEAT_DESIGN > 0">
+                                    <td translate="Repeat">Repeat:</td>
+                                    <td translate="{{material_info.REPEAT_DESIGN}}">{{material_info.REPEAT_DESIGN}}</td>
+                                </tr>
+                                <tr ng-if="material_info.MATERIAL_DESC != ''">
+                                    <td translate="Material" >Material:</td>
+                                    <td translate="{{material_info.MATERIAL_DESC}}">{{material_info.MATERIAL_DESC}}</td>
+                                </tr>
+                                <tr ng-if="material_info.ECM_WIDTH > 0">
+                                    <td><span ng-if="material_info.ECM_LENGTH > 0"> {{material_info.ECM_UOM_INITCAP}}</span> <span ng-if="material_info.ECM_LENGTH == 0 || material_info.ECM_LENGTH == null" translate="width"> Width</span></td>
+                                    <td ><span>{{material_info.ECM_WIDTH| number: 2}} <span translate="cm"> CM</span></span> <span ng-if="material_info.ECM_LENGTH > 0"> x  {{material_info.ECM_LENGTH| number: 2}} Meter</span> </td>
+                                </tr>
+                                <tr ng-if="material_info.ECM_WEIGHT > 0">
+                                    <td translate="weight" >Weight:</td>
+                                    <td translate="gram_val" translate-values="{val:'{{material_info.ECM_WEIGHT}}' }" >{{material_info.ECM_WEIGHT}}g</td>
+                                </tr>
+                                <tr ng-if="material_info.SPEC != null">
+                                    <td translate="Specification" >Specification:</td>
+                                    <td translate="{{material_info.SPEC}}" >{{material_info.SPEC}}</td>
+                                </tr>
+                                <tr ng-if="material_info.ITEM_COMPOSITION != null">
+                                    <td translate="composition1" >Composition:</td>
+                                    <td translate="{{material_info.ITEM_COMPOSITION}}">{{material_info.ITEM_COMPOSITION}}</td>
+                                </tr>
+                                <tr ng-if="material_info.ITEM_STANDARD != null">
+                                    <td translate="Item Standard" >Item Standard:</td>
+                                    <td translate="{{material_info.ITEM_STANDARD}}" >{{material_info.ITEM_STANDARD}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+    
                 </div>
                 
-            <div class="col-md-12 col-sm-12 col-xs-12 nopadding feature_and_benefit mb-20" ng-bind-html="material_info.ECI_MORE | htmlSafe">
-
-            </div>
+    
             </div>
         </div>
 
         <div class="clearfix"></div>
 
-        <hr class="pb-10" />
-        <div class="col-md-6 col-sm-6 col-xs-12 nopadding right-side ">
-            <div class="col-md-12 col-sm-12 col-xs-12 nopadding material_pdf mb-10">
-
-
-                <div class="col-md-6 col-sm-6 col-xs-12" ng-repeat="row in guideline">
-                    <a ng-href="{{s3_image_path + row.EIS_IMAGE_PATH}}" target="_blank" ng-if="row.EIS_IMAGE_PATH != null">
-                        <i class="far fa-file-pdf"></i>
-                    </a>
-                    <samp ng-if="row.EIS_INFO_IMAGE_PATH != null"> | </samp> 
-
-                    <span id="material-vedio">
-                        <a class="boxclose" id="boxclose" onclick="lightbox_close();"></a>
-                        <video id="VisaChipCardVideo" width="600" controls>
-                            <source src="{{s3_image_path + row.EIS_INFO_IMAGE_PATH}}">
-                        </video>
-                    </span>
-                    <div id="fade" onClick="lightbox_close();"></div>
-                    <a onclick="pdf_vedio_open();" ng-if="row.EIS_INFO_IMAGE_PATH != null">
-                        <i class="far fa-play-circle"></i>
-                    </a>
-                    <span>{{row.EIS_DESC}}</span>
-
-                </div>
-
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 mb-15 symbols"  ng-if="material_info.ECI_PROPERTIES">
-                <hr class="mb-10" />
-                <h6 translate="SYMBOLS_product" translate-values="{val:'{{material_info.ECI_DESC}}' }">{{material_info.ECI_DESC}} SYMBOLS</h6>
-                <ul>
-                    <li ng-repeat="properites_img in material_info.ECI_PROPERTIES.split(',')">
-                        <img ng-if="properites_img" class="lazyload" ng-src="{{asset_img + 'item_properties/' + properites_img + '.png'}}"/>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-md-12 col-sm-12 col-xs-12 product_detail mb-20">
-                <table  class="product_table">
-                    <h6 translate="details">DETAILS</h6>
-                    <tbody>
-                        <tr ng-if="material_info.COLOR_DESC != ''">
-                            <td translate="color">Color:</td>
-                            <td>{{material_info.COLOR_DESC}}</td>
-                        </tr>
-                        <tr ng-if="material_info.PATTERN_DESC != ''">
-                            <td translate="Design" >Design:</td>
-                            <td translate="{{material_info.PATTERN_DESC}}">{{material_info.PATTERN_DESC}}</td>
-                        </tr>
-                        <tr ng-if="material_info.REPEAT_DESIGN > 0">
-                            <td translate="Repeat">Repeat:</td>
-                            <td translate="{{material_info.REPEAT_DESIGN}}">{{material_info.REPEAT_DESIGN}}</td>
-                        </tr>
-                        <tr ng-if="material_info.MATERIAL_DESC != ''">
-                            <td translate="Material" >Material:</td>
-                            <td translate="{{material_info.MATERIAL_DESC}}">{{material_info.MATERIAL_DESC}}</td>
-                        </tr>
-                        <tr ng-if="material_info.ECM_WIDTH > 0">
-                            <td><span ng-if="material_info.ECM_LENGTH > 0"> {{material_info.ECM_UOM_INITCAP}}</span> <span ng-if="material_info.ECM_LENGTH == 0 || material_info.ECM_LENGTH == null" translate="width"> Width</span></td>
-                            <td ><span>{{material_info.ECM_WIDTH| number: 2}} <span translate="cm"> CM</span></span> <span ng-if="material_info.ECM_LENGTH > 0"> x  {{material_info.ECM_LENGTH| number: 2}} Meter</span> </td>
-                        </tr>
-                        <tr ng-if="material_info.ECM_WEIGHT > 0">
-                            <td translate="weight" >Weight:</td>
-                            <td translate="gram_val" translate-values="{val:'{{material_info.ECM_WEIGHT}}' }" >{{material_info.ECM_WEIGHT}}g</td>
-                        </tr>
-                        <tr ng-if="material_info.SPEC != null">
-                            <td translate="Specification" >Specification:</td>
-                            <td translate="{{material_info.SPEC}}" >{{material_info.SPEC}}</td>
-                        </tr>
-                        <tr ng-if="material_info.ITEM_COMPOSITION != null">
-                            <td translate="composition1" >Composition:</td>
-                            <td translate="{{material_info.ITEM_COMPOSITION}}">{{material_info.ITEM_COMPOSITION}}</td>
-                        </tr>
-                        <tr ng-if="material_info.ITEM_STANDARD != null">
-                            <td translate="Item Standard" >Item Standard:</td>
-                            <td translate="{{material_info.ITEM_STANDARD}}" >{{material_info.ITEM_STANDARD}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-xs-12 similar_color"> 
-            <h5 translate="similar_colors">Similar Colors</h5>
-
-            <div class="filter_tab">
-                <ul class="nav nav-tabs nav-justified ">
-                    <li ng-class="{active:selectedtab == key}" ng-repeat="(key, row) in pattern | limitTo : 5" ng-click="navtab(key, row.ECM_ITEM_PATTERN, row.ECM_ECI_CODE)"  ng-if="row.detail != ''">
-                        <a data-toggle="tab" translate="{{row.PATTERN_DESC}}">{{row.PATTERN_DESC}}</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="tab-content">
-                <div class="tab {{selectedtab == key ? 'active' : 'hide'}}" ng-repeat="(key, row) in pattern">
-
-                    <div class="col-md-12 col-sm-12 col-xs-12 pt-15 similar_color_section">
-                        <div class="col-md-2 col-xs-2 content material" ng-repeat="detail in detail" ng-if="status == true ">
-                            <img src="{{detail.ECM_THUMBNAIL_IMAGES?upload_url+detail.ECM_THUMBNAIL_IMAGES.replace('$$/', ''):back_side_img.indexOf(detail.ECM_ECI_CODE) < 0 ? upload_url + detail.ECM_IMAGE_PATH.replace('$$/', '') : upload_url + detail.ECM_BACK_SIDE_TEXTURE_IMG_PATH.replace('$$/', '')}}" alt="{{detail.ECI_SEO_TAG?detail.ECI_SEO_TAG:'Material Title'}}" />
-                            <a href="material?item={{detail.ITEM_ID}}&product={{detail.ECI_DESC}}&id={{detail.ECM_CODE}}&prod_id={{detail.ECM_ECI_CODE}}&if={{detail.ECM_IF_CODE}}">
-                                <div class="overlay">
-                                    <div class="text">
-                                        {{detail.ITEM_ID}}
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                         
-                        <div class="col-md-12 col-sm-12 col-xs-12" ng-if="status == false ">
-                                <span style="font-size: 12px;text-align:center" translate="No_record"> No record exists! </span>
-                        </div>
-                    </div>
-                <center>
-                    <img class="materialLoadmore lazyload" ng-show="loader" ng-src="{{image_path + 'ajax-loader1.gif'}}">
-                </center> 
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 

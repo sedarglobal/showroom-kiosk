@@ -1344,8 +1344,8 @@ controllers.controller('materialFamily', ['$scope', '$http', '$location', '$cont
                 if(_.isEmpty($scope.material_info) == false){
                     $scope.life_style_info=response.data.life_style_info;
                     $scope.family = response.data.material_info.family;
-                    $scope.guideline = response.data.guideline;
-                    $scope.pattern = response.data.pattern;
+                    //$scope.guideline = response.data.guideline;
+                    //$scope.pattern = response.data.pattern;
                     $scope.detail = response.data.detail;
                     $scope.product = response.data.product;
                     $scope.status = response.data.status;
