@@ -142,7 +142,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                 templateUrl: $scope.temp_path + 'popup/login.html?v='+version,
                 scope: $scope,
                 size: 'small',
-                title: 'Login',
+                //title: 'Login',
                 className: 'ShowroomLogin',
                 onEscape: function () {
                 }
@@ -1243,7 +1243,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
                 templateUrl: $scope.temp_path + 'popup/login.html?v='+version,
                 scope: $scope,
                 size: 'small',
-                title: $translate.instant('login'),
+               // title: $translate.instant('login'),
                 className: 'ShowroomLogin',
                 onEscape: function () {
                 }
@@ -4985,7 +4985,7 @@ var list_lenth=$('.style_curtain').length
                 templateUrl: $scope.temp_path + 'popup/login.html?v='+version,
                 scope: $scope,
                 size: 'small',
-                title: $translate.instant('login'),
+               // title: $translate.instant('login'),
                 className: 'ShowroomLogin',
                 onEscape: function () {
                 }
