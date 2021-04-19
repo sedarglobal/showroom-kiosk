@@ -392,6 +392,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
                         responsiveClass: true,
                         dots:false,
                         nav: true,
+                        lazyLoad : true,
                         navText : ["<img  class='slidericonImg' src='../assets/images/leftarrow.png' />","<img class='slidericonImg'  src='../assets/images/rightarrow.png' />"],
                         responsive: {
                             0: {
@@ -670,6 +671,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
                     slideSpeed: 2000,
                     nav: true,
                     autoplay: false,
+                    lazyLoad : true,
                     dots: false,
                     loop: true,
                     responsiveRefreshRate: 200,
@@ -682,6 +684,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
                     margin: 20,
                     smartSpeed: 200,
                     slideSpeed: 500,
+                    lazyLoad : true,
                     slideBy: slidesPerPage, //alternatively you can slide by 1, this way the active slide will stick to the first item in the second carousel
                     responsiveRefreshRate: 100,
                    // autoHeight:true,
@@ -787,6 +790,7 @@ controllers.controller('measureInstall', ['$scope', '$route', '$http', '$interva
                         responsiveClass: true,
                         dots:false,
                         nav: true,
+                        lazyLoad : true,
                         navText : ["<img src='../assets/images/image488.gif' />","<img src='../assets/images/image487.gif' />"],
                         responsive: {
                             0: {

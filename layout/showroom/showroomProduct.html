@@ -12,10 +12,6 @@
     #productslidershow .owl-nav .slidericonImg {
         max-width:60px !important;
     }
-   .productdetail {
-	height: 260px;
-    overflow-y: hidden;
-}
 </style>
 <div class="shwrm_pg_product">
     <section id="shwrm_pg_product">
@@ -43,7 +39,7 @@
                                         <h3>{{row.ECI_DESC}}</h3>
                                     </div>
                                     <div class="slideimage">
-                                        <img src="https://bkt.sedarglobal.com/{{row.ECI_IMAGE_PATH}}" alt="">
+                                        <img class="owl-lazy" data-src="https://bkt.sedarglobal.com/{{row.ECI_IMAGE_PATH}}" alt="">
                                         <div class="slideshareicon">
                                             <div class="utilityicons">
                                                 <!-- <div class="share_icon"
@@ -78,6 +74,7 @@
                                     <div class="browsebutton col-md-12">
                                         <a ng-href="swatches?desc={{row.ECI_DESC}}&id={{row.ECI_CODE}}{{row.EIC_ECC_CODES?'&&ecc_code='+row.EIC_ECC_CODES:'' }}"
                                             class="btn btn-warning col-md-12"  ng-if="row.COLLECTION_YN == 'Y'">Browse Collection</a>
+                                            <a class="btn btn-warning col-md-12"  ng-disabled="row.COLLECTION_YN == 'N'" ng-if="row.COLLECTION_YN == 'N'">Browse Collection</a>
                                     </div>
                                 </div>
                             </div>
