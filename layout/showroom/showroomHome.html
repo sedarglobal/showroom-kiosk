@@ -134,7 +134,7 @@
                                 <a style="color: #fff;font-size: 14px;" href="#" ng-click="showRoomLogout();">Logout</a>
                             </div>
                         </div>
-                       <img ng-src="../assets/images/image115.gif" alt=""
+                       <img  ng-click="gotoAnchor('shwrm_pg_product_slider')" ng-src="../assets/images/image115.gif" alt=""
                                 style="width: 30px;padding-top: 2%;" />
 
                     </div>
@@ -201,7 +201,7 @@
                                                 </a>
 
                                             </div>
-                                            <div class="col-sm-12 pt-25">
+                                            <div class="col-sm-12 col-xs-12 pt-25">
                                                 <a href="showroomProduct?desc=Hardware&id=5968">
                                                     <img class="productslideimg"
                                                         ng-src="../assets/images/All Icons-11.png" alt="">
@@ -221,7 +221,7 @@
                                                 </a>
 
                                             </div>
-                                            <div class="col-sm-12 pt-25">
+                                            <div class="col-sm-12 col-xs-12 pt-25">
                                                 <a href="showroomProduct?desc=Accessories&id=5969">
                                                     <img class="productslideimg"
                                                         ng-src="../assets/images/All Icons-12.png" alt="">
@@ -239,7 +239,7 @@
                                                     <p>Folding Door</p>
                                                 </a>
                                             </div>
-                                            <div class="col-sm-12 pt-25">
+                                            <div class="col-sm-12 col-xs-12 pt-25">
                                                 <a href="showroomProduct?desc=Outdoor&id=4546&type=S">
                                                     <img class="productslideimg"
                                                         ng-src="../assets/images/All Icons-13.png" alt="">
@@ -257,7 +257,7 @@
                                                     <p>Motorization & <br> Connectivity</p>
                                                 </a>
                                             </div>
-                                            <div class="col-sm-12 pt-25">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <a href="measureInstall/1">
                                                     <img class="productslideimg"
                                                         ng-src="../assets/images/All Icons-14.png" alt="">
@@ -275,7 +275,7 @@
                                                     <p>Smart Home Devices</p>
                                                 </a>
                                             </div>
-                                            <div class="col-sm-12 pt-25">
+                                            <div class="col-sm-12 col-xs-12 pt-25">
                                                 <a href="measureInstall/2">
                                                     <img class="productslideimg"
                                                         ng-src="../assets/images/All Icons-15.png" alt="">
@@ -293,7 +293,7 @@
                                                     <p>Pillows & Cushion</p>
                                                 </a>
                                             </div>
-                                            <div class="col-sm-12 pt-25">
+                                            <div class="col-sm-12 col-xs-12 pt-25">
                                                 <a href="#">
                                                     <img class="productslideimg"
                                                         ng-src="../assets/images/All Icons-16.png" alt="">
@@ -322,37 +322,37 @@
 
     $(document).ready(function () {
         // alert('abc');
-        $('#productslider').owlCarousel({
-            loop: true,
-            margin: 0,
-            nav: true,
+        // $('#productslider').owlCarousel({
+        //     loop: true,
+        //     margin: 0,
+        //     nav: true,
 
-            navText : ["<img  class='slidericonImg' src='../assets/images/leftarrow.png' />","<img class='slidericonImg'  src='../assets/images/rightarrow.png' />"],
+        //     navText : ["<img  class='slidericonImg' src='../assets/images/leftarrow.png' />","<img class='slidericonImg'  src='../assets/images/rightarrow.png' />"],
 
-            responsive: {
-                0: {
-                    items: 1
-                },
-                380: {
-                    items: 2
-                },
-                600: {
-                    items: 3
-                },
-                1200: {
-                    items: 4
-                },
-                1400: {
-                    items: 5
-                },
-                1600: {
-                    items: 6
-                }
+        //     responsive: {
+        //         0: {
+        //             items: 1
+        //         },
+        //         380: {
+        //             items: 2
+        //         },
+        //         600: {
+        //             items: 3
+        //         },
+        //         1200: {
+        //             items: 4
+        //         },
+        //         1400: {
+        //             items: 5
+        //         },
+        //         1600: {
+        //             items: 6
+        //         }
 
 
 
-            }
-        })
+        //     }
+        // })
 
 
     });

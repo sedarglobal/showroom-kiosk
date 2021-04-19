@@ -325,7 +325,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
 
 }]);
 
-controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootScope' ,'$ngBootbox','$translate', function ($scope, $http,$controller,$rootScope ,$ngBootbox,$translate) {
+controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootScope' ,'$ngBootbox','$translate','$anchorScroll', '$location' , function ($scope, $http,$controller,$rootScope ,$ngBootbox,$translate,$anchorScroll,$location) {
     
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
 
@@ -334,7 +334,49 @@ controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootSc
     //     cache : true
     // }).then(function (response) {
     // });
-
+    setTimeout(() => {
+        $('#productslider').owlCarousel({
+            loop: true,
+            margin: 0,
+            nav: true,
+            navText : ["<img  class='slidericonImg' src='../assets/images/leftarrow.png' />","<img class='slidericonImg'  src='../assets/images/rightarrow.png' />"],
+    
+            responsive: {
+                0: {
+                    items: 1
+                },
+                380: {
+                    items: 2
+                },
+                600: {
+                    items: 3
+                },
+                1200: {
+                    items: 4
+                },
+                1400: {
+                    items: 5
+                },
+                1600: {
+                    items: 6
+                }
+    
+    
+    
+            }
+        })
+    }, 1000);
+    
+  
+  
+   
+    $scope.gotoAnchor = function(sectionId) {
+       setTimeout(() => {
+        $location.hash(sectionId);
+        $anchorScroll();  
+       }, 1000);
+          
+      };
 
     
 }]);
