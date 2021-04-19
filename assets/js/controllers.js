@@ -1198,10 +1198,15 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
         console.log($scope.filterArray)
 
         if (type == 'brand') {
-            $http.post(service_url + 'ShowroomApi/getCollectionByBrand/' + $scope.product_id,
-                {
-                    BR_CODE: $scope.filterArray['brand'],
-                    ECC_CODE: $location.search().ecc_code && $location.search().ecc_code.length>0 ?$location.search().ecc_code.split(',') : ''
+            
+                $http({
+                    method: 'POST',
+                    url: service_url+ 'ecommere/getCollectionByBrand/' + $scope.product_id,
+                    data: $.param({
+                        BR_CODE: $scope.filterArray['brand'],
+                        ECC_CODE: $location.search().ecc_code && $location.search().ecc_code.length>0 ?$location.search().ecc_code.split(',') : ''
+                    }),
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).then(function (response) {
                     $scope.collection_list = response.data.collection_list;
                 });
