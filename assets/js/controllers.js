@@ -5,6 +5,7 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user', funct
     $scope.temp_path = temp_path;
     $scope.version = version;
     $scope.image_path = image_path;
+    $scope.$root.back_side_img = ['1013811'];
    // $scope.upload_url = 'https://www.sedarglobal.com/service/uploads/';
     $scope.s3_image_path = 'https://bkt.sedarglobal.com/';
     $scope.asset_img = 'https://ast.sedarglobal.com/images/';
