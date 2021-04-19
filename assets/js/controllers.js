@@ -633,7 +633,8 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
     };
 
     $scope.Productgallery = function (item) { 
-        $('#productslidershow').owlCarousel('destroy');
+        $("#sync1").owlCarousel('destroy');
+        $("#sync2").owlCarousel('destroy');
         $http({
             method: 'GET',
             url: service_url+ 'ShowroomApi/productGallery/'+ item.ECI_CODE +'/'+ screen.orientation.type +'/'+ $scope.user_sys_id,
