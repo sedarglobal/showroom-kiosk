@@ -96,7 +96,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                     };
                     $ngBootbox.customDialog(options);
                 }
-                $('.login_popup').modal('hide');
+                $('.ShowroomLogin').modal('hide');
             } else {
                 alerts.fail($translate.instant('userid_password_invalid'));
             }
@@ -143,7 +143,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                 scope: $scope,
                 size: 'small',
                 title: 'Login',
-                className: 'login_popup',
+                className: 'ShowroomLogin',
                 onEscape: function () {
                 }
             };
@@ -683,6 +683,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
                     slideSpeed: 500,
                     slideBy: slidesPerPage, //alternatively you can slide by 1, this way the active slide will stick to the first item in the second carousel
                     responsiveRefreshRate: 100,
+                   // autoHeight:true,
                     responsive: {
         
                         0: {
@@ -1243,7 +1244,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
                 scope: $scope,
                 size: 'small',
                 title: $translate.instant('login'),
-                className: 'login_popup',
+                className: 'ShowroomLogin',
                 onEscape: function () {
                 }
             };
@@ -4985,7 +4986,7 @@ var list_lenth=$('.style_curtain').length
                 scope: $scope,
                 size: 'small',
                 title: $translate.instant('login'),
-                className: 'login_popup',
+                className: 'ShowroomLogin',
                 onEscape: function () {
                 }
             };
@@ -5415,8 +5416,8 @@ var list_lenth=$('.style_curtain').length
     
     function onnavigationsteptoolRisize() {
 
-        var headerheight = $('.header-container').height() + 50;
-        var stepHeight = window.innerHeight -parseInt(headerheight);      
+     //   var headerheight = $('.header-container').height() + 50;
+        var stepHeight = window.innerHeight;      
         $('.navigation.step_tool').attr('style', 'height :' + stepHeight + 'px');
        
     }
