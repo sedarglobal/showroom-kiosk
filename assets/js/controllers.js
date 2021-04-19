@@ -1735,6 +1735,7 @@ controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$ht
             $scope.filter_tag = response.data.filter_tag;
             $scope.current_step = $scope.cont_step[0];
             $scope.category_code = response.data.item.EPG_SYS_ID;
+            $scope.category_desc = response.data.item.EPG_DESC;
             $scope.reserve_stock = response.data.cart_info.order_list[cart_id] ? response.data.cart_info.order_list[cart_id].reserve_stock : '';
             $scope.default_step_val=response.data.default_step_val;
 
