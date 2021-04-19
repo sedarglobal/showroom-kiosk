@@ -1623,8 +1623,16 @@ controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$ht
     $scope.template = $scope.temp_path + 'tool/item.html?v='+version;
     // var canvasWidth = window.innerWidth;
     // var canvasHeight = window.innerHeight;
-
-    var canvasWidth = screen.orientation.type == 'landscape-primary' ?  $('#threeDImage').width()-450 : window.innerWidth; //window.innerWidth < 480 ? $('#threeDImage').width() : $('#threeDImage').width(); //window.innerWidth;
+    function canvasWidthSet() {
+      //  var canvasWidth = screen.orientation.type == 'landscape-primary' ?  $('#threeDImage').width()-450 : window.innerWidth; //window.innerWidth < 480 ? $('#threeDImage').width() : $('#threeDImage').width(); //window.innerWidth;
+      var canvasWidthset = $('#threeDImage').width(); //window.innerWidth;
+        $('#threeDImage canvas').width(canvasWidthset);
+    }
+    
+    setInterval(function(){       
+        canvasWidthSet();
+    },200);
+        var canvasWidth = $('#threeDImage').width();
         $('.top_navigation').hide();
         $('#footer').hide();
         var canvasHeight =  screen.orientation.type == 'landscape-primary' ? window.innerHeight : window.innerHeight - 720; //window.innerWidth < 480 ? window.innerHeight - 350 : window.innerHeight;
