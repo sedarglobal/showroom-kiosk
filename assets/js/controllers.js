@@ -1678,6 +1678,7 @@ controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$ht
     });
     $('#loader_div').show();
     
+
     $http({
         method: 'POST',
         url:service_url + 'ShowroomApi/customizing',
@@ -1713,6 +1714,8 @@ controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$ht
             if (threeJS.init(threeJsData) === false || response.data.item.ECI_ALLOW_CUSTOMIZATION_YN == 'N') {
                 $location.path('home');
             }
+
+            threeJS.onWindowResize();
             $scope.isOpen = false;
             $scope.total = response.data.cart_info.total;
             $rootScope.orderList = response.data.cart_info.order_list;
