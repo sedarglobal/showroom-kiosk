@@ -5,6 +5,7 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user', funct
     $scope.temp_path = temp_path;
     $scope.version = version;
     $scope.image_path = image_path;
+    $scope.enquiry_form = '';
     $scope.$root.back_side_img = ['1013811'];
    // $scope.upload_url = 'https://www.sedarglobal.com/service/uploads/';
     $scope.s3_image_path = 'https://bkt.sedarglobal.com/';
@@ -5617,6 +5618,126 @@ controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controlle
 
 }
 ]);
+
+
+controllers.controller('forgotPwd', ['$scope', '$rootScope', '$route', '$location', '$http', 'alerts', '$translate', function ($scope, $rootScope, $route, $location, $http, alerts, $translate) {
+    $('.login_popup').modal('hide');
+    $scope.$root.footer = true;
+    $scope.alerts = alerts;
+    $scope.input = {};
+    if ($route.current.params.hasOwnProperty('email')) {
+        $scope.input.email = $route.current.params.email;
+    }
+
+    $scope.forgotPwd = function ($type) {
+        $scope.waiting = true;
+        var input_val = $scope.input.email;
+
+        $http({
+            method: 'POST',
+            url: service_url + 'ecommerce/checkEmailMobile',
+            data: $.param({
+                val: input_val,
+                type: $type
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function (data) {
+            if (data.data.status == true) {
+                $scope.waiting = false;
+                store.set('EMAIL', data.data.result);
+                $location.path('email_verify/' + input_val);
+            } else {
+                $scope.waiting = false;
+                alerts.fail($translate.instant('notvalid_email'));
+            }
+        });
+    };
+    $scope.verify_email = store.get('EMAIL');
+    $scope.checkTempCode = function ($type) {
+        $scope.waiting = true;
+        var input_val = $scope.input.email;
+
+        $http({
+            method: 'POST',
+            url: service_url + 'ecommerce/checkEmailMobile',
+            data: $.param({
+                val: $scope.verify_email.USER_EMAIL_ID,
+                temp_code: $scope.input.temp_code,
+                type: $type
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function (data) {
+            if (data.data.status == true) {
+                $scope.waiting = false;
+                $location.path('newPassword');
+            } else {
+                $scope.waiting = false;
+                alerts.fail($translate.instant('this_verification_code_has_expired'));
+            }
+        });
+    };
+}]);
+
+controllers.controller('userEmailVerify', ['$scope', '$rootScope', '$http', '$route', function ($scope, $rootScope, $http, $route) {
+    
+    $scope.$root.footer = true;
+    var email_id = $scope.email_id = $route.current.params.hasOwnProperty('email_id') ? $route.current.params.email_id : false;
+    var key_value = $scope.email_id = $route.current.params.hasOwnProperty('key') ? $route.current.params.key : false;
+    if (email_id) {
+        $('#loader_div').show();
+
+        $http({
+            method: 'POST',
+            url: service_url + 'ecommerce/userEmailVerify',
+            data: $.param({
+                email_id: email_id, 
+                key_value: key_value
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function (response) {
+            $scope.message = response.data.message;
+            $('#loader_div').hide();
+        });
+    }
+}]);
+
+controllers.controller('pwdChange', ['$scope', '$location', '$http', 'alerts', '$controller', '$translate', function ($scope, $location, $http, alerts, $controller, $translate) {
+
+    angular.extend(this, $controller('globalFunction', { $scope: $scope }));
+    $scope.$root.footer = true;
+    $scope.alerts = alerts;
+    $scope.verify_email = store.get('EMAIL') ? store.get('EMAIL') : {};
+    $scope.passwordChange = function ($type) {
+        $('#loader_div').show();
+        $scope.waiting = true;
+        if ($scope.input.password != $scope.input.confirm_password) {
+            alerts.fail($translate.instant('confirm_passwords_not_match'));
+            $scope.waiting = false;
+            return;
+        }
+
+        $http({
+            method: 'POST',
+            url: service_url + 'ecommerce/passwordChange',
+            data: $.param({
+                data: $scope.input,
+                id: $scope.verify_email.USER_SYS_ID,
+                email: $scope.verify_email.USER_EMAIL_ID,
+                type: $type
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function (response) {
+            if (response.data.status) {
+                $location.path('login');
+                $('#loader_div').hide();
+            } else {
+                alerts.fail($translate.instant('old_password_do_not_match'));
+                $scope.waiting = false;
+                $('#loader_div').show();
+            }
+        });
+    };
+}]);
 
 function dataGroup(data, group) {
     var group_data = [];

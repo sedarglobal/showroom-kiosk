@@ -1,0 +1,30 @@
+<div class="">
+            <div class="container">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="forgotPwd">
+                        <form ng-submit="forgotPwd('forgotPwd')">
+                            <div class="col-sm-12 col-md-12 col-lg-12 panel panel-default panel_background"  style="padding:15px; top: 90px;">
+                                <h3>
+                                    <strong translate="password_assistance"></strong>
+                                </h3>
+                                <div class="col-md-12" ng-include="temp_path + 'alert.html?v='+version"></div>
+
+                                <div class="col-md-12 nopadding">
+                                    <p translate="enter_the_email_address_associated"></p>
+                                    <br>
+                                    <div class="form-group">
+                                        <label translate="email"></label>
+                                        <input type="email" name="email" class="placeholder_class" autofocus ng-model="input.email" required="true">
+                                    </div>                        
+                                </div>
+                                <div class="">
+                                    <button name="submit" class="btn btn-new-dark" ladda="waiting" translate="submit" ></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div> 
+            </div>
+       
+    
+</div>

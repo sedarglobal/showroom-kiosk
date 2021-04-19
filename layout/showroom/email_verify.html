@@ -1,0 +1,47 @@
+<style>
+    a:hover{
+        color: #23527c;
+        cursor: pointer;
+    }
+    .email_varify{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        position: absolute
+    }
+</style>
+
+<div data-sim>
+    <div class="col-md-12 col-sm-12 col-xs-12 container " style="word-wrap: break-word;">
+        <div class="forgotPwd">
+            <form ng-submit="checkTempCode('checkTempCode')">
+                <div class="col-sm-12 col-md-12 col-lg-12 panel panel-default panel_background"  style="padding:15px">
+                    <h3>
+                        <strong translate="authenticate_your_account"></strong>
+                    </h3>
+
+                    <div class="col-md-12" ng-include="temp_path + 'alert.html?v='+version"></div>
+
+                    <div class="col-md-12 nopadding">
+                        <div class="form-group">
+                            <p> <span translate="enter_the_verification_code"></span> <b>{{verify_email.USER_EMAIL_ID}}</b> <span translate="please_enter_below"></span></p>
+                            <br>
+                            <b translate="enter_code"></b>
+
+                            <input type="text" name="temp_code" placeholder="{{'code'| translate}}" class="placeholder_class" autofocus ng-model="input.temp_code" required="true">
+                        </div>  
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-12 padding">
+                        <div class="form-group">
+                            <button name="submit" class="btn btn-new-dark" ladda="waiting" translate="submit" ></button>
+                              <a name="login" class="btn-login" translate="resend_code" ng-click="forgotPwd('forgotPwd')"></a>
+                            
+                        </div>
+                        <!-- <a href="login" ng-class="" name="login" class="btn-login" translate="login" style="float:right;color: #000"></a> -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div> 
+</div>
+

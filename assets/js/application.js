@@ -100,6 +100,38 @@ var myApp = angular.module("acs", ['acs.controllers', 'acs.filters','acs.service
                     return $translate.onReady();
                     }]
                 }
+            }).when('/forgotPwd', {
+                controller: 'forgotPwd',
+                templateUrl: temp_path + 'showroom/forgot_pwd.html?v='+version,
+                resolve: {
+                translateReady: ['$translate', function ($translate) {
+                    return $translate.onReady();
+                    }]
+                }
+            }).when('/email_verify/:email', {
+                controller: 'forgotPwd',
+                templateUrl: temp_path + 'showroom/email_verify.html?v='+version,
+                resolve: {
+                translateReady: ['$translate', function ($translate) {
+                    return $translate.onReady();
+                    }]
+                }
+            }).when('/userEmailVerify/:email_id?/:key?', {
+                controller: 'userEmailVerify',
+                templateUrl: temp_path + 'showroom/emailVerify.html?v='+version,
+                resolve: {
+                translateReady: ['$translate', function ($translate) {
+                    return $translate.onReady();
+                    }]
+                }
+            }).when('/newPassword', {
+                controller: 'pwdChange',
+                templateUrl: temp_path + 'showroom/newPassword.html?v='+version,
+                resolve: {
+                translateReady: ['$translate', function ($translate) {
+                    return $translate.onReady();
+                    }]
+                }
             }).otherwise({
                 redirectTo: window.location.pathname == "/" ? '/' : '/404'
             });
