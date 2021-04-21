@@ -502,9 +502,9 @@ section {
 }
 /* responsive */
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (min-height: 600px) {
+@media only screen and (min-height: 582px) {
   .showroom_landing_page_banner_img{
-    object-fit: none;
+    object-fit: contain;
   }
 }
 @media only screen and (max-width: 600px) {
