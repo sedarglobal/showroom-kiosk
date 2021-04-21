@@ -502,7 +502,11 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
                                 items: 2,
                                 nav: false
                             },
-                            1000: {
+                            768: {
+                                items: 2,                                
+                                nav: true
+                            },
+                            1260: {
                                 items: $scope.product_item.length > 2 ? 3 : 2,
                                 nav: true,
                                 loop: true
