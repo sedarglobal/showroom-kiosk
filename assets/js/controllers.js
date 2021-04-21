@@ -511,7 +511,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
                                 nav: true,
                                 loop: true
                             },
-                            1600: {
+                            1900: {
                                 items: $scope.product_item.length > 3 ? 4 : $scope.product_item.length > 2 ? 3 : 2,
                                 nav: true,
                                 loop: true
@@ -924,7 +924,7 @@ controllers.controller('measureInstall', ['$scope', '$route', '$http', '$interva
                                 nav: true,
                                 loop: true
                             },
-                            1600: {
+                            1900: {
                                 items: 4,
                                 nav: true,
                                 loop: true

@@ -208,12 +208,12 @@ section {
 
 .slideimage {
   position: relative;
-  max-height: 210px;
+  max-height: 250px;
   height: auto;
 }
 .slideimage img{
   position: relative;
-  max-height: 210px;
+  max-height: 250px;
   height: 100%;
 }
 
@@ -306,16 +306,17 @@ section {
   border-radius: 0;
   border: none;
   font-weight: bold;
+  font-size: 12px !important;
 }
 .slidebutton .one {
-  font-size: 14px !important;
+  
 
   color: #000;
   background: #fac775;
   border: none;
 }
 .slidebutton .two {
-  font-size: 14px !important;
+ 
 
   color: #fff;
   background-color: #4a419f;
@@ -537,6 +538,7 @@ section {
     border: none;
     font-weight: bold;
     margin-top: 5px;
+    font-size: 12px !important;
   }
   .browsebutton a {
     width: 100%;
@@ -567,5 +569,11 @@ section {
   }
   .showroom_landing_page_banner .socialIcon img {
     max-width: 90px;
+  }
+  .slidebutton .btn {    
+    font-size: 14px !important;
+  }
+  #productslidershow{
+    width: 100%;
   }
 }
