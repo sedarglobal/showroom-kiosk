@@ -502,7 +502,7 @@ section {
 }
 /* responsive */
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (min-height: 582px) {
+@media only screen and (min-height: 767px) {
   .showroom_landing_page_banner_img{
     object-fit: contain;
   }
