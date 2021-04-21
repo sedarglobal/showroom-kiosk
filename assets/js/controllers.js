@@ -377,7 +377,8 @@ controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootSc
     // }).then(function (response) {
     // });
     setTimeout(() => {
-        $('#productslider').owlCarousel({
+        var owl = $('#productslider');
+        owl.owlCarousel({
             loop: true,
             margin: 0,
             nav: true,
@@ -407,6 +408,13 @@ controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootSc
     
             }
         })
+        $(document.documentElement).keyup(function(event) {    
+            if (event.keyCode == 37) { /*left key*/
+                owl.trigger('prev.owl.carousel', [700]);
+            } else if (event.keyCode == 39) { /*right key*/
+                owl.trigger('next.owl.carousel', [700]);
+            }
+        });
     }, 1000);
     
     // setTimeout(() => {
@@ -474,8 +482,10 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
                 $scope.product_item = response.data.item;
                 item_ajax = true;
                 $scope.itemLoadMore = false;
+                
                 setTimeout(function(){
-                    $('#productslidershow').owlCarousel({
+                    var owl = $('#productslidershow');
+                    owl.owlCarousel({
                         loop: true,
                         margin: 40,
                         responsiveClass: true,
@@ -493,15 +503,22 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
                                 nav: false
                             },
                             1000: {
-                                items: 3,
+                                items: $scope.product_item.length > 2 ? 3 : 2,
                                 nav: true,
                                 loop: true
                             },
                             1600: {
-                                items: 4,
+                                items: $scope.product_item.length > 3 ? 4 : $scope.product_item.length > 2 ? 3 : 2,
                                 nav: true,
                                 loop: true
                             }
+                        }
+                    });
+                    $(document.documentElement).keyup(function(event) {    
+                        if (event.keyCode == 37) { /*left key*/
+                            owl.trigger('prev.owl.carousel', [700]);
+                        } else if (event.keyCode == 39) { /*right key*/
+                            owl.trigger('next.owl.carousel', [700]);
                         }
                     });
                 },500);
@@ -809,7 +826,15 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
                     var filter = $item.data('owl-filter')
                     owl.owlcarousel2_filter(filter);
                     
-                })
+                });
+
+                $(document.documentElement).keyup(function(event) {    
+                    if (event.keyCode == 37) { /*left key*/
+                        owl.trigger('prev.owl.carousel', [700]);
+                    } else if (event.keyCode == 39) { /*right key*/
+                        owl.trigger('next.owl.carousel', [700]);
+                    }
+                });
             }, 500);
 
         });
@@ -872,8 +897,8 @@ controllers.controller('measureInstall', ['$scope', '$route', '$http', '$interva
             }).then(function (response) {
                 $scope.measureInstall = response.data;
                 setTimeout(function(){
-
-                    $('#productslidershow').owlCarousel({
+                    var owl = $('#productslidershow');
+                    owl.owlCarousel({
                         loop: true,
                         margin: 40,
                         responsiveClass: true,
@@ -900,6 +925,14 @@ controllers.controller('measureInstall', ['$scope', '$route', '$http', '$interva
                                 nav: true,
                                 loop: true
                             }
+                        }
+                    });
+
+                    $(document.documentElement).keyup(function(event) {    
+                        if (event.keyCode == 37) { /*left key*/
+                            owl.trigger('prev.owl.carousel', [700]);
+                        } else if (event.keyCode == 39) { /*right key*/
+                            owl.trigger('next.owl.carousel', [700]);
                         }
                     });
                 },500);
