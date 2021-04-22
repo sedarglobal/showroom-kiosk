@@ -141,4 +141,31 @@
                 setTimeout(scan, 300);
             }
         }
+
+       
+
+
+  
+$(document).ready(function(){
+  $( ".colorSection_popup .modal-content").draggable();
+  if (window.innerWidth < 767) {     
+     // $( ".colorSection_popup .modal-content").draggable({ cancel: "colorSection_popup .modal-content" });
+     $( ".colorSection_popup .modal-content").draggable( "destroy" );
+  }
+
+  setTimeout(function(){
+      $('.slider-container').mouseover(function() {
+          $( ".colorSection_popup .modal-content").draggable( "destroy" );
+      }).mouseout(function() {
+          $( ".colorSection_popup .modal-content").draggable();
+      });
+  },200);
+  
+      
+});   
+
+
+
+
+
 </script>
