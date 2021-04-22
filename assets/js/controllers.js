@@ -1,5 +1,7 @@
 var controllers = angular.module('acs.controllers', ['ngSilent']);
-
+controllers.run(['$anchorScroll', function ($anchorScroll) {
+    $anchorScroll.yOffset = 10;
+}]);
 controllers.controller('root', ['$scope','$translate','$rootScope','user', function ($scope,$translate,$rootScope,user) {
     $scope.user = user;
     $scope.temp_path = temp_path;
@@ -367,7 +369,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
 
 }]);
 
-controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootScope' ,'$ngBootbox','$translate','$anchorScroll', '$location' , function ($scope, $http,$controller,$rootScope ,$ngBootbox,$translate,$anchorScroll,$location) {
+controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootScope' ,'$ngBootbox','$translate','$anchorScroll', '$location', function ($scope, $http,$controller,$rootScope ,$ngBootbox,$translate,$anchorScroll,$location) {
     
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
 
@@ -432,6 +434,10 @@ controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootSc
           
       };
 
+    $scope.scrollZero = function(){
+        $location.hash('showroom_landing_page');
+        $anchorScroll();  
+    }
     
 }]);
 
