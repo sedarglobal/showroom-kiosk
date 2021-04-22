@@ -1,49 +1,64 @@
 <style>
-    #shwrm_pg_product{
+    #shwrm_pg_product {
         background: url('./assets/images/yourspace.png');
         background-repeat: no-repeat;
         background-size: 80% auto;
-        
+
         background-position-y: top;
     }
-    .slidebutton a:hover, .slidebutton button:hover{
-        background-color:#ec971f;
+
+    .slidebutton a:hover,
+    .slidebutton button:hover {
+        background-color: #ec971f;
     }
+
     #productslidershow .owl-nav .slidericonImg {
-        max-width:60px !important;
+        max-width: 60px !important;
     }
+
     .productdetail {
         height: 260px;
         overflow-y: hidden;
     }
-    .burgermenu .homelink{
+
+    .burgermenu .homelink {
         padding-left: 10px;
         font-size: 22px;
 
     }
-    .moveBack.moveBackText a{
+
+    .moveBack.moveBackText a {
         color: #000;
         font-weight: bold;
     }
-    .moveBack.moveBackText a span{
+
+    .moveBack.moveBackText a span {
         color: #000;
         font-weight: bold;
     }
-    .burgermenu{
+
+    .burgermenu {
         display: flex;
         position: relative;
 
     }
-    .burgermenu .burgermenuleft,.burgermenu .burgermenuright{
+
+    .burgermenu .burgermenuleft,
+    .burgermenu .burgermenuright {
         width: 50%;
         position: relative;
     }
-    .burgermenu .burgermenuright{
-        text-align: right;
-       
+
+    .burgermenu .burgermenuright {
+
+        display: flex;
+        justify-content: right;
+
     }
-    .burgermenu .burgermenuright a i{
+
+    .burgermenu .burgermenuright div {
         padding: 10px;
+        position: relative;
     }
 </style>
 <div class="shwrm_pg_product">
@@ -54,27 +69,33 @@
                 <a href="/"><em class="fas fa-home-lg-alt homelink"></em></a>
             </div>
             <div class="burgermenuright">
-               
-                <a href="/"><i class="fas fa-heart" style="color: #c40000;"></i></a>
-                <a href="#"><i class="fas fa-user-circle"></i></a>
+                <div class="wishlist" >
+                    <a href="/"><i class="fas fa-heart" style="color: #c40000;"></i></a>
+                    <div class="countitem" style="position: absolute;top: 12px;right: 2px;height: 16px;width: 16px;padding: 0;text-align: center;color: #fff;background: #f5b05f;border-radius: 50%;display: flex;align-items: center;justify-content: center;"><span>2</span></div>
+
+                </div>
+                <div class="userAcount">
+                    <a href="#"><i class="fas fa-user-circle"></i></a>
+                </div>
+
             </div>
-           
-           
+
+
         </div>
         <div class="productheading">
             <!-- <h1> <span class="PorterBold">Curtain</span> <span>&</span> <span class="PorterBold"> drapes</span></h1>
             <p>We develop & bring international trends to deliver world class designs <br> to our customers. Imbibed in
                 each of our products are features like <br> robust construction, durability and long-lasting
                 performance.</p> -->
-                <p ng-bind-html="product_cat[0].EPG_MORE | htmlSafe">{{product_cat[0].EPG_MORE}}  </p>    
+            <p ng-bind-html="product_cat[0].EPG_MORE | htmlSafe">{{product_cat[0].EPG_MORE}} </p>
         </div>
         <div class="Singleproductslider">
-            
+
             <div class="container">
                 <div class="col-md-12">
 
                     <div class="owl-carousel owl-theme" id="productslidershow">
-                        
+
                         <div class="item" ng-repeat="(key, row) in product_item">
                             <div class="productslide">
                                 <div class="slideroom">
@@ -82,7 +103,8 @@
                                         <h3>{{row.ECI_DESC}}</h3>
                                     </div>
                                     <div class="slideimage">
-                                        <img class="owl-lazy" data-src="https://bkt.sedarglobal.com/{{row.ECI_IMAGE_PATH}}" alt="">
+                                        <img class="owl-lazy"
+                                            data-src="https://bkt.sedarglobal.com/{{row.ECI_IMAGE_PATH}}" alt="">
                                         <div class="slideshareicon">
                                             <div class="utilityicons">
                                                 <!-- <div class="share_icon"
@@ -91,15 +113,17 @@
                                                         href="https://www.facebook.com/sharer/sharer.php?u=https://www.sedarglobal.com/productInfo?desc=Blinds%20&%20Shades&id=4456&type=S&amp;src=sdkpreparse"
                                                         class="fb-xfbml-parse-ignore"><em class="fas fa-share-alt"></em></a>
                                                 </div> -->
-                                                <div class="share_icon" ng-click="socialShare($event)" data-href="swatches?desc={{row.ECI_DESC}}&id={{row.ECI_CODE}}{{row.EIC_ECC_CODES?'&&ecc_code='+row.EIC_ECC_CODES:'' }}">
+                                                <div class="share_icon" ng-click="socialShare($event)"
+                                                    data-href="swatches?desc={{row.ECI_DESC}}&id={{row.ECI_CODE}}{{row.EIC_ECC_CODES?'&&ecc_code='+row.EIC_ECC_CODES:'' }}">
                                                     <em class="fas fa-share-alt"></em>
                                                 </div>
-                                                <i class="fa-heart {{row.ECI_CODE}} fas heart_icon" ng-if="row.like_count > 1"></i>
+                                                <i class="fa-heart {{row.ECI_CODE}} fas heart_icon"
+                                                    ng-if="row.like_count > 1"></i>
                                                 <i class="fa-heart {{row.ECI_CODE}}  heart_icon"
                                                     ng-class="{'fas': row.like[0].ECBL_ITEM_PR_CODE == row.ECI_CODE, 'far': row.like[0].ECBL_ITEM_PR_CODE != row.ECI_CODE}"
                                                     data-ecpcode="{{ecp_code}}" data-code="{{row.ECI_CODE}}"
                                                     data-catid="{{product_cat_id}}"
-                                                    ng-click="fa_wishList(ecp_code, row.ECI_CODE, product_cat_id, 'productInfo', '');" 
+                                                    ng-click="fa_wishList(ecp_code, row.ECI_CODE, product_cat_id, 'productInfo', '');"
                                                     ng-if="row.like_count < 2"></i>
                                             </div>
                                         </div>
@@ -109,22 +133,25 @@
                                     </div>
                                     <div class="slidebutton">
                                         <a ng-href="customizing/{{product_cat_id}}/{{row.ECI_CODE}}//{{row.ECI_DESC}}{{parameter_url}}{{row.EIC_ECC_CODES?'?ecc_code='+row.EIC_ECC_CODES:'' }}"
-                                                class="btn btn-warning one" ng-if="row.ECI_ALLOW_CUSTOMIZATION_YN == 'Y'"
-                                               >Start
-                                                Customizing</a>
-                                        <button type="button" class="btn btn-warning two" ng-click="Productgallery(row);" >More Photos</button>
+                                            class="btn btn-warning one"
+                                            ng-if="row.ECI_ALLOW_CUSTOMIZATION_YN == 'Y'">Start
+                                            Customizing</a>
+                                        <button type="button" class="btn btn-warning two"
+                                            ng-click="Productgallery(row);">More Photos</button>
                                     </div>
                                     <div class="browsebutton col-md-12">
                                         <a ng-href="swatches?desc={{row.ECI_DESC}}&id={{row.ECI_CODE}}{{row.EIC_ECC_CODES?'&&ecc_code='+row.EIC_ECC_CODES:'' }}"
-                                            class="btn btn-warning col-md-12"  ng-if="row.COLLECTION_YN == 'Y'">Browse Collection</a>
-                                            <a class="btn btn-warning col-md-12"  ng-disabled="row.COLLECTION_YN == 'N'" ng-if="row.COLLECTION_YN == 'N'">Browse Collection</a>
+                                            class="btn btn-warning col-md-12" ng-if="row.COLLECTION_YN == 'Y'">Browse
+                                            Collection</a>
+                                        <a class="btn btn-warning col-md-12" ng-disabled="row.COLLECTION_YN == 'N'"
+                                            ng-if="row.COLLECTION_YN == 'N'">Browse Collection</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        
-                        
+
+
+
 
                     </div>
                 </div>
@@ -132,7 +159,7 @@
             </div>
 
         </div>
-        <div class="moveBack moveBackText" >
+        <div class="moveBack moveBackText">
             <a href="/" style="display: block;">
                 <i class="fas fa-chevron-left"></i><span> Back</span>
 
