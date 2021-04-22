@@ -38,8 +38,7 @@
             <md-tab label="{{'Color'| translate}}">
                 <div class="col-md-12 col-sm-12 col-xs-12  mb-25 pt-15">
                     <div class="color_section">
-                        <div ng-repeat="row in likeProduct">
-                            <div class="col-md-2 col-xs-4  mb-10 material" ng-repeat="item in row.material"> 
+                            <div class="col-md-2 col-xs-4  mb-10 material" ng-repeat="item in likeMaterial"> 
                                 <div class="col-md-12 col-xs-12 nopadding" ng-class="zig_zagImg.indexOf(item.ECI_CODE) > 0 ? 'margin_top120' : ''" >
                                     <i class="fas fa-times-circle {{item.ECM_CODE}}  heart_icon" ng-click="remove_wishList(item.ECI_CODE, item.ECM_CODE, '', 'wishList', '');" style="z-index: 2;"></i>
                                     <img ng-src="{{item.ECM_THUMBNAIL_IMAGES?image_upload+item.ECM_THUMBNAIL_IMAGES:back_side_img.indexOf(item.ECI_CODE) < 0 ? image_upload + item.ECM_IMAGE_PATH : image_upload + item.ECM_BACK_SIDE_TEXTURE_IMG_PATH}}" title="{{item.ECM_TOOL_TIP}}" ng-class="full_img_cover.indexOf(item.ECI_CODE) < 0 ? 'no_full_img' : 'full_img'" check-image>
@@ -55,7 +54,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </md-tab>

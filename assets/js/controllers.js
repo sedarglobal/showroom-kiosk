@@ -39,6 +39,8 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
     $scope.usersInfo = store.get('USER_INFO') != undefined ? store.get('USER_INFO') : '';
     $scope.user_sys_id = $scope.usersInfo.USER_SYS_ID != undefined ? $scope.usersInfo.USER_SYS_ID : '';
 
+    $scope.wishListCount = 0;
+
     $scope.$root.enquiry_form = {};
     //$scope.input = {};
     $scope.submitted = false;
@@ -178,6 +180,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 
                 }).then(function (response) {
+                    $scope.getWishLIst();
                 });
             }
             else {
@@ -367,12 +370,24 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
         });
     }; 
 
+    $scope.getWishLIst = function(){
+        $http({
+            method: 'GET',
+            url: service_url + 'ShowroomApi/likeProduct_item/' + $scope.user_sys_id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function (response) {
+            $scope.likeMaterial = response.data.material;
+            $scope.likeitem = response.data.item;
+            $scope.wishListCount = parseInt($scope.likeMaterial.length + $scope.likeitem.length);
+            $('#loader_div').hide();
+        });
+    }
+
 }]);
 
 controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootScope' ,'$ngBootbox','$translate','$anchorScroll', '$location', function ($scope, $http,$controller,$rootScope ,$ngBootbox,$translate,$anchorScroll,$location) {
     
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
-
 
     // $http.get('https://www.sedarglobal.com/service/ecommerce/getHomeList',{
     //     cache : true
@@ -437,14 +452,16 @@ controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootSc
     $scope.scrollZero = function(){
         $location.hash('showroom_landing_page');
         $anchorScroll();  
-    }
+    };
+
+    
     
 }]);
 
 controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interval', '$controller', '$rootScope', '$location', '$ngBootbox', '$ngSilentLocation', function ($scope, $route, $http, $interval, $controller, $rootScope, $location, $ngBootbox, $ngSilentLocation) {
 
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
-
+    $scope.getWishLIst();
     $scope.current_slide = 0;
     $scope.product_cat = [];
     $scope.brand_list = [];
@@ -5603,6 +5620,7 @@ controllers.controller('login', ['$scope', '$rootScope', '$location', '$http', '
 controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controller', '$ngBootbox', '$location', function ($scope, $rootScope, $http, $controller, $ngBootbox, $location) {
 
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
+    $scope.getWishLIst();
     $scope.account_step = 'wishList';
     $scope.input = {};
     $scope.catalog = true;
@@ -5614,17 +5632,7 @@ controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controlle
         $location.path('login');
     }
 
-    $http({
-        method: 'GET',
-        url: service_url + 'ShowroomApi/likeProduct_item/' + $scope.user_sys_id,
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-
-    }).then(function (response) {
-        $scope.likeProduct = response.data.product;
-        $scope.likeitem = response.data.item;
-             
-        $('#loader_div').hide();
-    });
+    
 
     $scope.deleteProduct = function ($head_sys_id, $line_sys_id) {
         var rowid = $line_sys_id;
@@ -5701,6 +5709,7 @@ controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controlle
         }).then(function (response) {
              store.set('likeRecord', response.data.data);
              store.remove('temp_code');
+             $scope.getWishLIst();
          });
      };
 
