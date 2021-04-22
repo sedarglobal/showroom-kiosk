@@ -374,7 +374,7 @@ section {
 
 .thumbSlider #sync2 .item img {
   width: 100%;
-  max-height: 180px;
+  max-height: 130px;
   height: 100% !important;
   margin: 0 auto;
 }

@@ -16,11 +16,50 @@
         height: 260px;
         overflow-y: hidden;
     }
+    .burgermenu .homelink{
+        padding-left: 10px;
+        font-size: 22px;
+
+    }
+    .moveBack.moveBackText a{
+        color: #000;
+        font-weight: bold;
+    }
+    .moveBack.moveBackText a span{
+        color: #000;
+        font-weight: bold;
+    }
+    .burgermenu{
+        display: flex;
+        position: relative;
+
+    }
+    .burgermenu .burgermenuleft,.burgermenu .burgermenuright{
+        width: 50%;
+        position: relative;
+    }
+    .burgermenu .burgermenuright{
+        text-align: right;
+       
+    }
+    .burgermenu .burgermenuright a i{
+        padding: 10px;
+    }
 </style>
 <div class="shwrm_pg_product">
     <section id="shwrm_pg_product">
         <div class="burgermenu">
-            <a href="#"><em class="fas fa-bars" ng-click="ShowroomleftSideMenu(true)"></em></a>
+            <div class="burgermenuleft">
+                <a href="#"><em class="fas fa-bars" ng-click="ShowroomleftSideMenu(true)"></em></a>
+                <a href="/"><em class="fas fa-home-lg-alt homelink"></em></a>
+            </div>
+            <div class="burgermenuright">
+               
+                <a href="/"><i class="fas fa-heart" style="color: #c40000;"></i></a>
+                <a href="#"><i class="fas fa-user-circle"></i></a>
+            </div>
+           
+           
         </div>
         <div class="productheading">
             <!-- <h1> <span class="PorterBold">Curtain</span> <span>&</span> <span class="PorterBold"> drapes</span></h1>
@@ -93,10 +132,12 @@
             </div>
 
         </div>
-        <div class="moveBack" >
+        <div class="moveBack moveBackText" >
             <a href="/" style="display: block;">
-                <img class="slidericonImg" ng-src="../assets/images/rightarrow.png" alt=""
-                    style="transform: scaleX(-1);">
+                <i class="fas fa-chevron-left"></i><span> Back</span>
+
+                <!-- <img class="slidericonImg" ng-src="../assets/images/rightarrow.png" alt=""
+                    style="transform: scaleX(-1);"> -->
             </a>
         </div>
 
