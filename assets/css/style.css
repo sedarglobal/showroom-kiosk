@@ -501,6 +501,11 @@ section {
   width: 90%;
   margin: 0 auto;
 }
+.shwrm_pg_product .btn.btn-warning
+{
+  border: none;
+  border-radius: 0;
+}
 /* responsive */
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (min-height: 767px) {
