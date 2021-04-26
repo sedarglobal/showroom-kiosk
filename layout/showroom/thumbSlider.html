@@ -60,22 +60,25 @@
 </div>
 <script>
     $(document).ready(function () {
-        $(".empty_div_hover_show").hover(function () {
-            $('.thumbsection').css('opacity', '1');
-            $('.empty_div_hover_show').css('z-index', '0');
-        }, function () {
-            $('.thumbsection').css('opacity', '0');
-            $('.empty_div_hover_show').css('z-index', '1111');
-        });
-        $(".thumbSlider .thumbsection").hover(function () {
-            $('.thumbsection').css('opacity', '1');
-            $('.empty_div_hover_show').css('z-index', '0');
+            if (window.matchMedia("(pointer: coarse)").matches) {
+                $('.thumbsection').css('opacity', '1');
+            } else {
+                $(".empty_div_hover_show").hover(function () {
+                    $('.thumbsection').css('opacity', '1');
+                    $('.empty_div_hover_show').css('z-index', '0');
+                }, function () {
+                    $('.thumbsection').css('opacity', '0');
+                    $('.empty_div_hover_show').css('z-index', '1111');
+                });
+                $(".thumbSlider .thumbsection").hover(function () {
+                    $('.thumbsection').css('opacity', '1');
+                    $('.empty_div_hover_show').css('z-index', '0');
 
-        }
-        , function () {
-            $('.thumbsection').css('opacity', '0');
-            $('.empty_div_hover_show').css('z-index', '1111');
+                }
+                    , function () {
+                        $('.thumbsection').css('opacity', '0');
+                        $('.empty_div_hover_show').css('z-index', '1111');
+                    });
+            }
         });
-
-    });
 </script>
