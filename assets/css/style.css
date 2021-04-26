@@ -339,6 +339,8 @@ section {
   border-radius: 3px;
   text-align: center;
   text-align: center;
+  display: flex;
+  align-items: center;
 }
 
 .thumbSlider #sync1 .item img {
@@ -357,7 +359,7 @@ section {
   bottom: 1%;
   max-height: 160px;
   z-index: 111;
-  background-color: #d7d7d7;
+  background-color: #d7d7d77e;
   width: 100%;
   text-align: center;
 }
@@ -392,6 +394,7 @@ section {
 
 .thumbSlider #sync1.owl-theme {
   position: relative;
+  height: 100vh;
 }
 
 .thumbSlider #sync1.owl-theme .owl-next,
@@ -440,7 +443,7 @@ section {
 }
 
 .thumbSlider .sliderone {
-  max-width: 992px;
+  /* max-width: 992px; */
   margin: 0 auto;
 }
 
