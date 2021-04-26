@@ -73,6 +73,8 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                 $rootScope.USER_KEY_TYPE = response.data.user_detail.USER_KEY_TYPE;
                 store.set('USER_INFO', response.data.user_detail);
                 user.setSysId(response.data.user_detail.USER_SYS_ID);
+                
+                $scope.getWishLIst();
 
                 if($location.$$url == '/login' && $scope.$root.is_login == true){
                     $location.path('wishList');
@@ -116,7 +118,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
         $scope.user.clear();
         store.remove('USER_INFO');
         $rootScope.is_login = false;
-        
+        $scope.wishListCount = 0;
         $location.path('showroomHome');
         // window.location.reload();
     };
