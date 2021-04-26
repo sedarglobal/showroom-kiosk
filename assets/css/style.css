@@ -346,7 +346,7 @@ section {
 }
 
 .thumbSlider #sync2 {
-  max-height: 250px;
+  max-height: 140px;
   height: auto;
   z-index: 111;
   padding: 10px;
@@ -355,8 +355,7 @@ section {
 .thumbSlider .thumbsection {
   position: absolute;
   bottom: 1%;
-  max-height: 250px;
-  height: auto;
+  max-height: 160px;
   z-index: 111;
   background-color: #d7d7d7;
   width: 100%;
@@ -374,7 +373,7 @@ section {
 
 .thumbSlider #sync2 .item img {
   width: 100%;
-  max-height: 130px;
+  max-height: 110px;
   height: 100% !important;
   margin: 0 auto;
 }
@@ -430,8 +429,8 @@ section {
 }
 
 .thumbSlider .bootbox-close-button {
-  position: relative;
-  top: 0;
+  position: absolute;
+  top: 5%;
   right: 5%;
   z-index: 1111;
   font-size: 32px;
@@ -450,13 +449,7 @@ section {
   margin: 0 auto;
 }
 
-.thumbSlider .ourcollectionkey {
-  height: 120px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .thumbSlider #sync2 .owl-stage {
   margin: 0 auto;
 }
@@ -505,6 +498,17 @@ section {
 {
   border: none;
   border-radius: 0;
+}
+/* .thumbscontent .thumbtext ,.thumbscontent .thumbgroup{
+  float:none;
+    display:inline-block;
+    vertical-align:middle;
+} */
+.thumbscontent .vcenter{
+  display: flex;
+justify-content: center;
+align-items: center;
+
 }
 /* responsive */
 /* Extra small devices (phones, 600px and down) */
