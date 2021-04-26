@@ -21,7 +21,7 @@ ThemeWaves Responsive CSS
     height: 100vh;
   } */
   #sync1 .item img {
-    width: 80%;
+    max-width: 80%;
   }
   #sync2 .item img {
     height: 104px !important;
