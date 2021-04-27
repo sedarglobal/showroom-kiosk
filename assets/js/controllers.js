@@ -383,8 +383,9 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
             $scope.wishListCount = parseInt($scope.likeMaterial.length + $scope.likeitem.length);
             $('#loader_div').hide();
         });
-    }
+    };
 
+    $scope.getWishLIst();
 }]);
 
 controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootScope' ,'$ngBootbox','$translate','$anchorScroll', '$location', function ($scope, $http,$controller,$rootScope ,$ngBootbox,$translate,$anchorScroll,$location) {
@@ -463,7 +464,7 @@ controllers.controller('showroomHome', ['$scope', '$http','$controller','$rootSc
 controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interval', '$controller', '$rootScope', '$location', '$ngBootbox', '$ngSilentLocation', function ($scope, $route, $http, $interval, $controller, $rootScope, $location, $ngBootbox, $ngSilentLocation) {
 
     angular.extend(this, $controller('globalFunction', { $scope: $scope }));
-    $scope.getWishLIst();
+    
     $scope.current_slide = 0;
     $scope.product_cat = [];
     $scope.brand_list = [];
@@ -915,57 +916,58 @@ controllers.controller('measureInstall', ['$scope', '$route', '$http', '$interva
         // $('#myVideo').load();
         // $('#myVideo').play();
     };
-   $('#loader_div').show();
+    $('#loader_div').show();
     $scope.id =  $route.current.params.id ? $route.current.params.id : 1;
 
     $('#productslidershow').owlCarousel('destroy');
-            $http({
-                method: 'GET',
-                url: service_url + 'ShowroomApi/getTreeLevelData/' + $scope.id,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            }).then(function (response) {
-                $scope.measureInstall = response.data;
-                setTimeout(function(){
-                    var owl = $('#productslidershow');
-                    owl.owlCarousel({
-                        loop: true,
-                        margin: 40,
-                        responsiveClass: true,
-                        dots:false,
-                        nav: true,
-                        //lazyLoad : true,
-                        navText : ["<img src='../assets/images/image488.gif' />","<img src='../assets/images/image487.gif' />"],
-                        responsive: {
-                            0: {
-                                items: 1,
-                                nav: false
-                            },
-                            600: {
-                                items: 2,
-                                nav: false
-                            },
-                            1000: {
-                                items: 3,
-                                nav: true,
-                                loop: true
-                            },
-                            1900: {
-                                items: 4,
-                                nav: true,
-                                loop: true
-                            }
+    
+        $http({
+            method: 'GET',
+            url: service_url + 'ShowroomApi/getTreeLevelData/' + $scope.id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function (response) {
+            $scope.measureInstall = response.data;
+            setTimeout(function(){
+                var owl = $('#productslidershow');
+                owl.owlCarousel({
+                    loop: true,
+                    margin: 40,
+                    responsiveClass: true,
+                    dots:false,
+                    nav: true,
+                    //lazyLoad : true,
+                    navText : ["<img src='../assets/images/image488.gif' />","<img src='../assets/images/image487.gif' />"],
+                    responsive: {
+                        0: {
+                            items: 1,
+                            nav: false
+                        },
+                        600: {
+                            items: 2,
+                            nav: false
+                        },
+                        1000: {
+                            items: 3,
+                            nav: true,
+                            loop: true
+                        },
+                        1900: {
+                            items: 4,
+                            nav: true,
+                            loop: true
                         }
-                    });
+                    }
+                });
 
-                    $(document.documentElement).keyup(function(event) {    
-                        if (event.keyCode == 37) { /*left key*/
-                            owl.trigger('prev.owl.carousel', [700]);
-                        } else if (event.keyCode == 39) { /*right key*/
-                            owl.trigger('next.owl.carousel', [700]);
-                        }
-                    });
-                },500);
-            });
+                $(document.documentElement).keyup(function(event) {    
+                    if (event.keyCode == 37) { /*left key*/
+                        owl.trigger('prev.owl.carousel', [700]);
+                    } else if (event.keyCode == 39) { /*right key*/
+                        owl.trigger('next.owl.carousel', [700]);
+                    }
+                });
+            },500);
+        });
 
 
       
@@ -1002,7 +1004,7 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
     $rootScope.desk_footer = true;
     $scope.free_sample_text = $translate.instant('free_sample');
     $scope.added_text = $translate.instant('added');
-
+    
     $scope.leftFilterSideMenu = function (type) {
         if (type) {
             $('#left_filter_loader_div').show();
