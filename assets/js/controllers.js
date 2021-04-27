@@ -5591,7 +5591,7 @@ var list_lenth=$('.style_curtain').length
     function onnavigationsteptoolRisize() {
 
      //   var headerheight = $('.header-container').height() + 50;
-        var stepHeight = window.innerHeight;      
+        var stepHeight = window.innerHeight-45;      
         $('.navigation.step_tool').attr('style', 'height :' + stepHeight + 'px');
        
     }
