@@ -328,7 +328,7 @@ section {
 
 /* filter slider images */
 
-.thumbSlider #sync1 .item {
+.thumbSlider #owlmain .item {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -338,13 +338,13 @@ section {
   align-items: center;
 }
 
-.thumbSlider #sync1 .item img {
+.thumbSlider #owlmain .item img {
   margin: 0 auto;
   max-height: 100%;
   width: auto;  
 }
 
-.thumbSlider #sync2 {
+.thumbSlider #owlthumb {
   max-height: 140px;
   height: auto;
   z-index: 111;
@@ -361,7 +361,7 @@ section {
   text-align: center;
 }
 
-.thumbSlider #sync2 .item {
+.thumbSlider #owlthumb .item {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   text-align: center;
@@ -370,7 +370,7 @@ section {
   cursor: pointer;
 }
 
-.thumbSlider #sync2 .item img {
+.thumbSlider #owlthumb .item img {
   width: 100%;
   max-height: 110px;
   height: 100% !important;
@@ -389,13 +389,13 @@ section {
   background-color: #d6d6d6;
 }
 
-.thumbSlider #sync1.owl-theme {
+.thumbSlider #owlmain.owl-theme {
   position: relative;
   height: 100vh;
 }
 
-.thumbSlider #sync1.owl-theme .owl-next,
-.thumbSlider #sync1.owl-theme .owl-prev {
+.thumbSlider #owlmain.owl-theme .owl-next,
+.thumbSlider #owlmain.owl-theme .owl-prev {
   width: 22px;
   height: 40px;
   margin-top: -20px;
@@ -403,11 +403,11 @@ section {
   top: 50%;
 }
 
-.thumbSlider #sync1.owl-theme .owl-prev {
+.thumbSlider #owlmain.owl-theme .owl-prev {
   left: 10px;
 }
 
-.thumbSlider #sync1.owl-theme .owl-next {
+.thumbSlider #owlmain.owl-theme .owl-next {
   right: 10px;
 }
 
@@ -449,15 +449,15 @@ section {
   margin: 0 auto;
 }
 
-.thumbSlider #sync2 .owl-stage {
+.thumbSlider #owlthumb .owl-stage {
   margin: 0 auto;
 }
 
-.thumbSlider #sync1 .owl-stage-outer {
+.thumbSlider #owlmain .owl-stage-outer {
   width: 100%;
 }
 
-.thumbSlider #sync2 .centered {
+.thumbSlider #owlthumb .centered {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -466,7 +466,7 @@ section {
   font-weight: bold;
   z-index: 11;
 }
-.thumbSlider #sync2 #overlay {
+.thumbSlider #owlthumb #overlay {
   position: absolute;
   top: 0;
   left: 0;

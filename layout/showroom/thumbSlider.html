@@ -3,31 +3,30 @@
 </style>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12 nopadding">
+        <div class="col-md-12 col-sm-12 col-xs-12 nopadding">
             <!-- slider -->
-            <div id="sync1" class="owl-carousel owl-theme sliderone">
+            <div id="owlmain" class="owl-carousel owl-theme sliderone">
                 <div class="item {{row.ERH_THEME}}" ng-repeat="(key, row) in render">
                     <img src="{{row.ERH_SCREEN_IMAGE_PATH}}">
-                    <!-- <img src="https://ast.sedarglobal.com/images//banner/RamadanSale/eid21_3.jpg"
-                        class="img-responsive"> -->
+                    <!-- <img src="https://ast.sedarglobal.com/images//banner/RamadanSale/eid21_3.jpg" class="img-responsive"> -->
                 </div>
             </div>
-            <div class="col-md-12 empty_div_hover_show">
+            <div class="ol-md-12 col-sm-12 col-xs-12 empty_div_hover_show">
 
             </div>
-            <div class="col-md-12 nopadding thumbsection">
+            <div class="ol-md-12 col-sm-12 col-xs-12 nopadding thumbsection">
                 <div class="thumbscontent">
 
                     <div class="vcenter">
-                        <div class="col-md-3 thumbtext">
+                        <div class="col-md-3 col-xs-12 thumbtext">
                             <div class="ourcollectionkey">
                                 <h2>
                                     Our key Looks
                                 </h2>
                             </div>
                         </div>
-                        <div class="col-md-9 thumbgroup">
-                            <div id="sync2" class="owl-carousel owl-theme">
+                        <div class="col-md-9 col-xs-12 thumbgroup">
+                            <div id="owlthumb" class="owl-carousel owl-theme">
 
                                 <div class="item" data-owl-filter="*">
                                     <img src="https://upld.sedarglobal.com/material/collection1125108/1010427/ST100-4_DIFFUSE.jpg"
@@ -39,8 +38,7 @@
                                 <div class="item" data-owl-filter=".{{line.ERH_THEME}}"
                                     ng-repeat="(key, line) in theme">
                                     <img src="{{line.ECRT_IMAGE_PATH}}" alt="">
-                                    <!-- <img src="https://ast.sedarglobal.com/images//banner/RamadanSale/eid21_3.jpg"
-                                        class="img-responsive"> -->
+                                    <!-- <img src="https://ast.sedarglobal.com/images//banner/RamadanSale/eid21_3.jpg" class="img-responsive"> -->
                                     <div id="overlay"></div>
                                     <div class="centered"> {{line.ECRT_DESC}}</div>
                                 </div>
@@ -59,11 +57,10 @@
 
 </div>
 <script>
+    
     $(document).ready(function () {
-            if (window.matchMedia("(pointer: coarse)").matches) {
-                $('.thumbsection').css('opacity', '1');
-            } else {
-                $(".empty_div_hover_show").hover(function () {
+
+        $(".empty_div_hover_show").hover(function () {
                     $('.thumbsection').css('opacity', '1');
                     $('.empty_div_hover_show').css('z-index', '0');
                 }, function () {
@@ -79,6 +76,13 @@
                         $('.thumbsection').css('opacity', '0');
                         $('.empty_div_hover_show').css('z-index', '1111');
                     });
-            }
+
+             if (window.matchMedia("(pointer: coarse)").matches) {
+                 $('.thumbsection').css('opacity', '1');
+             } else {
+                
+             }
+
+
         });
 </script>

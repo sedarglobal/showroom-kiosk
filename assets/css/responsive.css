@@ -20,10 +20,10 @@ ThemeWaves Responsive CSS
   /* .step_tool {
     height: 100vh;
   } */
-  #sync1 .item img {
+  #owlmain .item img {
     max-width: 80%;
   }
-  #sync2 .item img {
+  #owlthumb .item img {
     height: 104px !important;
     /* max-height: 250px; */
   }
@@ -163,7 +163,7 @@ ThemeWaves Responsive CSS
       .ShopNow_text23 a {
         border-radius: 20px;
       }
-  #sync2 .item img {
+  #owlthumb .item img {
     height: 190px !important;
     /* max-height: 250px; */
   }
@@ -1354,7 +1354,7 @@ ThemeWaves Responsive CSS
     width: 77px;
     left: 40%;
   }
-  #sync2 .item img {
+  #owlthumb .item img {
     min-height: 60px !important;
   }
   .footer_brands {
@@ -1583,7 +1583,7 @@ ThemeWaves Responsive CSS
   .landingoffer-close.other_c_popup {
     left: 27em !important;
   }
-  #sync2 .item img {
+  #owlthumb .item img {
     height: 65px !important;
   }
   #thumbs,
@@ -2262,8 +2262,8 @@ ThemeWaves Responsive CSS
     line-height: 1;
   }
   /* banner  7 end */
-  #sync1.owl-theme .owl-next,
-  #sync1.owl-theme .owl-prev {
+  #owlmain.owl-theme .owl-next,
+  #owlmain.owl-theme .owl-prev {
     top: 50% !important;
     transform: translate(-50%);
   }
