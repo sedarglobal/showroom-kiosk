@@ -86,4 +86,20 @@ function imageZoom(imgID, resultID) {
     }
     $("#"+resultID).hide();
     }
+    setInterval(() => {
+      
+       
+        if($( window ).width() > $( window ).height()){
+           
+            if($( window ).height() < 420){
+            $('.showroom_landing_page_banner_img').css('object-fit','contain');
+            }    
+            else{
+                $('.showroom_landing_page_banner_img').css('object-fit','cover');
+            }      
+        }else{           
+            $('.showroom_landing_page_banner_img').css('object-fit','contain');
+
+        }
+    }, 200);
 	

@@ -533,20 +533,21 @@ section {
 } */
 /* responsive */
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (min-height: 767px) {
-  .showroom_landing_page_banner_img {
+@media only screen and (min-height: 767px) and (max-width: 1080px) {
+  /* .showroom_landing_page_banner_img {
+    height: auto;
     object-fit: contain;
-  }
+  } */
 }
 @media only screen and (max-width: 600px) {
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (max-width: 768px) {
-  .showroom_landing_page_banner_img {
+  /* .showroom_landing_page_banner_img {
     height: auto;
     object-fit: fill;
-  }
+  } */
   .moveBack {
     display: none;
   }
