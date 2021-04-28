@@ -36,12 +36,28 @@
     }
     
 .burgermenu a {
-  font-size: 25px;
+  
   color: #f5b05f;
+}
+   
+.burgermenu .burgermenuleft a {
+  font-size: 25px;
+ 
+}
+.burgermenu .wishlist a {
+  font-size: 25px;
+  
+}
+.burgermenu .dropdown > a {
+  font-size: 25px;
+  
 }
 .burgermenu .dropdown a:hover{
     color: #f5b05f;
 
+}
+.burgermenu .dropdown-content {
+    margin-top: -5px;
 }
 </style>
 <div class="burgermenu">
@@ -58,7 +74,7 @@
         <div class="userAcount">
             <div class="dropdown nopadding">
                 <a href="#" data-toggle="dropdown"><i class="fas fa-user-circle"></i></a>
-                <ul class="dropdown-menu dropdown-menu-right">
+                <ul class="dropdown-content  dropdown-menu-right">
                     <li ng-if="is_login"><a href="#" ng-click="showRoomLogout();">Logout</a></li>                    
                     <li ng-if="!is_login"><a href="#" ng-click="loginMenu();" translate="sign_in">Sign in</a></li>                    
                   </ul>
