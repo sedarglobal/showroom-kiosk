@@ -45,11 +45,11 @@
                         </tbody>
                     </table>
                     <div class="col-md-12 col-sm-12 col-xs-12  mb-25 pt-15" ng-if="likeitem.length == 0">
-                        <center>Product favorite found</center>
+                        <center>Product favorite not found</center>
                     </div>
                 </md-tab>
                 <md-tab label="{{'Color'| translate}}">
-                    <div class="col-md-12 col-sm-12 col-xs-12  mb-25 pt-15">
+                    <div class="col-md-12 col-sm-12 col-xs-12  mb-25 pt-15" ng-if="likeMaterial.length > 0">
                         <div class="color_section">
                             <div class="col-md-2 col-xs-4  mb-10 material" ng-repeat="item in likeMaterial">
                                 <div class="col-md-12 col-xs-12 nopadding"
@@ -74,6 +74,10 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12  mb-25 pt-15" ng-if="likeMaterial.length == 0">
+                        <center>Color favorite not found</center>
                     </div>
                 </md-tab>
                 <md-tab label="{{user_mobile_view}}">
