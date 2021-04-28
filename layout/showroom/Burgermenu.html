@@ -39,6 +39,10 @@
   font-size: 25px;
   color: #f5b05f;
 }
+.burgermenu .dropdown a:hover{
+    color: #f5b05f;
+
+}
 </style>
 <div class="burgermenu">
     <div class="burgermenuleft">
@@ -52,7 +56,13 @@
 
         </div>
         <div class="userAcount">
-            <a href="#"><i class="fas fa-user-circle"></i></a>
+            <div class="dropdown nopadding">
+                <a href="#" data-toggle="dropdown"><i class="fas fa-user-circle"></i></a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="#" ng-click="showRoomLogout();">Logout</a></li>                    
+                  </ul>
+            </div>
+            
         </div>
 
     </div>
