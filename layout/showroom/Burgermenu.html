@@ -58,7 +58,10 @@
 }
 .burgermenu .dropdown-content {
     margin-top: -5px;
+    min-width: 100px;
 }
+
+
 </style>
 <div class="burgermenu">
     <div class="burgermenuleft">
@@ -66,9 +69,14 @@
         <a href="/"><em class="fas fa-home-lg-alt homelink"></em></a>
     </div>
     <div class="burgermenuright">
-        <div class="wishlist" >
+        <div class="wishlist" ng-if="is_login">
             <a href="/wishList"><i class="fas fa-heart" style="color: #c40000;"></i></a>
             <div class="countitem" style="position: absolute;top: 12px;right: 2px;height: 20px;width: 20px;padding: 0;text-align: center;color: #fff;background: #f5b05f;border-radius: 50%;display: flex;align-items: center;justify-content: center;"><span style="font-size: 12px;">{{wishListCount}}</span></div>
+
+        </div>
+        <div class="wishlist" ng-if="!is_login" ng-click="loginMenu();">
+            <a href=""><i class="fas fa-heart" style="color: #c40000;"></i></a>
+            <div class="countitem" style="position: absolute;top: 12px;right: 2px;height: 20px;width: 20px;padding: 0;text-align: center;color: #fff;background: #f5b05f;border-radius: 50%;display: flex;align-items: center;justify-content: center;"><span style="font-size: 12px;">0</span></div>
 
         </div>
         <div class="userAcount">
@@ -76,7 +84,7 @@
                 <a href="#" data-toggle="dropdown"><i class="fas fa-user-circle"></i></a>
                 <ul class="dropdown-content  dropdown-menu-right">
                     <li ng-if="is_login"><a href="#" ng-click="showRoomLogout();">Logout</a></li>                    
-                    <li ng-if="!is_login"><a href="#" ng-click="loginMenu();" translate="sign_in">Sign in</a></li>                    
+                    <li ng-if="!is_login"><a href="#" ng-click="loginMenu();" translate="log_in">Log in</a></li>                    
                   </ul>
             </div>
             
