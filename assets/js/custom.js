@@ -98,7 +98,7 @@ function imageZoom(imgID, resultID) {
             $('.showroom_landing_page_banner_img').css('object-fit','contain');
 
         }
-        var thumbHeight =  $('.shop_inner_inf #gallery').height();
+        var thumbHeight =  $('.view_imagezoom #panel').height();
         console.log(thumbHeight);
         $('.shop_inner_inf #gallery #thumbs').css('height',thumbHeight);
 
