@@ -87,10 +87,7 @@ function imageZoom(imgID, resultID) {
     $("#"+resultID).hide();
     }
     setInterval(() => {
-      
-       
-        if($( window ).width() > $( window ).height()){
-           
+        if($( window ).width() > $( window ).height()){           
             if($( window ).height() < 420){
             $('.showroom_landing_page_banner_img').css('object-fit','contain');
             }    
@@ -101,5 +98,9 @@ function imageZoom(imgID, resultID) {
             $('.showroom_landing_page_banner_img').css('object-fit','contain');
 
         }
+        var thumbHeight =  $('.shop_inner_inf #gallery').height();
+        console.log(thumbHeight);
+        $('.shop_inner_inf #gallery #thumbs').css('height',thumbHeight);
+
     }, 200);
 	

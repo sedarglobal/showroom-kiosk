@@ -360,10 +360,7 @@ ThemeWaves Responsive CSS
     font-size: 12px;
   }
 
-  #thumbs,
-  .product_slider {
-    height: 58vh !important;
-  }
+
   .img-zoom-result {
     height: 300px !important;
     width: 300px !important;
@@ -919,10 +916,7 @@ ThemeWaves Responsive CSS
   #myimage {
     min-height: 300px;
   }
-  #thumbs,
-  .product_slider {
-    height: 43vh !important;
-  }
+
   .swachesshop .navbar.filter_menu_tab {
     text-align: center;
   }
@@ -1586,10 +1580,7 @@ ThemeWaves Responsive CSS
   #owlthumb .item img {
     height: 65px !important;
   }
-  #thumbs,
-  .product_slider {
-    height: 58vh !important;
-  }
+
   /* #collection_btun, #customizing_btun{margin-top: 2em !important;}     */
   .img_text.banner_title {
     /* overflow-y: hidden; */

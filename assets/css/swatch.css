@@ -1123,12 +1123,13 @@ symbols h6{
     /* border: 1px solid #aaa; */
     padding: 0;
     /* padding: 2.3px; */
-    height: 435px;
+    
+    
     /* padding-top: 10px; */
     overflow: hidden;
 }
 .product_slider{
-    height: 435px;
+   
     overflow-x: scroll !important;
   }
 .img-zoom-container {
