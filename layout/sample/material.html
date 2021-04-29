@@ -189,10 +189,16 @@
 
         <div class="clearfix"></div>
 
+        <div class="col-md-12 col-sm-12 col-xs-12 nopadding">
+
+            <img src="{{upload_url + life_style_info[0].ELI_IMAGE_PATH}}" alt="{{material_info.ITEM_ID}} {{life_style_info[0].ECI_SEO_TAG?life_style_info[0].ECI_SEO_TAG:'Material Title'}}" ng-if="life_style_info && life_style_info[0].ELI_IMAGE_PATH" style="width: 100%;margin-top: 10em;"/>
+            <img src="{{material_info.ECM_THUMBNAIL_IMAGES?upload_url + material_info.ECM_THUMBNAIL_IMAGES.replace('$$/', ''):back_side_img.indexOf(material_info.ECM_ECI_CODE) < 0 ? upload_url + material_info.ECM_IMAGE_PATH.replace('$$/', '') : upload_url + material_info.ECM_BACK_SIDE_TEXTURE_IMG_PATH.replace('$$/', '')}}" alt="{{material_info.ITEM_ID}} {{material_info.ECI_SEO_TAG?material_info.ECI_SEO_TAG:material_info.ECI_DESC}}"  ng-if="life_style_info.length ==0" style="width: 100%;margin-top: 10em;">
+       
+
+        </div>
     </div>
 </div>
 
-<div class="" ng-include="temp_path + 'showroom/let_connect.html?v='+version"></div>
 <div class="direction" ng-include="temp_path + 'showroom/ShowroomleftSideMenu.html?v='+version"></div>
 
 
