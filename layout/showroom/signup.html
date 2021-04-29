@@ -71,12 +71,18 @@
                         <div class="has-error" ng-show="input.$email_valid" style="color: #a94442;">{{ email_exists}}</div>
                         <p ng-show="profile_form.email.$invalid && (profile_form.email.$dirty || submitted)" class="help-block" translate="enter_email_address"></p>                        
                 </div>
-                <div class="form-group" ng-class="{'has-error': profile_form.USER_MOBILE.$invalid && (profile_form.USER_MOBILE.$dirty || submitted)}">
-                    <!-- <input class="userPhoneNumber" type="text" name="phoneNumber" placeholder="Phone Number"
-                        class="placeholder_class" autofocus required="true"> -->
+                <!-- <div class="form-group" ng-class="{'has-error': profile_form.USER_MOBILE.$invalid && (profile_form.USER_MOBILE.$dirty || submitted)}">
+                    
                         <input class="placeholder_class form-control" type="tel" ng-model="input.USER_MOBILE" name="USER_MOBILE" placeholder="{{'mobile'| translate}}" ng-class="{'has-error' : profile_form.USER_MOBILE.$in_valid || profile_form.STAG_MOBILE.$invalid && (profile_form.STAG_MOBILE.$dirty || submitted)}" ng-intl-tel-input>
                                 <p ng-show="profile_form.USER_MOBILE.$invalid && (profile_form.USER_MOBILE.$dirty || submitted)" class="help-block" translate="enter_mobile_number"></p>
                                 <div class="has-error" ng-show="input.$mobile_valid">{{ mobile_exists}}</div>
+                </div> -->
+
+                <div class="form-group">
+                    <input type="text" name="user_home_phone"  ng-model="input.USER_MOBILE" id="user_home_phone" class="form-control inputMasking input-sm" placeholder="{{'mobile'| translate}}" data-value="" value="" ng-class="{'has-error' : profile_form.user_home_phone.$invalid}">
+                    <input type="hidden" value="" name="user_home_phone_hidden" id="user_home_phone_hidden">
+                    <p ng-show="profile_form.user_home_phone.$invalid && (profile_form.user_home_phone.$dirty || submitted)" class="help-block" translate="enter_mobile_number"></p>
+                    <div class="has-error" ng-show="input.$mobile_valid">{{ mobile_exists}}</div>
                 </div>
                 <div class="form-group" ng-class="{'has-error': profile_form.password.$invalid && (profile_form.password.$dirty || submitted)}">
                     <input name="password" type="password" class="placeholder_class form-control" placeholder="{{'password'| translate}}" ng-model="input.password" required="">
@@ -118,5 +124,30 @@
         $(".useremailId").on('change keyup paste', function () {
             $(this).val($(this).val().toLowerCase());
         });
-    })
+
+        setTimeout(function(){
+
+            $.get("https://ipinfo.io/?token=5cd492508bc282", function(response)
+            {   // to get the current country 
+                //console.log(response.city, response.country);
+                var str=response.country;
+                var countryName=str.toLowerCase(); 
+                $('form')
+                .find('[name="user_home_phone"]')
+                .intlTelInput
+                ({
+                utilsScript: "https://sedarspine.com/assets/lib/libphonenumber/build/utils.js",
+                autoPlaceholder: true,
+                // nationalMode: false,
+                numberType: "MOBILE",
+                preferredCountries: [countryName]
+                });
+            }, "jsonp")    
+        },1000)     
+    });
+
+    $('.inputMasking').change(function()
+	{
+		$("#user_home_phone_hidden").val($("#user_home_phone").intlTelInput("getNumber"));
+    });
 </script>

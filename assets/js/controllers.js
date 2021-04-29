@@ -268,6 +268,8 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
 
     $scope.showroomUserRegister = function (isValid) {
         $scope.waiting = true;
+
+        console.log($scope.input);
         console.log(isValid);
         if (isValid == false) {
             $scope.submitted = true;
@@ -288,6 +290,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                 $scope.waiting = false;
                 return;
             }
+            $scope.input.USER_MOBILE = $("#user_home_phone_hidden").val();
 
 
             $http({
@@ -312,7 +315,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
                     if ($location.search().ref) {
                         $location.path($location.search().ref);
                     } else {
-                        $location.path('showroomProduct');
+                        $location.path('showroomProduct?desc=Blinds-&-Shades&id=4456&type=S');
                     }
                     // $('#loader_div').hide();
                 } else {
