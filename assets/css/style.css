@@ -478,7 +478,7 @@ section {
   position: absolute;
   top: 50% !important;
   left: 50%;
-  transform: translate(-50%, -50%) !important;
+  transform: translate(-50%, -50%);
 }
 .showroom_landing_page_banner_img {
   width: 100%;
@@ -617,6 +617,11 @@ section {
   }
   #shwrm_pg_product .productheading > p {
     width: 50%;
+  }
+  .colorSection_popup .modal-dialog{
+    transform: translate(10%, -50%) !important;
+    left: auto !important;
+    right: 10%;
   }
 }
 
