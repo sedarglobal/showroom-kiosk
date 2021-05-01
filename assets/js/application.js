@@ -9,8 +9,8 @@ var myApp = angular.module("acs", ['acs.controllers', 'acs.filters','acs.service
 		    'prefix': './language/',
 		    'suffix': '.json'
 		});
-		$translateProvider.preferredLanguage('en-US');
-        
+		//$translateProvider.preferredLanguage('en-US');
+        $translateProvider.forceAsyncReload(true);
         $routeProvider
             .when("/", {
                 controller: 'showroomHome',

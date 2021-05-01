@@ -2,7 +2,7 @@ var controllers = angular.module('acs.controllers', ['ngSilent']);
 controllers.run(['$anchorScroll', function ($anchorScroll) {
     $anchorScroll.yOffset = 10;
 }]);
-controllers.controller('root', ['$scope','$translate','$rootScope','user', function ($scope,$translate,$rootScope,user) {
+controllers.controller('root', ['$scope','$translate','$rootScope','user','$http','myCache','$location', function ($scope,$translate,$rootScope,user,$http,myCache,$location) {
     $scope.user = user;
     $scope.temp_path = temp_path;
     $scope.version = version;
@@ -30,6 +30,71 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user', funct
 
     $scope.orientation = screen.orientation.type;
 
+
+    $scope.languageSessionGet = function () {
+        $http.get(service_url + 'ShowroomApi/languageSessionGet').then(function (response) {
+            console.log(response.data.lang_code,'lnagu');
+            var langKey = response.data.lang_code;
+            $translate.preferredLanguage(langKey);
+            $translate.use(langKey);
+            store.set('lang', langKey);
+            $rootScope.langCode = langKey;
+            $scope.changelanguage(langKey);
+            bootbox.setDefaults({ 'locale': langKey });
+            myCache.put('langSession', langKey);
+        });
+    };
+    $scope.languageSessionGet();
+    $scope.changelanguage = function ($lang) {
+        $translate.use($lang);
+        $scope.$root.lang_style = language_array.indexOf($lang) > 0 ? 'assets/css/rtl-style.css' : 'assets/css/ltr-style.css';
+        $http.post(service_url + 'ShowroomApi/languageSession/' + $lang).then(function (sucess) {
+            store.set('lang', $lang);
+        });
+    };
+
+
+
+    $scope.reloadpage = function ($lang) {
+        var langKey = store.get('lang');
+
+        //var path_url = $location.url().split('/');
+
+        // console.log(path_url);
+         console.log($lang);
+        //console.log(lang_change_popup_url);
+        if (langKey != $lang) { 
+            $http.post(service_url + 'ShowroomApi/languageSession/' + $lang).then(function (response ) {
+                                 store.set('lang', $lang);
+                                  //location.reload();
+                                  console.log(response);
+                            });          
+            // if (lang_change_popup_url.indexOf(path_url[1]) >= 0 || lang_change_popup_url.indexOf(path_url[2]) >= 0) {
+            //     bootbox.confirm($translate.instant('your_data_have_loss'), function (result) {
+            //         if (result) {
+            //             $http.post(service_url + 'ecommerce/languageSession/' + $lang).then(function () {
+            //                 store.set('lang', $lang);
+            //                 location.reload();
+            //             });
+            //         }
+
+            //     });
+            // } else {
+                // $http({
+                //     method: 'POST',
+                //     url: service_url + 'ecommerce/languageSession/' + $lang,                   
+                //     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                // }).then(function (response) {
+                //     console.log(response);
+                //     // store.set('lang', $lang);
+                //     // location.reload();
+                // });
+           // }
+        }
+    };
+    var langKey = store.get('lang') ? store.get('lang') : 'en-US';
+
+  
 }]);
 
 
