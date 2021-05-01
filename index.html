@@ -84,8 +84,10 @@
     <script>
         var version = '5';
          //var service_url = "http://ecommerce-pwa/service/";
-       		var service_url = "https://test.sedarglobal.com/service/";
+       	   var service_url = "https://test.sedarglobal.com/service/";
       //  var service_url = "https://www.sedarglobal.com/service/";
+      	  var base_url = window.location.protocol + '//' + window.location.hostname + '/';
+
         var temp_path = 'layout/';
         var image_path = 'assets/images/';
 
@@ -108,6 +110,7 @@
 <script type="text/javascript"  src="./assets/js/owlcarousel2-filter.min.js"></script>
 
 <script type="text/javascript" src="./assets/js/custom.js"></script>
+<link type="text/css" rel="stylesheet" href="{{base_url + lang_style}}" />
 
 
 </html>

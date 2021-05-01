@@ -47,7 +47,7 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user','$http
     $scope.languageSessionGet();
     $scope.changelanguage = function ($lang) {
         $translate.use($lang);
-        $scope.$root.lang_style = language_array.indexOf($lang) > 0 ? 'assets/css/rtl-style.css' : 'assets/css/ltr-style.css';
+        $scope.$root.lang_style = language_array.indexOf($lang) > 0 ? 'assets/css/style-rtl.css' : 'assets/css/style-ltr.css';
         $http.post(service_url + 'ShowroomApi/languageSession/' + $lang).then(function (sucess) {
             store.set('lang', $lang);
         });
@@ -66,8 +66,8 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user','$http
         if (langKey != $lang) { 
             $http.post(service_url + 'ShowroomApi/languageSession/' + $lang).then(function (response ) {
                                  store.set('lang', $lang);
-                                  //location.reload();
-                                  console.log(response);
+                                  location.reload();
+                                 // console.log(response);
                             });          
             // if (lang_change_popup_url.indexOf(path_url[1]) >= 0 || lang_change_popup_url.indexOf(path_url[2]) >= 0) {
             //     bootbox.confirm($translate.instant('your_data_have_loss'), function (result) {
