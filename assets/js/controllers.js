@@ -21,7 +21,7 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user', funct
     $rootScope.upload_url = image_upload;//'https://www.sedarglobal.com/service/uploads/';
     
     $scope.$root.is_login = user.getSysId() ? true : false;
-    console.log($scope.$root.is_login);
+   // console.log($scope.$root.is_login);
     if (user.getSysId()) {
         $scope.usersInfo = store.get('USER_INFO');
         $scope.user_sys_id = $scope.usersInfo.USER_SYS_ID != undefined ? $scope.usersInfo.USER_SYS_ID : '';

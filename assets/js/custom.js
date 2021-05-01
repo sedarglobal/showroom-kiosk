@@ -99,7 +99,7 @@ function imageZoom(imgID, resultID) {
 
         }
         var thumbHeight =  $('.view_imagezoom #panel').height();
-        console.log(thumbHeight);
+      //  console.log(thumbHeight);
         $('.shop_inner_inf #gallery #thumbs').css('height',thumbHeight);
 
     }, 200);

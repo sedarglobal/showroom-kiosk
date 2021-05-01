@@ -109,8 +109,7 @@ angular.module('acs.directives', [])
 
         }
     };
-        }])
-    .directive('ngIntlTelInput', ['ngIntlTelInput', '$log', '$window', '$parse', '$http',
+        }]).directive('ngIntlTelInput', ['ngIntlTelInput', '$log', '$window', '$parse', '$http',
         function (ngIntlTelInput, $log, $window, $parse, $http) {
             return {
                 restrict: 'A',
@@ -125,7 +124,7 @@ angular.module('acs.directives', [])
                     if (attr.initialCountry) {
                         ngIntlTelInput.set({initialCountry: attr.initialCountry});
                     }
-
+    
                     $http.get("https://ipinfo.io/json?token=5cd492508bc282").then(function (response)
                     {   // to get the current country
                         var countryName = response.data.country.toLowerCase();
@@ -136,15 +135,15 @@ angular.module('acs.directives', [])
                                     numberType: "MOBILE",
                                     preferredCountries: [countryName]
                                 });
-
+    
                         var countryCode = elm.intlTelInput("getSelectedCountryData").iso2;
                         elm.intlTelInput("selectCountry", countryCode);
-
-
+    
+    
                     });
-
-
-
+    
+    
+    
                     // Initialize.
                     /*  ngIntlTelInput.init(elm); */
                     // Set Selected Country Data.
@@ -170,17 +169,11 @@ angular.module('acs.directives', [])
                     // Validation.
                     ctrl.$validators.ngIntlTelInput = function (value) {
                         // if phone number is deleted / empty do not run phone number validation
-                       // console.log(elm);
-                        //console.log(value);
                         if (value || elm[0].value.length > 0) {
-                           // console.log('hello..');
-                           // return elm.intlTelInput('isValidNumber');
-                           scope.enquiry_form.$valid;
-
-                            return true;
+                            return elm.intlTelInput('isValidNumber');
                         } else {
                             scope.enquiry_form.$valid;
-
+    
                             return true;
                         }
                     };
