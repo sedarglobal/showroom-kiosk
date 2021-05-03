@@ -130,37 +130,12 @@
                                     <h4 class="panel-title" translate="logout"></h4>
                                 </div>
                             </a> 
-                            <!-- <accordion-group is-open="customer_language" class="product_list_section" heading="Change Language">
-                                <accordion-heading>
-                                    <div class="side_nav_menu">
-
-                                        <span translate="change_language">Change Language</span>
-                                        <i class="pull-right left-dir fa" ng-class="{'fa-angle-up': customer_language, 'fa-angle-down': !customer_language}"></i>
-                                    </div>
-                                </accordion-heading>
-                                 <a class="" href="" ng-click="reloadpage('ar');" title="العربية">
-                                    <div class="category_line" ng-click="ShowroomleftSideMenu(false)">
-                                        قريباً) العربية)
-                                    </div>
-                                </a>  
-                                <a href="" ng-click="reloadpage('en-US');" title="English">
-                                    <div class="category_line" ng-click="ShowroomleftSideMenu(false)">
-                                        English (EN)
-                                    </div>
-                                </a>                                 
-                            </accordion-group>                          -->
-
-                            <!-- <a href="{{base_url}}productInfo?desc=Back To School&id=133852" style="color: #000;">
-                                <div class="" translate="cart" style="color: #000;" > <span class="" ng-show="total_cart_item">{{total_cart_item}}</span>
-                                </div>
-                            </a> -->
-                           
-                            <a href="" style="color: #000;" ng-if="langCode=='ar'"  href="" ng-click="reloadpage('en-US');" title="English">
+                            <a href="" style="color: #000;" ng-if="langKey=='ar'"  href="" ng-click="reloadpage('en');" title="English">
                                 <div class="category_line" style="text-transform: uppercase; cursor:pointer;padding: 10px 16px;" ng-click="ShowroomleftSideMenu(false)">
                                     <h4 class="panel-title" translate="English"></h4>
                                 </div>
                             </a>
-                            <a href="" style="color: #000;" ng-if="langCode=='en-US'"  href="" ng-click="reloadpage('ar');" title="English">
+                            <a href="" style="color: #000;" ng-if="langKey=='en'"  href="" ng-click="reloadpage('ar');" title="English">
                                 <div class="category_line" style="text-transform: uppercase; cursor:pointer;padding: 10px 16px;" ng-click="ShowroomleftSideMenu(false)">
                                     <h4 class="panel-title" translate="">العربية</h4>
                                 </div>

@@ -522,7 +522,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
     var el;
     $scope.$root.footer = true;
     var CATEGORY_CODE = $location.search().id ? $location.search().id : 4456;
-    var type = $location.search().type ? $location.search().type : '';
+    var type = $location.search().type ? $location.search().type : 0;
 
    var ECP_CODE=CATEGORY_CODE;
 
@@ -638,7 +638,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
             $scope.parameter_url = '';
         }
 
-        var subCat = tree_data == 'S' ? tree_data : 0;
+        var subCat = tree_data == 'S' ? tree_data : type;
         $scope.url = url + '/' + category_code + '/' + subCat;
         item_ajax = false;
         $scope.productItem();
