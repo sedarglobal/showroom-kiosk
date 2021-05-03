@@ -897,8 +897,8 @@
     "transform_your2":"your  favorite",
     "escape":"escape",
     "date2830":"٢٨-٣٠ يناير",
-    "select_material":"Select",
-    "change_material":"Change",
+    "select_material":"اختار",
+    "change_material":"تغيير",
     "alertMessageMaxWidth_mgs":"Your width is not applicable, Kindly change your selection.",
     "your_details":"معلومات التواصل الخاصة بك",
     "material_not_available":"Material not available for your width.Please change the width.",
@@ -937,7 +937,14 @@
     "on_selected_wallpaper" : "تشكيلة مختارة من ورق الجدران",
     "coupon" : "Coupon",
     "promo-text" : "طبق عرض أشتري واحد وأحصل على واحد",
-    "shipping_service" : " Shipping & Services"
+    "shipping_service" : " Shipping & Services",
+    "Sedar_Ramadan_Sales" : "‏عروض سيدار في رمضان",
+    "You_have_saved" : "*لقد قمت بتوفير",
+    "size" : "المقاس",
+    "sizefromto" : "{{from}} CM to {{to}} CM",
+    "size250Above" : "Above {{total_item}} CM"
+
+
 
 
    
