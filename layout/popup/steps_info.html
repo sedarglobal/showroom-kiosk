@@ -1,0 +1,68 @@
+<style>
+    .full_popup_img{
+        width:100%;
+        height: auto;
+        max-height: 65px;
+    }
+    .no_full_popup_img{
+        width:100%;
+        height: 240px;
+    }
+    .img_popup_view11 img {
+        width: 100%;
+        height: 56px;
+        padding: 5px;
+        float: left;
+        cursor: pointer;
+    }
+    #familyImgCarousel .carousel-control.right{
+        right: -22px;  
+        color: #000;
+        top: 18px;
+    }
+    #familyImgCarousel .carousel-control.left{
+        left: -20px;
+        color: #000;
+        top: 18px;
+    }
+    .full_popup_more_img {
+        height: 336px;
+    }
+    .step_info_popup ol {
+	padding: 0px;
+}
+</style>
+
+<div class="row">
+    <div class="nopadding step_info_popup col-md-5 col-sm-5 col-xs-5 nopadding">
+        <div class="col-md-12  col-xs-12 step_popup">
+            <div id="full_popup_more_img" data-ng-magnify="steps" data-glass-width="320" data-glass-height="310" data-image-src="https://bkt.sedarglobal.com/{{more_img_view}}" check-image></div>
+        </div>
+
+        <div class="col-md-12" style="padding-top:10px;"> 
+            <div id="familyImgCarousel" class="carousel slide">
+                <div class="carousel-inner mb-15">
+                    <div class="item active" ng-repeat="(key,val) in more_img">
+                        <div class="row-fluid">
+                            <div class="img_popup_view11 col-md-3 col-xs-3 nopadding" ng-click="imagePopupView11(val)" ng-class="val.ECM_CODE == material_data.ECM_CODE ? 'active' : ''">
+                                <img ng-src="https://bkt.sedarglobal.com/{{val}}"  ng-class="full_popup_img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7 col-sm-7 col-xs-6 color_text_info">
+        <div class="col-md-12 nopadding" style="min-height: 175px;">
+            <div class="col-md-12 nopadding" style="min-height: 175px;" ng-bind-html="step_item_info.EIS_MORE | htmlSafe">
+                {{step_item_info.EIS_MORE}}
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
