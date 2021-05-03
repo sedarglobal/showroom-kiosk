@@ -12,89 +12,61 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user','$http
    // $scope.upload_url = 'https://www.sedarglobal.com/service/uploads/';
     $scope.s3_image_path = 'https://bkt.sedarglobal.com/';
     $scope.asset_img = 'https://ast.sedarglobal.com/images/';
-    var langKey = 'en-US';
-    $translate.preferredLanguage(langKey);
-    $translate.use(langKey);
+    $scope.langKey = 'en';
+    
 
-    bootbox.setDefaults({ 'locale': langKey });
+    bootbox.setDefaults({ 'locale': $scope.langKey });
 	
     $rootScope.upload_url = image_upload;//'https://www.sedarglobal.com/service/uploads/';
+
+    $scope.langKey = store.get('lang') == undefined ? $scope.langKey : store.get('lang');
+
+
+    if ($scope.langKey == 'ar') { 
+        $scope.$root.lang_style = 'assets/css/style-rtl.css';
+        store.set('lang', $scope.langKey);
+    }else{
+        $scope.$root.lang_style = 'assets/css/style-ltr.css';
+        store.set('lang', $scope.langKey);
+    }
+    
+    $scope.reloadpage = function ($lang) {
+        $scope.langKey = store.get('lang');
+        $scope.$root.lang_style = $lang == 'ar' ? 'assets/css/style-rtl.css' : 'assets/css/style-ltr.css';
+
+         console.log($lang);
+       
+        if ($scope.langKey != $lang) { 
+            store.set('lang', $lang);
+            location.reload();
+        }
+
+    };
+
+    $translate.preferredLanguage($scope.langKey);
+    $translate.use($scope.langKey);
+
+    // $http({
+    //     method: 'GET',
+    //     url: service_url + 'ShowroomApi/languageSession/' + $scope.langKey,
+    //     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    // }).then(function (response) {
+    //     console.log(response)
+    // });
+
     
     $scope.$root.is_login = user.getSysId() ? true : false;
    // console.log($scope.$root.is_login);
     if (user.getSysId()) {
         $scope.usersInfo = store.get('USER_INFO');
-        $scope.user_sys_id = $scope.usersInfo.USER_SYS_ID != undefined ? $scope.usersInfo.USER_SYS_ID : '';
+        $scope.user_sys_id = $scope.usersInfo.USER_SYS_ID != undefined ? $scope.usersInfo.USER_SYS_ID : 0;
         $rootScope.login_userName = $scope.usersInfo.USER_FIRST_NAME != undefined ? $scope.usersInfo.USER_FIRST_NAME : '';
     }
 
     $scope.orientation = screen.orientation.type;
 
-
-    $scope.languageSessionGet = function () {
-        $http.get(service_url + 'ShowroomApi/languageSessionGet').then(function (response) {
-            console.log(response.data.lang_code,'lnagu');
-            var langKey = response.data.lang_code;
-            $translate.preferredLanguage(langKey);
-            $translate.use(langKey);
-            store.set('lang', langKey);
-            $rootScope.langCode = langKey;
-            $scope.changelanguage(langKey);
-            bootbox.setDefaults({ 'locale': langKey });
-            myCache.put('langSession', langKey);
-        });
-    };
-    $scope.languageSessionGet();
-    $scope.changelanguage = function ($lang) {
-        $translate.use($lang);
-        $scope.$root.lang_style = language_array.indexOf($lang) > 0 ? 'assets/css/style-rtl.css' : 'assets/css/style-ltr.css';
-        $http.post(service_url + 'ShowroomApi/languageSession/' + $lang).then(function (sucess) {
-            store.set('lang', $lang);
-        });
-    };
-
-
-
-    $scope.reloadpage = function ($lang) {
-        var langKey = store.get('lang');
-
-        //var path_url = $location.url().split('/');
-
-        // console.log(path_url);
-         console.log($lang);
-        //console.log(lang_change_popup_url);
-        if (langKey != $lang) { 
-            $http.post(service_url + 'ShowroomApi/languageSession/' + $lang).then(function (response ) {
-                                 store.set('lang', $lang);
-                                  location.reload();
-                                 // console.log(response);
-                            });          
-            // if (lang_change_popup_url.indexOf(path_url[1]) >= 0 || lang_change_popup_url.indexOf(path_url[2]) >= 0) {
-            //     bootbox.confirm($translate.instant('your_data_have_loss'), function (result) {
-            //         if (result) {
-            //             $http.post(service_url + 'ecommerce/languageSession/' + $lang).then(function () {
-            //                 store.set('lang', $lang);
-            //                 location.reload();
-            //             });
-            //         }
-
-            //     });
-            // } else {
-                // $http({
-                //     method: 'POST',
-                //     url: service_url + 'ecommerce/languageSession/' + $lang,                   
-                //     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                // }).then(function (response) {
-                //     console.log(response);
-                //     // store.set('lang', $lang);
-                //     // location.reload();
-                // });
-           // }
-        }
-    };
-    var langKey = store.get('lang') ? store.get('lang') : 'en-US';
-
-  
+    
+   
 }]);
 
 
@@ -102,7 +74,7 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user','$http
 controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBootbox', '$rootScope', 'alerts', 'user', '$translate', function ($scope, $location, $http, $ngBootbox, $rootScope, alerts, user, $translate,) {
     $ngBootbox.hideAll();    
     $scope.usersInfo = store.get('USER_INFO') != undefined ? store.get('USER_INFO') : '';
-    $scope.user_sys_id = $scope.usersInfo.USER_SYS_ID != undefined ? $scope.usersInfo.USER_SYS_ID : '';
+    $scope.user_sys_id = $scope.usersInfo.USER_SYS_ID != undefined ? $scope.usersInfo.USER_SYS_ID : 0;
 
     $scope.wishListCount = 0;
 
@@ -247,7 +219,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
 
                 $http({
                     method: 'GET',
-                    url: service_url + 'ShowroomApi/favorite_prod_item/' + material.ECM_ECI_CODE + '/' + ECM_CODE + '/swatches/' + $scope.favorite + '/'+ $scope.user_sys_id,
+                    url: service_url + 'ShowroomApi/favorite_prod_item/' + material.ECM_ECI_CODE + '/' + ECM_CODE + '/swatches/' + $scope.favorite + '/'+ $scope.user_sys_id + '/' + $scope.langKey,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 
                 }).then(function (response) {
@@ -399,7 +371,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
 
     $http({
         method: 'GET',
-        url: service_url + 'ShowroomApi/getCategory',
+        url: service_url + 'ShowroomApi/getCategory/' + $scope.langKey,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).then(function (response) {
         console.log(response.data);
@@ -447,7 +419,7 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
     $scope.getWishLIst = function(){
         $http({
             method: 'GET',
-            url: service_url + 'ShowroomApi/likeProduct_item/' + $scope.user_sys_id,
+            url: service_url + 'ShowroomApi/likeProduct_item/' + $scope.user_sys_id + '/' + $scope.langKey,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
             $scope.likeMaterial = response.data.material;
@@ -572,7 +544,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
     
             $http({
                 method: 'POST',
-                url: service_url + 'ShowroomApi/' + $scope.url + '/' + $scope.user_sys_id,
+                url: service_url + 'ShowroomApi/' + $scope.url + '/' + $scope.user_sys_id + '/' + $scope.langKey,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (response) {
                 $scope.shopping = response.data.shopping;
@@ -666,7 +638,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
             $scope.parameter_url = '';
         }
 
-        var subCat = tree_data == 'S' ? tree_data : type;
+        var subCat = tree_data == 'S' ? tree_data : 0;
         $scope.url = url + '/' + category_code + '/' + subCat;
         item_ajax = false;
         $scope.productItem();
@@ -846,7 +818,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
         $("#owlthumb").owlCarousel('destroy');
         $http({
             method: 'GET',
-            url: service_url+ 'ShowroomApi/productGallery/'+ item.ECI_CODE +'/'+ screen.orientation.type +'/'+ $scope.user_sys_id,
+            url: service_url+ 'ShowroomApi/productGallery/'+ item.ECI_CODE +'/'+ screen.orientation.type +'/'+ $scope.user_sys_id + '/' + $scope.langKey,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
 
@@ -995,7 +967,7 @@ controllers.controller('measureInstall', ['$scope', '$route', '$http', '$interva
     
         $http({
             method: 'GET',
-            url: service_url + 'ShowroomApi/getTreeLevelData/' + $scope.id,
+            url: service_url + 'ShowroomApi/getTreeLevelData/' + $scope.langKey,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
             $scope.measureInstall = response.data;
@@ -1200,7 +1172,8 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
                 per_page: $scope.rowperpage,
                 filterArray: $scope.filterArray,
                 id: $location.search().id,
-                user_sys_id : $scope.user_sys_id
+                user_sys_id : $scope.user_sys_id,
+                language : $scope.langKey
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(response) {
@@ -1249,7 +1222,8 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
                 per_page: $scope.rowperpage,
                 filterArray: $scope.filterArray,
                 offerType:$scope.offer_code,
-                user_sys_id : $scope.user_sys_id
+                user_sys_id : $scope.user_sys_id,
+                language : $scope.langKey
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function successCallback(response) {
@@ -1367,9 +1341,10 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
         
         $http({
             method: 'POST',
-            url: service_url+ 'ecommerce/filter',
+            url: service_url+ 'ShowroomApi/filter',
             data: $.param({
-                ECI_CODE: $code
+                ECI_CODE: $code,
+                language : $scope.langKey
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
@@ -1426,10 +1401,11 @@ controllers.controller('swatches', ['$scope', '$http', '$location', '$route', '$
             
                 $http({
                     method: 'POST',
-                    url: service_url+ 'ecommere/getCollectionByBrand/' + $scope.product_id,
+                    url: service_url+ 'ShowroomApi/getCollectionByBrand/' + $scope.product_id,
                     data: $.param({
                         BR_CODE: $scope.filterArray['brand'],
-                        ECC_CODE: $location.search().ecc_code && $location.search().ecc_code.length>0 ?$location.search().ecc_code.split(',') : ''
+                        ECC_CODE: $location.search().ecc_code && $location.search().ecc_code.length>0 ?$location.search().ecc_code.split(',') : '',
+                        language : $scope.langKey
                     }),
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).then(function (response) {
@@ -1517,8 +1493,12 @@ controllers.controller('materialFamily', ['$scope', '$http', '$location', '$cont
     $scope.getIfMaterial = function (if_code, prod_code, ecm_code) {
         $('#loader_div').show();
         var prod_code = _.isEmpty(prod_code) == true ? 0 : prod_code;
-        $http.post(service_url + 'ShowroomApi/getFamily_Mat/' + prod_code + '/' + ecm_code,
-            { cache: true }).then(function (response) {
+          
+            $http({
+                method: 'GET',
+                url: service_url+ 'ShowroomApi/getFamily_Mat/' + prod_code + '/' + ecm_code + '/' + $scope.user_sys_id + '/' + $scope.langKey,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (response) {
                 $('#loader_div').hide();
                 $('.viewHeight').css('opacity', '');
 
@@ -1556,7 +1536,7 @@ controllers.controller('materialFamily', ['$scope', '$http', '$location', '$cont
         $scope.loader = true;
         $http({
             method: 'GET',
-            url: service_url + 'ShowroomApi/similarmaterial/' + $scope.ecm_code + '/' + $scope.prod_code + '/' + pattern + '/' + $scope.user_sys_id,
+            url: service_url + 'ShowroomApi/similarmaterial/' + $scope.ecm_code + '/' + $scope.prod_code + '/' + pattern + '/' + $scope.user_sys_id + '/' + $scope.langKey,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
             $scope.detail = response.data.detail;
@@ -1855,7 +1835,13 @@ controllers.controller('customizing', ['$scope', '$rootScope', '$location', '$ht
     $http({
         method: 'POST',
         url:service_url + 'ShowroomApi/customizing',
-        data:$.param({ ECI_CODE: ECI_CODE, cart_id: cart_id, matrial_id: matrial_id, cache: true }),
+        data:$.param({ 
+            ECI_CODE: ECI_CODE, 
+            cart_id: cart_id, 
+            matrial_id: matrial_id, 
+            language: $scope.langKey,
+            user_sys_id : $scope.user_sys_id
+        }),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).then(function (response) {
         //console.log('cart_id');
@@ -2310,7 +2296,9 @@ var list_lenth=$('.style_curtain').length
                     matrial_id: matrial_id, 
                     material_code: $scope.BorderFamily_selected, 
                     step_option_Code: step_option, 
-                    user_sys_id : $scope.user_sys_id}),
+                    user_sys_id : $scope.user_sys_id,
+                    language : $scope.langKey
+                }),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (response) {
                 $scope.dataResponse = response.data.data;
@@ -2622,7 +2610,8 @@ var list_lenth=$('.style_curtain').length
             data:$.param({
                 data: $postData, 
                 filterArray: $scope.filterArray,
-                user_sys_id : $scope.user_sys_id 
+                user_sys_id : $scope.user_sys_id,
+                language : $scope.langKey
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
@@ -2800,8 +2789,13 @@ var list_lenth=$('.style_curtain').length
 
             $http({
                 method: 'POST',
-                url:service_url + 'ecommerce/filter',
-                data:$.param( { ECI_CODE: ECI_CODE, ECI_ECP_CODE: $scope.itemProduct_array[0],ECC_CODE:$location.search().ecc_code ? $location.search().ecc_code.split(',') : '', cache: true }),
+                url:service_url + 'ShowroomApi/filter',
+                data:$.param({ 
+                    ECI_CODE: ECI_CODE, 
+                    ECI_ECP_CODE: $scope.itemProduct_array[0],
+                    ECC_CODE: $location.search().ecc_code ? $location.search().ecc_code.split(',') : '', 
+                    language : $scope.langKey
+                }),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (response) {
                 $scope.brand_list = response.data.brand_list;
@@ -5017,7 +5011,7 @@ var list_lenth=$('.style_curtain').length
 
         $http({
             method: 'GET',
-            url:service_url + 'ShowroomApi/getFamilyMatrialImg/' + ECM_IF_CODE + '/' + ECM_ECI_CODE +'/'+ $scope.user_sys_id,
+            url:service_url + 'ShowroomApi/getFamilyMatrialImg/' + ECM_IF_CODE + '/' + ECM_ECI_CODE +'/'+ $scope.user_sys_id + '/' + $scope.langKey,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
             $scope.family_img = dataGroup(response.data.family_img, 6);
@@ -5779,7 +5773,7 @@ controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controlle
 
          $http({
             method: 'GET',
-            url: service_url + 'ShowroomApi//favorite_prod_item/' + $pr_code + '/' + $code + '/' + $url + '/' + $scope.favorite +'/'+ $scope.user_sys_id,
+            url: service_url + 'ShowroomApi//favorite_prod_item/' + $pr_code + '/' + $code + '/' + $url + '/' + $scope.favorite +'/'+ $scope.user_sys_id + '/' + $scope.langKey,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 
         }).then(function (response) {
