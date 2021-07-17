@@ -89,7 +89,30 @@ controllers.controller('globalFunction', ['$scope', '$location', '$http', '$ngBo
 
     }
 
-   
+    $scope.searchFunc = function (search_text) {
+
+        if (search_text.length >= 3) {
+            $http({
+                method: 'POST',
+                url: service_url + 'ecommerce/search',
+                data: $.param({
+                    search_text: search_text
+                }),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (response) {
+                $('.search_content').show();
+                $scope.search_content = response.data.search_content;
+            });
+            if (($location.$$path.split('/')[1] == 'home' || $location.$$path.split('/')[2] == 'about_us') && $.fn.fullpage.setMouseWheelScrolling) {
+                $.fn.fullpage.setMouseWheelScrolling(false);
+                $.fn.fullpage.setAllowScrolling(false);
+            }
+        } else {
+            $('.search_content').hide();
+            $.fn.fullpage.setMouseWheelScrolling(true);
+            $.fn.fullpage.setAllowScrolling(true);
+        }
+    };
 
     $scope.login = function () {
         $scope.waiting = true;
@@ -537,6 +560,7 @@ controllers.controller('showroomProduct', ['$scope', '$route', '$http', '$interv
     var item_ajax = true;
     $scope.item_start_page = 0;
 
+   
     
     $scope.productItem = function () {
         $('#productslidershow').owlCarousel('destroy');

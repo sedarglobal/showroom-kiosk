@@ -66,6 +66,38 @@
         <a href="#"><em class="fas fa-bars" ng-click="ShowroomleftSideMenu(true)"></em></a>
         <a href="/"><em class="fas fa-home-lg-alt homelink"></em></a>
     </div>
+
+    <div class="col-md-6">
+        <div class="nopadding nav_search">
+            <form class="header_search">
+                <input type="search" class="form-control searchBox"
+                       placeholder="{{'search_placeholder'| translate}}" ng-model="search_text"
+                       ng-keyup="searchFunc(search_text)" />
+                <button class="btn suarch_btn" ng-click="searchMatrial()">
+                    <i class="fas fa-search"></i>
+                </button>
+
+                <div class="search_content direction" ng-if="search_content.length > 0" style="position: absolute;">
+                    <ul class="dropdown-menu inner">
+                        <li ng-repeat="val in search_content" style="border-bottom: 1px solid #ddd;">
+                            <a ng-click="searchSectionHide()"
+                                ng-href="swatches?desc={{val.SEARCH_DESC}}&id={{val.SEARCH_CODE}}&lang={{langCode_url}}{{utm_source_url?'&'+utm_source_url:''}}"
+                                ng-bind-html="val.SEARCH_DESC | htmlSafe"
+                                ng-if="val.SEARCH_TYPE == 'Product' && val.SEARCH_TYPE != 'Collection' && val.SEARCH_TYPE != 'Material'"></a>
+                            <a ng-click="searchSectionHide()" ng-href="{{val.SEARCH_CODE}}"
+                                ng-bind-html="val.SEARCH_DESC | htmlSafe"
+                                ng-if="val.SEARCH_TYPE != 'Product' && val.SEARCH_TYPE == 'Collection' && val.SEARCH_TYPE != 'Material'"></a>
+                            <a ng-click="searchSectionHide()" ng-href="{{val.SEARCH_CODE}}"
+                                ng-bind-html="val.SEARCH_DESC | htmlSafe"
+                                ng-if="val.SEARCH_TYPE != 'Product' && val.SEARCH_TYPE != 'Collection' && val.SEARCH_TYPE == 'Material'"></a>
+
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>           
+
     <div class="burgermenuright">
         <div class="wishlist" ng-if="is_login">
             <a href="/wishList"><i class="fas fa-heart" style="color: #c40000;"></i></a>
