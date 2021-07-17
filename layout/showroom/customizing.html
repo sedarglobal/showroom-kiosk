@@ -381,11 +381,18 @@
     /* #custom_fc_button {
         right: 31%;
     } */
+
+    .step_tool{
+        height: 93% !important;
+    }
    
     @media only screen and (max-width: 767px)  {
         /* #custom_fc_button {
         right: 22.5%;
       } */
+      .step_tool{
+        height: 40% !important;
+       }
       #imageicon {
         bottom: 3px !important;
         /*width: 26px !important;*/
@@ -452,6 +459,12 @@ input[type=checkbox], input[type=radio] {
 }
 .custom_step102 .collapse,.custom_step102 .collapsing {
     display: none;
+}
+
+@media only screen and (max-device-width: 480px) {
+    .foot_price{
+        bottom: 0px !important;
+    }
 }
    
 </style>
@@ -536,7 +549,7 @@ input[type=checkbox], input[type=radio] {
                 
                 <div class="foot_price col-sm-6 col-md-4 col-xs-12 nopadding">    
                     <div class="col-sm-12 col-md-12 col-xs-12 nopadding">    
-                        <div class="col-sm-12 col-md-12 col-xs-5">
+                        <div class="col-sm-12 col-md-12 col-xs-12">
                             <!-- <span class="pull-left">If you liked this product, share it with family and friends</span> -->
 
                         <button class="btn btn-Mydefault addMore pull-left" ng-click="checkout('showroom_product')" ng-disabled="add_more_item" ladda="waiting">Add Favorite</button>

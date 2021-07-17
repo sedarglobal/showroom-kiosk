@@ -1648,7 +1648,7 @@ angular.module('acs.services', []).
                 var cssportrait = {'height': '40%', 'position': 'fixed', 'color': 'black', 'width': '100%'};
 
                 var canvasWidth = $('#threeDImage').width() + 15;
-                var canvasHeight = window.innerWidth < 480 ? window.innerHeight - 350 : window.innerHeight-75;
+                var canvasHeight = window.innerWidth < 360 ? window.innerHeight - 350 : window.innerHeight-75;
 
                 //  if (window.screen.width <= 768){
                 // 	$('.navigation').css({ 'height': '40%', 'position': 'fixed', 'color': 'black', 'bottom': '40px', 'width': '100%' });
@@ -1685,7 +1685,7 @@ angular.module('acs.services', []).
 
 
                 var resizeWidth =  screen.orientation.type == 'landscape-primary' ?  $('#threeDImage').width() : window.innerWidth; //window.innerWidth < 480 ? $('#threeDImage').width() : $('#threeDImage').width(); //$('#threeDImage').width(); // canvasWidth;
-                var resizeHeight = screen.orientation.type == 'landscape-primary' ? window.innerHeight : window.innerHeight - 720;
+                var resizeHeight = screen.orientation.type == 'landscape-primary' ? window.innerHeight : window.innerWidth < 480 ? window.innerHeight-300 : window.innerHeight - 220;
                 camera.aspect = resizeWidth / resizeHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(resizeWidth, resizeHeight);
