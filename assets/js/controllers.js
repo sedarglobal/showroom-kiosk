@@ -6,7 +6,8 @@ controllers.controller('root', ['$scope','$translate','$rootScope','user','$http
     $scope.user = user;
     $scope.temp_path = temp_path;
     $scope.version = version;
-    $scope.image_path = image_path;
+    $scope.image_path= image_path;
+    $scope.image_path = service_url;
     $scope.enquiry_form = '';
     $scope.$root.back_side_img = ['1013811'];
    // $scope.upload_url = 'https://www.sedarglobal.com/service/uploads/';
@@ -5722,9 +5723,10 @@ controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controlle
         });
     }
 
-    $scope.productdetail = function($sys_id){
+    $scope.productdetail = function(item){
         $('#loader_div').show();
-
+        $scope.line_image_path = item.EOL_IMAGE_PATH;
+        $sys_id = item.EOL_SYS_ID;
         $http({
             method: 'GET',
             url: service_url + 'ecommerce/productdetail/'  + $sys_id,
@@ -5735,7 +5737,7 @@ controllers.controller('wishList', ['$scope', '$rootScope', '$http', '$controlle
                 templateUrl: $scope.temp_path + 'popup/productView_popup.html?v='+version,
                 scope: $scope,
                 title: 'Product Detail',
-                className: 'material_popup',
+                className: 'wishList_popup',
                 onEscape: function () {
                 }
             };

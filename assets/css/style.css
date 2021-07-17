@@ -523,6 +523,14 @@ section {
 .thumbsection {
   opacity: 0;
 }
+
+
+.wishList_popup .modal-dialog{
+  width: 60%;
+}
+
+
+
 /* .thumbSlider .empty_div_hover_show:hover + .thumbsection{
   display: block;
   

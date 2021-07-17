@@ -31,20 +31,20 @@
                         <tbody>
                             <tr id="{{item.EOL_SYS_ID}}" ng-repeat="(key, item) in likeitem" class="trhover">
 
-                                <td class="no_hover" ng-click="productdetail(item.EOL_SYS_ID)">
+                                <td class="no_hover" ng-click="productdetail(item)">
                                     <p>{{item.EOL_CART_INFO}}</p>
                                 </td>
                                 <td>{{item.EOL_WIDTH}} x {{item.EOL_HEIGHT}}</td>
                                 <td>{{item.EOL_QTY}}</td>
                                 <td>{{item.EOL_CR_DT}}</td>
 
-                                <td><img src="{{service_url}}{{item.EOL_IMAGE_PATH}}" width="100"></td>
+                                <td><img src="https://www.sedarglobal.com/service/{{item.EOL_IMAGE_PATH}}" width="100"></td>
                                 <td>
                                     <a class="btn btn-new-dark fa fa-trash"
                                         ng-bootbox-confirm="{{'Are_you_sure_you_want_to_delete' | translate}}"
                                         ng-bootbox-confirm-action="deleteProduct(item.EOL_EOH_SYS_ID,item.EOL_SYS_ID)"
                                         locale="{{langCode}}"></a>
-                                    <a class="btn btn-new-dark fa fa-eye" ng-click="productdetail(item.EOL_SYS_ID)"></a>
+                                    <a class="btn btn-new-dark fa fa-eye" ng-click="productdetail(item)"></a>
                                 </td>
                             </tr>
 
