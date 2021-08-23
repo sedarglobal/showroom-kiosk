@@ -1,0 +1,36 @@
+<style>
+    .remarks .modal-body{
+        height: 215px;
+    }
+</style>
+
+<div class="col-md-12 nopadding direction">
+    <form name="login_form" ng-submit="remark('post')">
+        
+        <div class=" col-sm-12">
+           
+            <div class="col-md-12 nopadding">
+                <div class="form-group">
+                    <label translate="remark"></label>
+                    <textarea class="useremailId" type="text" name="remark" ng-model="input.remark"> </textarea>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-3 padding">
+                
+                <button type="button" name="sign_up" translate="submit" class="btn btn-new-dark col-sm-12 col-md-12 col-lg-12"></button>
+
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $(".useremailId").on('change keyup paste', function () {
+            $(this).val($(this).val().toLowerCase());
+        });
+    })
+</script>
